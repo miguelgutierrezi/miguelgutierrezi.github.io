@@ -1,6 +1,6 @@
 {
   "name": "personal-presentation-miguel-gutierrez",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -20,7 +20,10 @@
     "@angular/platform-browser": "~10.1.0",
     "@angular/platform-browser-dynamic": "~10.1.0",
     "@angular/router": "~10.1.0",
+    "@popperjs/core": "^2.5.4",
+    "bootstrap": "^4.5.3",
     "firebase-tools": "^8.16.2",
+    "jquery": "^3.5.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
