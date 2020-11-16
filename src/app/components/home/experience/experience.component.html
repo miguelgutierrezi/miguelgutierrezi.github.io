@@ -1,1 +1,23 @@
-<p>experience works!</p>
+<h1 class="text-center">{{language === 'Spanish' ? 'Experiencia laboral' : 'Professional History'}}</h1>
+<section class="custom-container" *ngFor="let work of spanishExperience; let i = index">
+  <div class="custom-card">
+    <div class="img-container">
+      <img class="job-img" src="{{spanishExperience[i].image}}"
+           alt="{{spanishExperience[i].enterprise}}">
+    </div>
+    <div class="content">
+      <h5>{{language === 'Spanish' ? spanishExperience[i].charge : englishExperience[i].charge}}</h5>
+      <p>{{language === 'Spanish' ? spanishExperience[i].enterprise + ' | ' + spanishExperience[i].duration :
+        englishExperience[i].enterprise + ' | ' + englishExperience[i].duration}}</p>
+      <div class="btn-more">
+        <button class="btn btn-primary">{{language === 'Spanish' ? 'Ver más' : 'See more'}}</button>
+      </div>
+      <!-- <ul *ngIf="language === 'Spanish'">
+        <li *ngFor="let fun of spanishExperience[i].functions">{{fun}}</li>
+      </ul>
+      <ul *ngIf="language === 'English'">
+        <li *ngFor="let fun of englishExperience[i].functions">{{fun}}</li>
+      </ul> -->
+    </div>
+  </div>
+</section>
