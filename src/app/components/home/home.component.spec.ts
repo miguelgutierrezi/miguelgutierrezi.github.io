@@ -20,6 +20,15 @@ describe('HomeComponent', () => {
   });
 
   it('should create', () => {
+    component.onChangeOption('About');
+    component.language = 'English';
+    component.onChangeLanguage();
+    expect(component).toBeTruthy();
+  });
+
+  it('should change language spanish', () => {
+    component.language = 'Spanish';
+    component.onChangeLanguage();
     expect(component).toBeTruthy();
   });
 });

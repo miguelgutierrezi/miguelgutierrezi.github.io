@@ -20,6 +20,18 @@ describe('NavbarComponent', () => {
   });
 
   it('should create', () => {
+    component.onChangeOption(0);
+    component.language = 'Spanish';
+    component.onChangeLanguage();
+    component.validateOption(0);
+    expect(component).toBeTruthy();
+  });
+
+  it('should change language english', () => {
+    component.language = 'English';
+    component.onChangeOption(0);
+    component.validateOption(0);
+    component.onChangeLanguage();
     expect(component).toBeTruthy();
   });
 });

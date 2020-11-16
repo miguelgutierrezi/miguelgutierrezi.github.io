@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-courses',
@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./courses.component.sass']
 })
 export class CoursesComponent implements OnInit {
-
+  @Input() public language: string;
   constructor() { }
 
   ngOnInit(): void {
