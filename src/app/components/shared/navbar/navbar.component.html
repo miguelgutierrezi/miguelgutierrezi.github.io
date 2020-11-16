@@ -10,6 +10,8 @@
       </li>
     </ul>
     <button (click)="onChangeLanguage()" class="navbar-text btn">
+      <img *ngIf="language === 'English'" style="width: 15px" src="https://ippon-shop.es/1072-large_default/bordado-bandera-espa%C3%B1a.jpg" alt="Flag">
+      <img *ngIf="language === 'Spanish'" style="width: 15px" src="https://educationatw.com/wp-content/uploads/2016/06/Bandera-USA.png" alt="Flag">
       {{language === 'Spanish' ? 'English' : 'Español'}}
     </button>
   </div>
