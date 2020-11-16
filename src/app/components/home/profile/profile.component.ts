@@ -7,6 +7,8 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class ProfileComponent implements OnInit {
 
+  public linkedInUrl = 'https://www.linkedin.com/in/miguelgutierrezi/';
+  public gitHubUrl = 'https://github.com/miguelgutierrezi';
   @Input() public language: string;
   public text1Spanish = 'Soy un ingeniero de sistemas con experiencia en el\n' +
     'desarrollo de proyectos con metodología ágil, enfocado en el\n' +
@@ -38,4 +40,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public goToExternalLink(url: string): void {
+    window.open(url, '_blank');
+  }
 }
