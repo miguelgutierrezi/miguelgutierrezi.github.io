@@ -11,6 +11,7 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { ProjectsComponent } from './components/home/projects/projects.component';
 import { ExperienceComponent } from './components/home/experience/experience.component';
 import { CoursesComponent } from './components/home/courses/courses.component';
+import { JobDetailComponent } from './components/home/experience/job-detail/job-detail.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { CoursesComponent } from './components/home/courses/courses.component';
     NotFoundComponent,
     ProjectsComponent,
     ExperienceComponent,
-    CoursesComponent
+    CoursesComponent,
+    JobDetailComponent
   ],
   imports: [
     BrowserModule,

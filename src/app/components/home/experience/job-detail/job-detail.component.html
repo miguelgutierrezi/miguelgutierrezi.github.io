@@ -1,0 +1,35 @@
+<div class="alert-box">
+  <section *ngIf="language === 'Spanish'">
+    <h3 class="text-center">{{jobSpanish.enterprise}}</h3>
+    <div class="img-container">
+      <img src="{{jobSpanish.image}}" alt="{{jobSpanish.enterprise}}">
+    </div>
+    <br>
+    <section class="ml-3 mr-3">
+      <label class="text-center">{{jobSpanish.duration}}</label>
+      <br>
+      <h6>Funciones</h6>
+      <ul>
+        <li *ngFor="let fun of jobSpanish.functions">{{fun}}</li>
+      </ul>
+    </section>
+  </section>
+  <section *ngIf="language === 'English'">
+    <h3 class="text-center">{{jobEnglish.enterprise}}</h3>
+    <div class="img-container">
+      <img src="{{jobEnglish.image}}" alt="{{jobEnglish.enterprise}}">
+    </div>
+    <br>
+    <section class="ml-3 mr-3">
+      <label class="text-center">{{jobEnglish.duration}}</label>
+      <br>
+      <h6>Functions</h6>
+      <ul>
+        <li *ngFor="let fun of jobEnglish.functions">{{fun}}</li>
+      </ul>
+    </section>
+  </section>
+  <div class="alert-box-actions">
+    <button class="btn btn-primary" (click)="onClose()">{{language === 'Spanish' ? 'Cerrar' : 'Close'}}</button>
+  </div>
+</div>

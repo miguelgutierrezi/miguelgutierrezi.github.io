@@ -7,6 +7,8 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class ExperienceComponent implements OnInit {
   @Input() public language: string;
+  public selectedJobSpanish: any;
+  public selectedJobEnglish: any;
   public spanishExperience = [
     {
       charge: 'Desarrollador Fullstack',
@@ -124,4 +126,13 @@ export class ExperienceComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public onSelectJob(i: number): void {
+    this.selectedJobEnglish = this.englishExperience[i];
+    this.selectedJobSpanish = this.spanishExperience[i];
+  }
+
+  public onCloseAlert(): void {
+    this.selectedJobEnglish = null;
+    this.selectedJobSpanish = null;
+  }
 }
