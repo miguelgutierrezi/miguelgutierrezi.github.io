@@ -20,6 +20,7 @@ describe('JobDetailComponent', () => {
   });
 
   it('should create', () => {
+    component.onClose();
     expect(component).toBeTruthy();
   });
 });

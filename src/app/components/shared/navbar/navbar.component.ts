@@ -17,16 +17,31 @@ export class NavbarComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    if (sessionStorage.getItem('language')) {
+      this.language = sessionStorage.getItem('language');
+    }
+    if (sessionStorage.getItem('option')) {
+      this.option = sessionStorage.getItem('option');
+    }
+    if (sessionStorage.getItem('position')) {
+      this.position = +sessionStorage.getItem('position');
+    }
   }
 
   public onChangeLanguage(): void {
     if (this.language === 'Spanish') {
       this.language = 'English';
       this.option = this.englishOptions[this.position];
+      sessionStorage.setItem('position', '' + this.position);
+      sessionStorage.setItem('language', 'English');
+      sessionStorage.setItem('option', this.option);
       this.changeLanguage.emit(this.language);
     } else {
       this.language = 'Spanish';
       this.option = this.spanishOptions[this.position];
+      sessionStorage.setItem('position', '' + this.position);
+      sessionStorage.setItem('language', 'Spanish');
+      sessionStorage.setItem('option', this.option);
       this.changeLanguage.emit(this.language);
     }
   }
@@ -35,10 +50,16 @@ export class NavbarComponent implements OnInit {
     if (this.language === 'Spanish') {
       this.option = this.spanishOptions[i];
       this.position = i;
+      sessionStorage.setItem('position', '' + this.position);
+      sessionStorage.setItem('option', this.option);
+      sessionStorage.setItem('language', 'Spanish');
       this.changeOption.emit(this.option);
     } else {
       this.option = this.englishOptions[i];
       this.position = i;
+      sessionStorage.setItem('position', '' + this.position);
+      sessionStorage.setItem('option', this.option);
+      sessionStorage.setItem('language', 'English');
       this.changeOption.emit(this.option);
     }
   }

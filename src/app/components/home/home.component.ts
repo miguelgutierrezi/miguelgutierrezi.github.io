@@ -11,6 +11,12 @@ export class HomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    if (sessionStorage.getItem('language')) {
+      this.language = sessionStorage.getItem('language');
+    }
+    if (sessionStorage.getItem('option')) {
+      this.option = sessionStorage.getItem('option');
+    }
   }
 
   public onChangeLanguage(): void {

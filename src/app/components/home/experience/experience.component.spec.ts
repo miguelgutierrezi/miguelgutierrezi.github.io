@@ -20,6 +20,8 @@ describe('ExperienceComponent', () => {
   });
 
   it('should create', () => {
+    component.onSelectJob(0);
+    component.onCloseAlert();
     expect(component).toBeTruthy();
   });
 });
