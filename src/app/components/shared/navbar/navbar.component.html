@@ -5,11 +5,11 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarText">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item" *ngFor="let option of spanishOptions; let i = index" [ngClass]="validateOption(i) ? 'active': ''">
+      <li data-target="#navbarText" data-toggle="collapse" class="nav-item" *ngFor="let option of spanishOptions; let i = index" [ngClass]="validateOption(i) ? 'active': ''">
         <a class="nav-link" href="javascript: void(0)" (click)="onChangeOption(i)">{{language === 'Spanish' ? spanishOptions[i] : englishOptions[i]}}</a>
       </li>
     </ul>
-    <button (click)="onChangeLanguage()" class="navbar-text btn">
+    <button data-target="#navbarText" data-toggle="collapse" (click)="onChangeLanguage()" class="navbar-text btn">
       <img *ngIf="language === 'English'" style="width: 15px" src="https://ippon-shop.es/1072-large_default/bordado-bandera-espa%C3%B1a.jpg" alt="Flag">
       <img *ngIf="language === 'Spanish'" style="width: 15px" src="https://educationatw.com/wp-content/uploads/2016/06/Bandera-USA.png" alt="Flag">
       {{language === 'Spanish' ? 'English' : 'Español'}}
