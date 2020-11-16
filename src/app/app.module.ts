@@ -5,9 +5,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { LoadingSpinnerComponent } from './components/shared/loading-spinner/loading-spinner.component';
-import { ProfileComponent } from './components/profile/profile.component';
+import { ProfileComponent } from './components/home/profile/profile.component';
 import { HomeComponent } from './components/home/home.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { ProjectsComponent } from './components/home/projects/projects.component';
+import { ExperienceComponent } from './components/home/experience/experience.component';
+import { CoursesComponent } from './components/home/courses/courses.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +19,10 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     LoadingSpinnerComponent,
     ProfileComponent,
     HomeComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    ProjectsComponent,
+    ExperienceComponent,
+    CoursesComponent
   ],
   imports: [
     BrowserModule,

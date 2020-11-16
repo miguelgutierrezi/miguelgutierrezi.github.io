@@ -35,9 +35,11 @@ export class NavbarComponent implements OnInit {
     if (this.language === 'Spanish') {
       this.option = this.spanishOptions[i];
       this.position = i;
+      this.changeOption.emit(this.option);
     } else {
       this.option = this.englishOptions[i];
       this.position = i;
+      this.changeOption.emit(this.option);
     }
   }
 
