@@ -9,6 +9,13 @@ export class CoursesComponent implements OnInit {
   @Input() public language: string;
   public spanishCourses = [
     {
+      name: 'CURSO PROFESIONAL DE GIT Y GITHUB',
+      date: 'Noviembre 2020',
+      company: 'Platzi',
+      imageLink: 'https://i1.wp.com/unaaldia.hispasec.com/wp-content/uploads/2018/06/877f2-git-logo.png?fit=910%2C910&ssl=1',
+      credential: 'https://platzi.com/@miguelgutierrezi/curso/1557-git-github/diploma/detalle/'
+    },
+    {
       name: 'EF STANDARD ENGLISH TEST',
       date: 'Noviembre 2020',
       company: 'EF Standard English Test (EF SET)',
@@ -54,10 +61,17 @@ export class CoursesComponent implements OnInit {
       date: 'Octubre 2017',
       company: 'Bizagi Limited',
       imageLink: 'https://media-exp1.licdn.com/dms/image/C560BAQEjv-SN4JUpJA/company-logo_200_200/0?e=2159024400&v=beta&t=Yibb5xgK5A1toFp6roIKHKAq4jZJbqye9wxRTOysgXM'
-    }
+    },
   ];
 
   public englishCourses = [
+    {
+      name: 'GIT AND GITHUB PROFESSIONAL COURSE',
+      date: 'November 2020',
+      company: 'Platzi',
+      imageLink: 'https://i1.wp.com/unaaldia.hispasec.com/wp-content/uploads/2018/06/877f2-git-logo.png?fit=910%2C910&ssl=1',
+      credential: 'https://platzi.com/@miguelgutierrezi/curso/1557-git-github/diploma/detalle/'
+    },
     {
       name: 'EF STANDARD ENGLISH TEST',
       date: 'November 2020',
