@@ -11,6 +11,15 @@ export class ExperienceComponent implements OnInit {
   public selectedJobEnglish: any;
   public spanishExperience = [
     {
+      charge: 'Desarrollador Java Semi Senior Advanced',
+      enterprise: 'Globant',
+      duration: 'Febrero 2021 - Actual',
+      functions: [
+        'Elaboración de proyectos con metodologías ágiles tales como Scrum Scrumban o Kanban.'
+      ],
+      image: 'https://emprendedoresnews.com/wp-content/uploads/2020/01/company_5d7c04ad08a25a53fd4d5987.png'
+    },
+    {
       charge: 'Desarrollador Fullstack',
       enterprise: 'Banco de Bogotá',
       duration: 'Agosto 2020 - Actual',
@@ -68,9 +77,18 @@ export class ExperienceComponent implements OnInit {
   ];
   public englishExperience = [
     {
+      charge: 'Semi Senior Advanced Java Developer',
+      enterprise: 'Globant',
+      duration: 'February 2021 - Current',
+      functions: [
+        'Development of projects with agile methodologies such as Scrum, Scrumban and Kanban.'
+      ],
+      image: 'https://emprendedoresnews.com/wp-content/uploads/2020/01/company_5d7c04ad08a25a53fd4d5987.png'
+    },
+    {
       charge: 'Fullstack Developer',
       enterprise: 'Banco de Bogotá',
-      duration: 'August 2020 - Current',
+      duration: 'August 2020 - February 2021',
       functions: [
         'Analysis and refinement of user stories with the project teamwork.',
         'Full stack developer of applications using programming languages like Java and Typescript, and Frameworks such as Angular, or Spring Boot.',
@@ -111,9 +129,9 @@ export class ExperienceComponent implements OnInit {
       image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Javeriana.svg/1200px-Javeriana.svg.png'
     },
     {
-      charge: 'Diseñador y desarrollador',
+      charge: 'Designer and Developer',
       enterprise: 'Fundación Saludarte',
-      duration: 'Enero 2019 - Junio 2019',
+      duration: 'January 2019 - June 2019',
       functions: [
         'Reengineering of Inventory app inside the entity.',
         'Design and develop of paysheet app inside the entity.'
