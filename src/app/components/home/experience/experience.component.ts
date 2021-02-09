@@ -22,7 +22,7 @@ export class ExperienceComponent implements OnInit {
     {
       charge: 'Desarrollador Fullstack',
       enterprise: 'Banco de Bogotá',
-      duration: 'Agosto 2020 - Actual',
+      duration: 'Agosto 2020 - Febrero 2021',
       functions: [
         'Análisis de refinamiento de historias de usuario junto con el equipo de trabajo.',
         'Desarrollador full stack de aplicaciones haciendo uso de lenguajes Java, Typescript, Javascript y Frameworks como Angular, NodeJS y Spring Boot. Uso de caché con Redis y ElasticSearch como BD.',
