@@ -9,6 +9,27 @@ export class CoursesComponent implements OnInit {
   @Input() public language: string;
   public spanishCourses = [
     {
+      name: 'CURSO PRÁCTICO DE REACTJS',
+      date: 'Marzo 2021',
+      company: 'Platzi',
+      imageLink: 'https://cdn.auth0.com/blog/react-js/react.png',
+      credential: 'https://platzi.com/p/miguelgutierrezi/curso/1651-course/diploma/detalle/'
+    },
+    {
+      name: 'CURSO DE REACTJS',
+      date: 'Marzo 2021',
+      company: 'Platzi',
+      imageLink: 'https://cdn.auth0.com/blog/react-js/react.png',
+      credential: 'https://platzi.com/p/miguelgutierrezi/curso/1548-react/diploma/detalle/'
+    },
+    {
+      name: 'JAVA 8 NEW FEATURES IN SIMPLE WAY',
+      date: 'Enero 2021',
+      company: 'Udemy',
+      imageLink: 'https://benjagarrido.com/wp-content/uploads/2015/07/java_logo.png',
+      credential: 'https://www.udemy.com/certificate/UC-3fcc0583-03f3-4b83-8a8d-848586b1a54f/'
+    },
+    {
       name: 'CURSO PROFESIONAL DE GIT Y GITHUB',
       date: 'Noviembre 2020',
       company: 'Platzi',
@@ -65,6 +86,27 @@ export class CoursesComponent implements OnInit {
   ];
 
   public englishCourses = [
+    {
+      name: 'REACTJS PRACTICAL COURSE',
+      date: 'March 2021',
+      company: 'Platzi',
+      imageLink: 'https://cdn.auth0.com/blog/react-js/react.png',
+      credential: 'https://platzi.com/p/miguelgutierrezi/curso/1651-course/diploma/detalle/'
+    },
+    {
+      name: 'REACTJS COURSE',
+      date: 'March 2021',
+      company: 'Platzi',
+      imageLink: 'https://cdn.auth0.com/blog/react-js/react.png',
+      credential: 'https://platzi.com/p/miguelgutierrezi/curso/1548-react/diploma/detalle/'
+    },
+    {
+      name: 'JAVA 8 NEW FEATURES IN SIMPLE WAY',
+      date: 'January 2021',
+      company: 'Udemy',
+      imageLink: 'https://benjagarrido.com/wp-content/uploads/2015/07/java_logo.png',
+      credential: 'https://www.udemy.com/certificate/UC-3fcc0583-03f3-4b83-8a8d-848586b1a54f/'
+    },
     {
       name: 'GIT AND GITHUB PROFESSIONAL COURSE',
       date: 'November 2020',

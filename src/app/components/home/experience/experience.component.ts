@@ -15,7 +15,12 @@ export class ExperienceComponent implements OnInit {
       enterprise: 'Globant',
       duration: 'Febrero 2021 - Actual',
       functions: [
-        'Elaboración de proyectos con metodologías ágiles tales como Scrum Scrumban o Kanban.'
+        'Consultor - Desarrollador en entidades como Disney, Hulu, desarrollando aplicaciones según los requerimientos del cliente.',
+        'Análisis de refinamiento de historias de usuario junto con el equipo de trabajo.',
+        'Desarrollador enfocado en el desarrollo de aplicaciones haciendo uso de Java con',
+        'Spring Framework, Flask y Django en Python, ReactJS, AWS y arquitecturas monolíticas y de microservicios.',
+        'CI/CD usando pipelines en jenkins y CircleCI',
+        'Contacto con el cliente siguiendo metodologías ágiles.'
       ],
       image: 'https://emprendedoresnews.com/wp-content/uploads/2020/01/company_5d7c04ad08a25a53fd4d5987.png'
     },
@@ -81,7 +86,11 @@ export class ExperienceComponent implements OnInit {
       enterprise: 'Globant',
       duration: 'February 2021 - Current',
       functions: [
-        'Development of projects with agile methodologies such as Scrum, Scrumban and Kanban.'
+        'Consultant - Developer in entities such as Disney, Hulu, developing applications according to the client\'s requirements.',
+        'Refinement analysis of user stories together with the work team.',
+        'Developer focused on developing applications using Java with Spring Framework, Flask and Django on Python, ReactJS, Angular, AWS, and monolithic and microservices architectures.',
+        'CI/CD using jenkins and CircleCI pipelines',
+        'Contact with the client following agile methodologies.'
       ],
       image: 'https://emprendedoresnews.com/wp-content/uploads/2020/01/company_5d7c04ad08a25a53fd4d5987.png'
     },
@@ -139,7 +148,9 @@ export class ExperienceComponent implements OnInit {
       image: 'https://lh3.googleusercontent.com/proxy/djmnD5r9aWbXbtQdreOPrLuQDh90YocTF9Kzige246cyVWU96M6BvI5IXxxi9XGN3nlO1ddNU3JpfAz1u8C8beohN02ritpz7pQdLUOdhYk-'
     }
   ];
-  constructor() { }
+
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
