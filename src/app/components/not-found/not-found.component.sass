@@ -28,20 +28,13 @@
   text-align: center
   overflow: hidden
 
-.nf-panel
-  display: flex
-  flex-direction: column
-  align-items: center
-  gap: clamp(20px, 4vh, 56px)
-  width: 100%
-  flex-shrink: 0
-
 .nf-hero
   display: flex
   flex-direction: column
   align-items: center
   gap: clamp(12px, 2vh, 24px)
   width: 100%
+  flex-shrink: 0
 
 .nf-status
   margin: 0
@@ -218,31 +211,24 @@
       font-size: 13px
 
   .nf-main
-    flex-direction: row
+    display: grid
+    grid-template-columns: minmax(0, 1fr) 440px
+    grid-template-areas: "hero term" "cta term"
     align-items: center
-    justify-content: center
-    gap: 48px
+    column-gap: 48px
+    row-gap: 24px
     padding: 56px 64px
     text-align: left
 
-  .nf-panel
+  .nf-hero
+    grid-area: hero
     align-items: flex-start
     gap: 24px
     width: auto
-    flex: 1
-    min-width: 0
-
-  .nf-hero
-    align-items: flex-start
-    gap: 24px
 
   .nf-status
     padding: 6px 14px
     font-size: 12px
-
-  .nf-status__dot
-    width: 8px
-    height: 8px
 
   .nf-code
     font-size: 96px
@@ -261,8 +247,9 @@
     font-size: 15px
 
   .nf-terminal
+    grid-area: term
     width: 440px
-    flex: 0 0 440px
+    align-self: center
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25)
 
   .nf-terminal__header
@@ -287,9 +274,89 @@
     flex-basis: 18px
 
   .nf-cta
+    grid-area: cta
+    justify-self: start
     gap: 8px
     padding: 12px 24px
     font-size: 14px
+
+// Tablet portrait (Figma not-found-tablet-portrait · 768)
+@media (max-width: 1023px)
+  .not-found .site-footer
+    padding-block: 40px
+
+    .site-footer__name
+      font-size: 14px
+
+    .site-footer__credit
+      font-size: 12px
+
+    .site-footer__email
+      font-size: 14px
+
+  .nf-main
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    gap: 40px
+    padding: 64px 48px 80px
+    text-align: center
+
+  .nf-hero
+    align-items: center
+    gap: 24px
+    width: 100%
+
+  .nf-status
+    padding: 6px 16px
+    font-size: 12px
+
+  .nf-code
+    font-size: 120px
+    line-height: 110px
+    text-shadow: 0 0 32px rgba(6, 182, 212, 0.2)
+
+  .nf-copy
+    align-items: center
+    gap: 12px
+    max-width: 500px
+
+  .nf-title
+    font-size: 28px
+
+  .nf-description
+    font-size: 16px
+
+  .nf-terminal
+    width: min(100%, 540px)
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25)
+
+  .nf-terminal__header
+    padding: 10px 16px
+
+  .nf-terminal__dots span
+    width: 8px
+    height: 8px
+
+  .nf-terminal__file
+    font-size: 12px
+
+  .nf-terminal__spacer
+    width: 32px
+
+  .nf-terminal__body
+    padding: 16px
+    gap: 8px
+    font-size: 12px
+
+  .nf-ln
+    flex-basis: 20px
+
+  .nf-cta
+    gap: 10px
+    padding: 14px 28px
+    font-size: 15px
 
 @media (prefers-reduced-motion: reduce)
   .nf-code

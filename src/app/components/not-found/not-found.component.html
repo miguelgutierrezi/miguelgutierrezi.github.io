@@ -5,26 +5,16 @@
   </app-navbar>
 
   <main class="nf-main">
-    <div class="nf-panel">
-      <div class="nf-hero">
-        <p class="nf-status">
-          <span class="nf-status__dot" aria-hidden="true"></span>
-          <span>{{ label('notFoundStatus') }}</span>
-        </p>
-        <p class="nf-code" aria-hidden="true">404</p>
-        <div class="nf-copy">
-          <h1 class="nf-title">{{ label('notFoundTitle') }}</h1>
-          <p class="nf-description">{{ label('notFoundDescription') }}</p>
-        </div>
+    <div class="nf-hero">
+      <p class="nf-status">
+        <span class="nf-status__dot" aria-hidden="true"></span>
+        <span>{{ label('notFoundStatus') }}</span>
+      </p>
+      <p class="nf-code" aria-hidden="true">404</p>
+      <div class="nf-copy">
+        <h1 class="nf-title">{{ label('notFoundTitle') }}</h1>
+        <p class="nf-description">{{ label('notFoundDescription') }}</p>
       </div>
-
-      <a class="nf-cta" routerLink="/home">
-        <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M19 12H5"></path>
-          <path d="M12 19l-7-7 7-7"></path>
-        </svg>
-        {{ label('notFoundHomeCta') }}
-      </a>
     </div>
 
     <div class="nf-terminal" aria-hidden="true">
@@ -49,6 +39,14 @@
         <div class="nf-line"><span class="nf-ln">09</span><span>&#125;</span></div>
       </div>
     </div>
+
+    <a class="nf-cta" routerLink="/home">
+      <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 12H5"></path>
+        <path d="M12 19l-7-7 7-7"></path>
+      </svg>
+      {{ label('notFoundHomeCta') }}
+    </a>
   </main>
 
   <footer class="site-footer site-footer--bordered" id="contact">

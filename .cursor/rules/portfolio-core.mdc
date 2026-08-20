@@ -13,7 +13,7 @@ Portfolio personal en Angular 22 (TypeScript + Sass), desplegado como sitio est�
 - Node.js >= 24.15 (`.nvmrc` → `24`)
 - Sin scripts globales de jQuery/Bootstrap JS (rompían el build vía sourcemaps → exit 134)
 - Navbar collapse en Angular; output: `dist/.../browser`
-- UI Phase 2: **Desktop + tablet L/P + mobile** + **project-detail all breakpoints** (`/projects/:id`, Figma `4:678` / `4:1170` / `4:1019` / `4:866`) + **404 desktop + tablet landscape** (`/not-found`, Figma `21:4` / `23:80`)
+- UI Phase 2: **Desktop + tablet L/P + mobile** + **project-detail all breakpoints** (`/projects/:id`, Figma `4:678` / `4:1170` / `4:1019` / `4:866`) + **404 desktop + tablet L/P** (`/not-found`, Figma `21:4` / `23:80` / `23:5`)
 - Breakpoints CSS: landscape `max-width: 1279px`, portrait `max-width: 1023px`, mobile `max-width: 767px`
 - Estructura: `models/`, `content/`, `services/`, `components/home|shared|project-detail|not-found`, `assets/`, `environments/`
 - Contenido tipado local vía `ContentService`; idioma/sección en `PreferencesService` (`localStorage`)
