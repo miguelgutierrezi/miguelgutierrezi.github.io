@@ -20,16 +20,8 @@ El contenido del portfolio **no** va en storage del navegador.
 
 ## Cómo
 
-- Usar `localStorage` (no `sessionStorage`) detrás de un servicio testeable
-- Objeto versionado, p. ej. `{ "version": 1, "language": "en", "section": "projects" }`
-- Valores internos estables (`en`, `es`, `about`, `projects`); traducir labels solo al renderizar
-- Defaults en un solo servicio; validar al init; ignorar valores inválidos
-- Escribir al cambiar; fallos de storage no deben romper el render
-
-## No guardar
-
-Datos personales, credenciales, tokens ni identificadores de analytics en este objeto.
-
-## Testing
-
-When a real preferences suite exists, cover defaults, valid/invalid values, writes, and storage failures. Until then, do not run legacy Karma specs to validate preference work.
+- Usar `PreferencesService` + `localStorage` (clave `portfolio.preferences`)
+- Objeto versionado: `{ "version": 1, "language": "es"|"en", "section": "about"|"projects"|"experience"|"courses" }`
+- Migrar una vez valores legacy de `sessionStorage` (`Spanish`/`English`, labels de sección)
+- Fallos de storage no deben romper el render
+- No guardar contenido del portfolio en storage

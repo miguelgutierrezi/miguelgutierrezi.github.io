@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand">Miguel Ángel Gutiérrez Ibagué</a>
+  <a class="navbar-brand">{{ brandName }}</a>
   <button
     class="navbar-toggler"
     type="button"
@@ -11,20 +11,20 @@
   </button>
   <div class="collapse navbar-collapse" [class.show]="menuOpen" id="navbarText">
     <ul class="navbar-nav mr-auto">
-      @for (option of spanishOptions; track option; let i = $index) {
-        <li class="nav-item" [ngClass]="validateOption(i) ? 'active': ''">
-          <a class="nav-link" href="javascript: void(0)" (click)="onChangeOption(i)">{{language === 'Spanish' ? spanishOptions[i] : englishOptions[i]}}</a>
+      @for (item of navigation; track item.id) {
+        <li class="nav-item" [ngClass]="isActive(item.id) ? 'active' : ''">
+          <a class="nav-link" href="javascript: void(0)" (click)="onChangeSection(item.id)">{{ labelFor(item) }}</a>
         </li>
       }
     </ul>
     <button (click)="onChangeLanguage()" class="navbar-text btn">
-      @if (language === 'English') {
+      @if (language === 'en') {
         <img style="width: 15px" src="https://ippon-shop.es/1072-large_default/bordado-bandera-espa%C3%B1a.jpg" alt="Flag">
       }
-      @if (language === 'Spanish') {
+      @if (language === 'es') {
         <img style="width: 15px" src="https://educationatw.com/wp-content/uploads/2016/06/Bandera-USA.png" alt="Flag">
       }
-      {{language === 'Spanish' ? 'English' : 'Español'}}
+      {{ language === 'es' ? 'English' : 'Español' }}
     </button>
   </div>
 </nav>

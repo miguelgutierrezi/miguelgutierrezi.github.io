@@ -12,6 +12,8 @@ import { ProjectsComponent } from './components/home/projects/projects.component
 import { ExperienceComponent } from './components/home/experience/experience.component';
 import { CoursesComponent } from './components/home/courses/courses.component';
 import { JobDetailComponent } from './components/home/experience/job-detail/job-detail.component';
+import { ContentSource } from './services/content-source';
+import { LocalContentAdapter } from './services/local-content.adapter';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { JobDetailComponent } from './components/home/experience/job-detail/job-
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    { provide: ContentSource, useClass: LocalContentAdapter }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

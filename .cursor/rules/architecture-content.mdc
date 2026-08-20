@@ -6,34 +6,39 @@ alwaysApply: false
 
 # Arquitectura y contenido
 
-Fuente de verdad: `docs/architecture.md` y `docs/improvement-plan.md`.
+Fuente: `docs/architecture.md` y `docs/improvement-plan.md`.
+
+## Estado
+
+- Modelos en `src/app/models/portfolio.models.ts`
+- Contenido local en `src/app/content/portfolio.content.ts`
+- `ContentSource` → `LocalContentAdapter` → `ContentService`
+- Preferencias en `PreferencesService` (`localStorage`, codes `es`/`en`, sections `about|projects|experience|courses`)
 
 ## Límites
 
-- Componentes: render e interacción; no grandes datasets ni contenido duplicado ES/EN
-- Preferir modelo tipado + capa local primero; luego adaptador CMS para edición online del CV (con fallback local)
-- Carpetas objetivo: `models/`, `content/`, `services/`, `components/`, `assets/`
-- Servicios cargan/validan contenido; la UI solo consume el modelo tipado
+- Componentes: render e interacción; no datasets ES/EN duplicados
+- UI consume el modelo tipado vía servicios
+- Carpetas: `models/`, `content/`, `services/`, `components/`, `assets/`
 
 ## ContentService
 
 ```ts
-interface ContentSource {
-  loadPortfolio(): Observable<PortfolioContent>;
+abstract class ContentSource {
+  abstract loadPortfolio(): Observable<PortfolioContent>;
 }
 ```
 
-- Primer adaptador: contenido local; CMS se añade sin tocar componentes de sección
-- Validar/normalizar antes de exponer a la UI
-- Si falla remoto: fallback local + fallo observable en logs
+- Primer adaptador: local; CMS después sin tocar secciones
+- Validar/normalizar antes de la UI; fallback local si falla remoto
 
 ## Qué evitar
 
-- Llamadas CMS o datos crudos en templates o en cada sección
-- Arrays paralelos tipo `spanishProjects` / `englishProjects`; usar campos localizados e IDs estables
-- Base de datos propia solo para unos pocos campos del portfolio
-- Mezclar un salto mayor de Angular con un rediseño visual no relacionado
+- Llamadas CMS o datos crudos en templates
+- Arrays `spanishProjects` / `englishProjects`
+- Backend propio solo para pocos campos
+- Mezclar salto mayor de Angular con rediseño no relacionado
 
 ## Navegación
 
-Ruta principal = one-pager. Secciones con IDs estables (`#about`, `#projects`, `#experience`, `#courses`, `#contact`). Rutas dedicadas solo para detalle (proyecto, artículo).
+Secciones con IDs estables. One-pager; rutas dedicadas solo para detalle.

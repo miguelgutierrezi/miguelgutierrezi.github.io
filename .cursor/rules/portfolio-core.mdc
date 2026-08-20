@@ -13,7 +13,8 @@ Portfolio personal en Angular 22 (TypeScript + Sass), desplegado como sitio est�
 - Node.js >= 24.15 (`.nvmrc` → `24`)
 - Sin scripts globales de jQuery/Bootstrap JS (rompían el build vía sourcemaps → exit 134)
 - Navbar collapse en Angular; output: `dist/.../browser`
-- Decisiones de producto en `docs/`
+- Estructura: `models/`, `content/`, `services/`, `components/home|shared`, `assets/`, `environments/`
+- Contenido tipado local vía `ContentService`; idioma/sección en `PreferencesService` (`localStorage`)
 
 ## Comandos
 
@@ -29,7 +30,7 @@ Portfolio personal en Angular 22 (TypeScript + Sass), desplegado como sitio est�
 - Mantener el sitio estático, barato de operar y sin backend propio salvo necesidad clara
 - Angular a largo plazo; modernizar de forma incremental
 - One-pager con anclas (`/#projects`), no tabs que reemplacen contenido
-- Orden: stack ✓ (build reproducible) → modelo local tipado → UI → CMS → hardening
+- Orden: stack ✓ → modelo tipado ✓ (foundation) → UI → CMS → hardening
 - CMS = editar CV online sin código; fallback local; sin tokens de escritura en el cliente
 - Tras **cualquier** cambio, sincronizar o revisar `CLAUDE.md`, `.github/copilot-instructions.md` y `.cursor/rules/`
 

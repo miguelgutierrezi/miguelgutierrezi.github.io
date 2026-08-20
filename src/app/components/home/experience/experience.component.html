@@ -1,25 +1,27 @@
-@if (selectedJobSpanish && selectedJobEnglish) {
-  <app-job-detail class="alert-box" [jobSpanish]="selectedJobSpanish" [jobEnglish]="selectedJobEnglish"
+@if (selectedJob) {
+  <app-job-detail
+    class="alert-box"
+    [job]="selectedJob"
     [language]="language"
-  (closeAlert)="onCloseAlert()"></app-job-detail>
+    (closeAlert)="onCloseAlert()">
+  </app-job-detail>
 }
-@if (!selectedJobSpanish && !selectedJobEnglish) {
+@if (!selectedJob) {
   <div>
-    <h1 class="text-center">{{language === 'Spanish' ? 'Experiencia laboral' : 'Professional History'}}</h1>
-    @for (work of spanishExperience; track work; let i = $index) {
+    <h1 class="text-center">{{ language === 'es' ? 'Experiencia laboral' : 'Professional History' }}</h1>
+    @for (job of experience; track job.id) {
       <section class="custom-container">
         <div class="custom-card">
           <div class="img-container">
-            <img class="job-img" src="{{spanishExperience[i].image}}"
-              alt="{{spanishExperience[i].enterprise}}">
+            <img class="job-img" [src]="job.imageUrl" [alt]="job.company">
           </div>
           <div class="content">
-            <h5>{{language === 'Spanish' ? spanishExperience[i].charge : englishExperience[i].charge}}</h5>
-            <p>{{language === 'Spanish' ? spanishExperience[i].enterprise + ' | ' + spanishExperience[i].duration :
-            englishExperience[i].enterprise + ' | ' + englishExperience[i].duration}}</p>
+            <h5>{{ role(job) }}</h5>
+            <p>{{ job.company }} | {{ duration(job) }}</p>
             <div class="btn-more">
-              <button class="btn btn-primary"
-              (click)="onSelectJob(i)">{{language === 'Spanish' ? 'Ver más' : 'See more'}}</button>
+              <button class="btn btn-primary" (click)="onSelectJob(job)">
+                {{ language === 'es' ? 'Ver más' : 'See more' }}
+              </button>
             </div>
           </div>
         </div>

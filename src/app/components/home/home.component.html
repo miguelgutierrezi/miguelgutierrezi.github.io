@@ -1,13 +1,13 @@
-<app-navbar (changeLanguage)="onChangeLanguage()" (changeOption)="onChangeOption($event)"></app-navbar>
-@if (option === 'About' || option === 'Sobre mí') {
+<app-navbar (changeLanguage)="onChangeLanguage()" (changeSection)="onChangeSection($event)"></app-navbar>
+@if (section === 'about') {
   <app-profile [language]="language"></app-profile>
 }
-@if (option === 'Projects' || option === 'Proyectos') {
+@if (section === 'projects') {
   <app-projects [language]="language"></app-projects>
 }
-@if (option === 'Experience' || option === 'Experiencia') {
+@if (section === 'experience') {
   <app-experience [language]="language"></app-experience>
 }
-@if (option === 'Courses' || option === 'Cursos') {
+@if (section === 'courses') {
   <app-courses [language]="language"></app-courses>
 }

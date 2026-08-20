@@ -1,21 +1,19 @@
 <div class="container-fluid mt-5">
-  <img class="profile-img" src="../../../../assets/Fotografia_Miguel_Gutierrez.jpg"
-       alt="Miguel Gutiérrez">
+  <img class="profile-img" [src]="imageUrl" alt="Miguel Gutiérrez">
   <section class="about-info">
-    <h2>{{language === 'Spanish' ? 'Sobre mí' : 'About me'}}</h2>
-    <p>{{language === 'Spanish' ? text1Spanish : text1English}}</p>
-    <p>{{language === 'Spanish' ? text2Spanish : text2English}}</p>
+    <h2>{{ language === 'es' ? 'Sobre mí' : 'About me' }}</h2>
+    <p>{{ paragraph(0) }}</p>
+    <p>{{ paragraph(1) }}</p>
   </section>
 </div>
 <div class="contact">
-  <span class="text-center">{{language === 'Spanish' ? 'Correo' : 'Email'}}: migueangel97&#64;hotmail.com - miguelangelgi.97&#64;gmail.com</span>
+  <span class="text-center">{{ language === 'es' ? 'Correo' : 'Email' }}: {{ emails.join(' - ') }}</span>
 </div>
 <div class="icons-container">
   <br>
   <div class="icons">
-    <img (click)="goToExternalLink(linkedInUrl)" class="mr-3"
-         src="https://image.flaticon.com/icons/png/512/174/174857.png" alt="LinkedIn">
-    <img (click)="goToExternalLink(gitHubUrl)" class="mr-3" src="https://image.flaticon.com/icons/png/512/25/25231.png"
-         alt="GitHub">
+    @for (link of socialLinks; track link.id) {
+      <img (click)="goToExternalLink(link.url)" class="mr-3" [src]="link.iconUrl" [alt]="link.label">
+    }
   </div>
 </div>

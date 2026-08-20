@@ -13,7 +13,8 @@ Personal portfolio for Miguel Gutiérrez, built with Angular 22 (TypeScript + Sa
 - Sass for styles; Firebase Hosting rewrites all routes to `index.html` (SPA)
 - Build output: `dist/personal-presentation-miguel-gutierrez/browser` (Firebase `public`)
 - `npm run build` uses **production** by default; do not re-add third-party files under `angular.json` `scripts` (known sourcemap crash / exit 134 with Bootstrap minified JS)
-- Structure: `src/app/components/home/` (profile, projects, experience, courses), `src/app/components/shared/` (navbar, loading-spinner), `src/app/components/not-found/`, `src/assets/`, `src/environments/`
+- Structure: `src/app/models/`, `src/app/content/`, `src/app/services/` (content + preferences), `src/app/components/home/` (profile, projects, experience, courses), `src/app/components/shared/` (navbar, loading-spinner), `src/app/components/not-found/`, `src/assets/`, `src/environments/`
+- Local typed content is loaded through `ContentService` / `ContentSource` (`LocalContentAdapter` today). Preferences (`es`/`en`, section ids) live in `PreferencesService` with `localStorage`.
 - Product/architecture decisions live in `docs/` (`architecture.md`, `cms-strategy.md`, `ui-modernization.md`, `persistence-strategy.md`, `improvement-plan.md`) — consult before architectural changes
 
 ## Commands
@@ -30,7 +31,7 @@ Personal portfolio for Miguel Gutiérrez, built with Angular 22 (TypeScript + Sa
 - Keep the site static, inexpensive to operate, and free of a custom backend unless a real need appears.
 - Angular is the long-term framework; modernize incrementally rather than rewriting.
 - One main page with anchored sections (`/#projects`, `#about`, `#experience`, `#courses`, `#contact`), not tabs that replace the visible content. Dedicated routes only for detail views (e.g. a single project/article).
-- Delivery order for larger work: stack modernization (done — reproducible production build on Angular 22 / Node 24) → typed local content model → UI → CMS → hardening.
+- Delivery order for larger work: stack modernization (done) → typed local content model (foundation done; URL validation still open) → UI → CMS → hardening.
 
 ## Architecture rules
 

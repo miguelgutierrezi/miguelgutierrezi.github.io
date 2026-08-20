@@ -1,38 +1,36 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { LocaleCode, SectionId } from '../../models/portfolio.models';
+import { PreferencesService } from '../../services/preferences.service';
 
 @Component({
-    selector: 'app-home',
-    templateUrl: './home.component.html',
-    styleUrls: ['./home.component.sass'],
-    changeDetection: ChangeDetectionStrategy.Eager,
-    standalone: false
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.sass'],
+  changeDetection: ChangeDetectionStrategy.Eager,
+  standalone: false
 })
 export class HomeComponent implements OnInit {
-  public language = 'Spanish';
-  public option = 'Sobre mí';
-  constructor() { }
+  public language: LocaleCode = 'es';
+  public section: SectionId = 'about';
+
+  constructor(private readonly preferences: PreferencesService) {}
 
   ngOnInit(): void {
-    const language = sessionStorage.getItem('language');
-    if (language) {
-      this.language = language;
-    }
-    const option = sessionStorage.getItem('option');
-    if (option) {
-      this.option = option;
-    }
+    const snapshot = this.preferences.snapshot;
+    this.language = snapshot.language;
+    this.section = snapshot.section;
+
+    this.preferences.preferences$.subscribe((prefs) => {
+      this.language = prefs.language;
+      this.section = prefs.section;
+    });
   }
 
   public onChangeLanguage(): void {
-    if (this.language === 'Spanish') {
-      this.language = 'English';
-    } else {
-      this.language = 'Spanish';
-    }
+    this.preferences.toggleLanguage();
   }
 
-  public onChangeOption(event: string): void {
-    this.option = event;
-    console.log(this.option);
+  public onChangeSection(section: SectionId): void {
+    this.preferences.setSection(section);
   }
 }

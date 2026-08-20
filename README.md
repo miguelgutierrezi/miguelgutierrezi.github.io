@@ -50,6 +50,9 @@ The hosting configuration rewrites application routes to `index.html` so Angular
 
 ## Project structure
 
+- `src/app/models/`: typed portfolio domain models.
+- `src/app/content/`: local fallback portfolio content.
+- `src/app/services/`: content loading and preferences (`localStorage`).
 - `src/app/components/home/`: profile, projects, experience, courses, and home sections.
 - `src/app/components/shared/`: reusable navigation and loading components.
 - `src/assets/`: local static assets.
@@ -61,7 +64,7 @@ The hosting configuration rewrites application routes to `index.html` so Angular
 The current application is intentionally static, but the next evolution is documented in [docs/improvement-plan.md](docs/improvement-plan.md). Delivery order:
 
 1. Baseline and incremental modernization of Angular, TypeScript, Node.js, and build tooling (**done**: Angular 22 / Node 24; reproducible `npm run build` without global jQuery/Bootstrap JS scripts).
-2. Moving portfolio content into a typed, reusable local content model, with language preferences in `localStorage`.
+2. Moving portfolio content into a typed, reusable local content model, with language preferences in `localStorage` (**foundation done** in `models/`, `content/`, `ContentService`, `PreferencesService`).
 3. Modernizing the visual system, responsive layout, accessibility, and SEO.
 4. Integrating a headless CMS so CV and portfolio content can be updated online without code changes, with a local fallback and no write credentials in the client.
 5. Production hardening (CI, metadata, performance, and dependency health).

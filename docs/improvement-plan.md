@@ -9,10 +9,9 @@ This document defines the roadmap for evolving the portfolio from a static Angul
 - Angular 22 single-page application (upgraded from Angular 11), application builder, TypeScript 6.
 - Node.js >= 24.15 documented in `.nvmrc` / `engines`.
 - Firebase Hosting deployment with an SPA rewrite to `index.html`; public dir `dist/.../browser`.
-- Portfolio content still hard-coded in components.
-- Spanish and English content maintained manually in parallel structures.
-- Language and selected section are read from `sessionStorage`, but changes are not persisted to `localStorage` yet.
-- Remote image and technology-logo URLs are embedded directly in the source.
+- Portfolio content lives in a typed local content layer (`src/app/content/`) consumed via `ContentService`; components no longer own ES/EN datasets.
+- Language and section preferences persist in `localStorage` via `PreferencesService` (legacy `sessionStorage` values are migrated once).
+- Remote image and technology-logo URLs remain embedded in content data (asset localization is Phase 2).
 - Bootstrap 4 CSS remains for layout utilities; jQuery and Bootstrap JS were removed from the build pipeline.
 
 ## Goals
@@ -50,16 +49,24 @@ Primary validation for Phase 0 closure: a clean, reproducible `npm run build` (e
 
 Next focus: Phase 1 (typed local content model).
 
-### Phase 1: Content architecture
+### Phase 1: Content architecture — **in progress / foundation done**
 
-Create one typed content layer that both the UI and a future CMS can share. This replaces the earlier split between “baseline content model” and “content architecture.”
+Create one typed content layer that both the UI and a future CMS can share.
 
-- Create typed models for profile, projects, experience, courses, links, technologies, and translations.
-- Move all hard-coded portfolio data into a versioned local content layer.
-- Remove duplicated Spanish/English arrays in favor of localized fields and stable IDs.
-- Add a language service with a single source of truth and `localStorage` persistence.
-- Add validation for required fields and external URLs.
-- Expose content to components only through a `ContentService` / adapter interface.
+Done in the codebase:
+
+- Typed models in `src/app/models/portfolio.models.ts` (`PortfolioContent`, profile, project, experience, course, navigation, preferences).
+- Local content layer in `src/app/content/portfolio.content.ts` with localized fields and stable IDs (no parallel ES/EN arrays).
+- `ContentSource` + `LocalContentAdapter` + `ContentService` so components consume content instead of owning datasets.
+- `PreferencesService` with versioned `localStorage` (`language`, `section`) and one-time migration from legacy `sessionStorage`.
+
+Still open before Phase 1 is fully closed:
+
+- Stronger validation of required fields and external URLs.
+- Optional UI copy (section titles, button labels) moved fully into the content model.
+- Smoke-check language persistence across refresh in the browser.
+
+Next product focus after Phase 1 closure: Phase 2 (UI modernization) on this model.
 
 ### Phase 2: UI modernization
 
