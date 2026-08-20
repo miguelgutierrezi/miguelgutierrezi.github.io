@@ -1,11 +1,13 @@
 <section class="hero" id="hero" aria-label="Profile">
-  <div class="hero__left">
-    <div class="hero__badge">
-      <span class="hero__badge-dot" aria-hidden="true"></span>
-      <span>{{ role() }}</span>
+  <div class="hero__stack">
+    <div class="hero__copy">
+      <div class="hero__badge">
+        <span class="hero__badge-dot" aria-hidden="true"></span>
+        <span>{{ role() }}</span>
+      </div>
+      <h1 class="hero__name">{{ siteName }}</h1>
+      <p class="hero__pitch">{{ pitch() }}</p>
     </div>
-    <h1 class="hero__name">{{ siteName }}</h1>
-    <p class="hero__pitch">{{ pitch() }}</p>
     <div class="hero__actions">
       @if (primaryEmail) {
         <a class="hero__email" [href]="'mailto:' + primaryEmail">

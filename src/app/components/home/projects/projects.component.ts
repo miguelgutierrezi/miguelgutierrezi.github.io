@@ -1,4 +1,10 @@
-import { Component, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  ChangeDetectionStrategy
+} from '@angular/core';
 import { LocaleCode, Project, UiCopy, localize } from '../../../models/portfolio.models';
 import { ContentService } from '../../../services/content.service';
 
@@ -9,19 +15,23 @@ import { ContentService } from '../../../services/content.service';
   changeDetection: ChangeDetectionStrategy.Eager,
   standalone: false
 })
-export class ProjectsComponent implements OnInit {
+export class ProjectsComponent implements OnInit, OnDestroy {
   @Input() public language: LocaleCode = 'es';
   public projects: Project[] = [];
   public ui!: UiCopy;
   public pageIndex = 0;
-  private readonly pageSize = 3;
+  public pageSize = 3;
   private readonly swipeThresholdPx = 48;
   private swipeStartX: number | null = null;
   private swipeStartY: number | null = null;
+  private readonly onResize = () => this.syncPageSize();
 
   constructor(private readonly contentService: ContentService) {}
 
   ngOnInit(): void {
+    this.syncPageSize();
+    window.addEventListener('resize', this.onResize);
+
     this.contentService.loadPortfolio().subscribe((content) => {
       this.projects = content.projects;
       this.ui = content.ui;
@@ -29,17 +39,28 @@ export class ProjectsComponent implements OnInit {
     });
   }
 
-  public get visibleProjects(): Project[] {
-    const start = this.pageIndex * this.pageSize;
-    return this.projects.slice(start, start + this.pageSize);
+  ngOnDestroy(): void {
+    window.removeEventListener('resize', this.onResize);
+  }
+
+  public get projectPages(): Project[][] {
+    const pages: Project[][] = [];
+    for (let i = 0; i < this.projects.length; i += this.pageSize) {
+      pages.push(this.projects.slice(i, i + this.pageSize));
+    }
+    return pages.length > 0 ? pages : [[]];
   }
 
   public get pageCount(): number {
-    return Math.max(1, Math.ceil(this.projects.length / this.pageSize));
+    return this.projectPages.length;
   }
 
-  public get pages(): number[] {
+  public get pageIndexes(): number[] {
     return Array.from({ length: this.pageCount }, (_, i) => i);
+  }
+
+  public get trackTransform(): string {
+    return `translate3d(-${this.pageIndex * 100}%, 0, 0)`;
   }
 
   public get canPrev(): boolean {
@@ -104,6 +125,15 @@ export class ProjectsComponent implements OnInit {
 
   public label(key: keyof UiCopy): string {
     return this.ui ? localize(this.ui[key], this.language) : '';
+  }
+
+  private syncPageSize(): void {
+    const nextSize = window.innerWidth <= 1023 ? 2 : 3;
+    if (nextSize === this.pageSize) {
+      return;
+    }
+    this.pageSize = nextSize;
+    this.pageIndex = 0;
   }
 
   private clearSwipe(): void {

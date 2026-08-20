@@ -6,8 +6,14 @@
   background: var(--color-ink)
   color: #fff
 
-.hero__left
+.hero__stack
   flex: 1
+  display: flex
+  flex-direction: column
+  gap: 28px
+  min-width: 0
+
+.hero__copy
   display: flex
   flex-direction: column
   gap: 28px
@@ -111,7 +117,8 @@
   .hero
     gap: 60px
 
-  .hero__left
+  .hero__stack,
+  .hero__copy
     gap: 24px
 
   .hero__name
@@ -126,3 +133,48 @@
 
   .about-body__text
     font-size: 17px
+
+@media (max-width: 1023px)
+  .hero
+    display: grid
+    grid-template-columns: 1fr 220px
+    grid-template-areas: "copy photo" "actions actions"
+    align-items: center
+    gap: 32px 40px
+    padding: 64px 48px
+
+  .hero__stack
+    display: contents
+
+  .hero__copy
+    grid-area: copy
+    gap: 20px
+
+  .hero__actions
+    grid-area: actions
+    justify-content: space-between
+
+  .hero__right
+    grid-area: photo
+    width: 220px
+
+  .hero__photo-frame
+    width: 200px
+    height: 200px
+    border-radius: 20px
+
+  .hero__name
+    font-size: 48px
+    line-height: 1.1
+
+  .hero__pitch
+    font-size: 16px
+
+  .hero__badge
+    font-size: 11px
+
+  .about-body
+    gap: 20px
+
+  .about-body__text
+    font-size: 16px

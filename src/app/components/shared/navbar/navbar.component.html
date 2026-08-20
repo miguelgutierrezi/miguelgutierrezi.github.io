@@ -9,7 +9,7 @@
     <div class="site-nav__right">
       <ul class="site-nav__links">
         @for (item of navigation; track item.id) {
-          <li>
+          <li [class.site-nav__item--compact-hide]="item.id === 'courses'">
             <a
               class="site-nav__link"
               [class.is-active]="isActive(item.id)"

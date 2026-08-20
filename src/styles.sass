@@ -183,3 +183,23 @@ button
 
   #projects .section-header
     width: auto
+
+// Tablet portrait (Figma cv-tablet-portrait · 768)
+@media (max-width: 1023px)
+  :root
+    --space-page-x: 48px
+    --space-section-y: 64px
+    --nav-height: 64px
+
+  .section-layout
+    flex-direction: column
+    gap: 32px
+
+  .section-header
+    width: auto
+
+  #projects .section-layout
+    gap: 32px
+
+  #experience .section-layout
+    gap: 40px

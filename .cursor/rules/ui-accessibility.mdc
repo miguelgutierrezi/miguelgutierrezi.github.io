@@ -27,7 +27,7 @@ Portfolio de ingeniería: claro, editorial, creíble. En segundos debe quedar qu
 - Tokens CSS en `styles.sass` (fondo `#F8FAFC`, ink `#0B0F19`, acento cyan `#06B6D4`)
 - Tipografía: Geist Sans + Geist Mono (`@fontsource/geist-*`)
 - One-pager con scroll-spy; `scroll-margin-top` bajo nav sticky
-- Breakpoints: Desktop default; tablet landscape `@media (max-width: 1279px)`; tablet portrait/mobile pendientes (Figma MCP, un frame por prompt)
+- Breakpoints: Desktop default; tablet landscape `@media (max-width: 1279px)`; tablet portrait `@media (max-width: 1023px)`; mobile pendiente (Figma MCP)
 
 ## Accesibilidad
 

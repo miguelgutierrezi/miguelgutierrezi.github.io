@@ -13,7 +13,8 @@ Portfolio personal en Angular 22 (TypeScript + Sass), desplegado como sitio est�
 - Node.js >= 24.15 (`.nvmrc` → `24`)
 - Sin scripts globales de jQuery/Bootstrap JS (rompían el build vía sourcemaps → exit 134)
 - Navbar collapse en Angular; output: `dist/.../browser`
-- UI Phase 2: **Desktop + tablet landscape** (`max-width: 1279px`); tablet portrait/mobile pendientes
+- UI Phase 2: **Desktop + tablet landscape + tablet portrait**; mobile pendiente
+- Breakpoints CSS: landscape `max-width: 1279px`, portrait `max-width: 1023px`
 - Estructura: `models/`, `content/`, `services/`, `components/home|shared`, `assets/`, `environments/`
 - Contenido tipado local vía `ContentService`; idioma/sección en `PreferencesService` (`localStorage`)
 - Modelo: `brandHandle`, profile `role`/`pitch`/`focusAreas`, project `technologies` + chrome en `PortfolioContent.ui`
@@ -32,7 +33,7 @@ Portfolio personal en Angular 22 (TypeScript + Sass), desplegado como sitio est�
 - Mantener el sitio estático, barato de operar y sin backend propio salvo necesidad clara
 - Angular a largo plazo; modernizar de forma incremental
 - One-pager con anclas (`/#projects`), no tabs que reemplacen contenido
-- Orden: stack ✓ → modelo tipado ✓ → UI (Desktop ✓, tablet landscape ✓; portrait/mobile pendientes) → CMS → hardening
+- Orden: stack ✓ → modelo tipado ✓ → UI (Desktop ✓, tablet L/P ✓; mobile pendiente) → CMS → hardening
 - CMS = editar CV online sin código; fallback local; sin tokens de escritura en el cliente
 - Tras **cualquier** cambio, sincronizar o revisar `CLAUDE.md`, `.github/copilot-instructions.md` y `.cursor/rules/`
 

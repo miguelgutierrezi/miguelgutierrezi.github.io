@@ -19,44 +19,54 @@
           </button>
 
           <div
-            class="projects-carousel__grid"
+            class="projects-carousel__viewport"
             (pointerdown)="onSwipePointerDown($event)"
             (pointerup)="onSwipePointerUp($event)"
             (pointercancel)="onSwipePointerCancel()">
-            @for (project of visibleProjects; track project.id) {
-              <article class="project-card">
-                <div class="project-card__top">
-                  <span class="project-card__folder" aria-hidden="true">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"></path>
-                    </svg>
-                  </span>
-                  @if (project.repositoryUrl || project.demoUrl) {
-                    <a
-                      class="project-card__external"
-                      [href]="project.demoUrl || project.repositoryUrl"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      [attr.aria-label]="label('viewRepository') + ': ' + project.title">
-                      <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M14 3h7v7"></path>
-                        <path d="M10 14L21 3"></path>
-                        <path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"></path>
-                      </svg>
-                    </a>
+            <div
+              class="projects-carousel__track"
+              [style.transform]="trackTransform"
+              [style.--page-size]="pageSize">
+              @for (page of projectPages; track $index; let pageIdx = $index) {
+                <div class="projects-carousel__page" [attr.aria-hidden]="pageIdx !== pageIndex">
+                  @for (project of page; track project.id) {
+                    <article class="project-card">
+                      <div class="project-card__top">
+                        <span class="project-card__folder" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"></path>
+                          </svg>
+                        </span>
+                        @if (project.repositoryUrl || project.demoUrl) {
+                          <a
+                            class="project-card__external"
+                            [href]="project.demoUrl || project.repositoryUrl"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            [attr.aria-label]="label('viewRepository') + ': ' + project.title"
+                            [attr.tabindex]="pageIdx === pageIndex ? null : -1">
+                            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2">
+                              <path d="M14 3h7v7"></path>
+                              <path d="M10 14L21 3"></path>
+                              <path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"></path>
+                            </svg>
+                          </a>
+                        }
+                      </div>
+                      <div class="project-card__text">
+                        <h3 class="project-card__title">{{ project.title }}</h3>
+                        <p class="project-card__desc">{{ description(project) }}</p>
+                      </div>
+                      <div class="project-card__tags">
+                        @for (tech of project.technologies; track tech) {
+                          <span class="project-card__tag">{{ tech }}</span>
+                        }
+                      </div>
+                    </article>
                   }
                 </div>
-                <div class="project-card__text">
-                  <h3 class="project-card__title">{{ project.title }}</h3>
-                  <p class="project-card__desc">{{ description(project) }}</p>
-                </div>
-                <div class="project-card__tags">
-                  @for (tech of project.technologies; track tech) {
-                    <span class="project-card__tag">{{ tech }}</span>
-                  }
-                </div>
-              </article>
-            }
+              }
+            </div>
           </div>
 
           <button
@@ -73,7 +83,7 @@
 
         @if (pageCount > 1) {
           <div class="projects-carousel__dots" role="tablist">
-            @for (page of pages; track page) {
+            @for (page of pageIndexes; track page) {
               <button
                 type="button"
                 class="projects-carousel__dot"
