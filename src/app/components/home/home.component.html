@@ -12,11 +12,8 @@
   </main>
 
   <footer class="site-footer" id="contact">
-    <div class="site-footer__left">
-      <p class="site-footer__name">{{ siteName }}</p>
-      <p class="site-footer__credit">{{ footerCredit }}</p>
-    </div>
-    <div class="site-footer__right">
+    <p class="site-footer__name">{{ siteName }}</p>
+    <div class="site-footer__aside">
       @if (primaryEmail) {
         <a class="site-footer__email" [href]="'mailto:' + primaryEmail">{{ primaryEmail }}</a>
       }
@@ -36,5 +33,6 @@
         }
       </div>
     </div>
+    <p class="site-footer__credit">{{ footerCredit }}</p>
   </footer>
 </div>

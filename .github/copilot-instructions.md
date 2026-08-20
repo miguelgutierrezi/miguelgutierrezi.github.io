@@ -10,7 +10,7 @@ Local toolchain: **Node.js >= 24.15** (see `.nvmrc`). Build uses the application
 
 - Keep the site static, inexpensive to operate, and easy to deploy.
 - Keep Angular as the long-term framework and modernize it incrementally.
-- Keep the main experience as one page with anchored sections, not tabs that replace the visible content.
+- Keep the main experience as one page with anchored sections (`#about`, `#experience`, `#projects`, `#courses`), not tabs that replace the visible content. Contact stays in the footer only (not in nav/burger).
 - Separate content from presentation.
 - Prefer typed, validated data over duplicated object literals.
 - Treat the CMS as the editorial source for day-to-day CV updates, but always keep a local fallback.
@@ -74,8 +74,8 @@ A change that updates only application code or `docs/` without reviewing these t
 - Before architectural changes, consult the docs in `docs/`.
 - Preserve the existing static hosting model unless the task explicitly changes it.
 - Prefer precise, surgical changes that fit the current codebase conventions.
-- Keep the implementation aligned with the documented delivery order: stack done → typed local content model done → UI Phase 2 (Desktop + tablet landscape + tablet portrait; next mobile) → CMS → hardening.
+- Keep the implementation aligned with the documented delivery order: stack done → typed local content model done → UI Phase 2 (Desktop + tablet L/P + mobile complete, burger open Figma `4:12` + slide; project-detail optional) → CMS → hardening.
 
 ## Figma
 
-- MCP: `.cursor/mcp.json` with `https://mcp.figma.com/mcp`. Authenticate in Cursor Settings → MCP. Pass Figma frame links (Copy link to selection) for each breakpoint.
+- MCP: `.cursor/mcp.json` with `https://mcp.figma.com/mcp`. Authenticate in Cursor Settings → MCP. Pass Figma frame links (Copy link to selection) for each breakpoint. Mobile open menu: node `4:12`.

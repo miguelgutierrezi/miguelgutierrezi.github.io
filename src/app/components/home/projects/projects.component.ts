@@ -128,7 +128,8 @@ export class ProjectsComponent implements OnInit, OnDestroy {
   }
 
   private syncPageSize(): void {
-    const nextSize = window.innerWidth <= 1023 ? 2 : 3;
+    const width = window.innerWidth;
+    const nextSize = width <= 767 ? 1 : width <= 1023 ? 2 : 3;
     if (nextSize === this.pageSize) {
       return;
     }

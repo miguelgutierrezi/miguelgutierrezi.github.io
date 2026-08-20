@@ -15,7 +15,7 @@ The site should feel like a focused engineering portfolio: clear, editorial, and
 
 ## One-page navigation decision
 
-The portfolio should use one primary page with anchored sections rather than tabs that replace the visible content. The navigation should link to stable sections such as `#about`, `#projects`, `#experience`, `#courses`, and `#contact`.
+The portfolio should use one primary page with anchored sections rather than tabs that replace the visible content. The navigation should link to stable sections such as `#about`, `#projects`, `#experience`, and `#courses`. Contact details stay in the footer (`#contact`) and are not a primary nav/burger item.
 
 This approach keeps the complete professional story available to visitors and search engines, preserves context while scrolling, supports shareable section URLs, and works naturally with semantic HTML. The active section can still be highlighted in the navbar, and the selected language can remain a persistent preference.
 

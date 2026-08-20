@@ -52,6 +52,26 @@
   &.is-active
     color: #fff
 
+.site-nav__menu-btn
+  display: none
+  width: 24px
+  height: 24px
+  padding: 0
+  border: 0
+  background: transparent
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  gap: 4px
+  cursor: pointer
+
+.site-nav__menu-line
+  display: block
+  width: 24px
+  height: 2px
+  border-radius: 1px
+  background: #fff
+
 .lang-toggle
   display: inline-flex
   padding: 2px
@@ -73,6 +93,9 @@
   &.is-active
     background: var(--color-accent)
     color: var(--color-ink)
+
+.mobile-menu
+  display: none
 
 @media (max-width: 1279px)
   .site-nav__brand
@@ -97,3 +120,252 @@
   .lang-toggle__btn
     padding: 3px 10px
     font-size: 10px
+
+@media (max-width: 767px)
+  .site-nav
+    padding: 16px 20px
+
+  .site-nav__brand-brace
+    display: none
+
+  .site-nav__brand-name
+    font-size: 16px
+
+  .site-nav__links
+    display: none
+
+  .site-nav__menu-btn
+    display: inline-flex
+
+  .site-nav__right
+    gap: 12px
+
+  .mobile-menu
+    --menu-accent: #00F2FE
+    display: flex
+    position: fixed
+    inset: 0
+    z-index: 50
+    flex-direction: column
+    justify-content: space-between
+    padding: 16px 24px 24px
+    background: #0B0F19
+    color: #fff
+    transform: translateX(100%)
+    visibility: hidden
+    pointer-events: none
+    will-change: transform
+    transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1)
+
+    &.is-visible
+      visibility: visible
+
+    &.is-open
+      transform: translateX(0)
+      pointer-events: auto
+
+  .mobile-menu__top
+    display: flex
+    align-items: center
+    justify-content: space-between
+    gap: 16px
+    min-height: 64px
+
+  .mobile-menu__brand
+    display: flex
+    flex-direction: column
+    gap: 2px
+    min-width: 0
+
+  .mobile-menu__brand-name
+    font-size: 15px
+    font-weight: 700
+    text-transform: uppercase
+    letter-spacing: 0.02em
+
+  .mobile-menu__brand-tag
+    font-family: var(--font-mono)
+    font-size: 10px
+    font-weight: 400
+    color: var(--menu-accent)
+    white-space: nowrap
+    overflow: hidden
+    text-overflow: ellipsis
+
+  .mobile-menu__top-actions
+    display: flex
+    align-items: center
+    gap: 20px
+    flex-shrink: 0
+
+  .mobile-menu__lang
+    display: inline-flex
+    align-items: center
+    gap: 4px
+    padding: 4px 8px
+    border-radius: 6px
+    border: 1px solid var(--color-panel-border)
+    background: var(--color-panel)
+
+  .mobile-menu__lang-btn
+    border: 0
+    padding: 0
+    background: transparent
+    font-family: var(--font-mono)
+    font-size: 11px
+    font-weight: 600
+    color: var(--color-muted)
+    cursor: pointer
+
+    &.is-active
+      color: #fff
+
+  .mobile-menu__lang-sep
+    font-family: var(--font-mono)
+    font-size: 11px
+    color: var(--color-body)
+
+  .mobile-menu__close
+    width: 36px
+    height: 36px
+    border-radius: 18px
+    border: 1px solid var(--color-panel-border)
+    background: var(--color-panel)
+    color: #fff
+    display: inline-flex
+    align-items: center
+    justify-content: center
+    cursor: pointer
+
+    svg
+      width: 16px
+      height: 16px
+
+  .mobile-menu__links
+    display: flex
+    flex-direction: column
+    gap: 16px
+    flex: 1
+    padding: 40px 0
+    overflow: auto
+
+  .mobile-menu__link
+    display: flex
+    align-items: center
+    justify-content: space-between
+    gap: 12px
+    padding: 12px 24px
+    border-radius: 8px
+    text-decoration: none
+    color: #fff
+    border-left: 3px solid transparent
+
+    &.is-active
+      background: rgba(0, 242, 254, 0.1)
+      border-left-color: var(--menu-accent)
+
+      .mobile-menu__index,
+      .mobile-menu__label,
+      .mobile-menu__active
+        color: var(--menu-accent)
+
+      .mobile-menu__label
+        font-weight: 600
+
+  .mobile-menu__link-main
+    display: flex
+    align-items: center
+    gap: 16px
+    min-width: 0
+
+  .mobile-menu__index
+    font-family: var(--font-mono)
+    font-size: 14px
+    color: var(--color-body)
+    flex-shrink: 0
+
+  .mobile-menu__label
+    font-size: 20px
+    font-weight: 400
+
+  .mobile-menu__active
+    font-family: var(--font-mono)
+    font-size: 12px
+    color: var(--menu-accent)
+    white-space: nowrap
+    flex-shrink: 0
+
+  .mobile-menu__bottom
+    display: flex
+    flex-direction: column
+    gap: 24px
+    padding-bottom: 10px
+
+  .mobile-menu__ping
+    display: flex
+    align-items: center
+    gap: 8px
+
+  .mobile-menu__ping-line
+    flex: 1
+    height: 1px
+    background: var(--color-panel-border)
+
+    &--short
+      flex: 0 0 40px
+
+  .mobile-menu__ping-label
+    font-family: var(--font-mono)
+    font-size: 11px
+    color: var(--color-body)
+    white-space: nowrap
+
+  .mobile-menu__bottom-row
+    display: flex
+    align-items: center
+    justify-content: space-between
+    gap: 12px
+
+  .mobile-menu__socials
+    display: flex
+    gap: 12px
+
+  .mobile-menu__social
+    width: 40px
+    height: 40px
+    border-radius: 8px
+    border: 1px solid var(--color-panel-border)
+    background: var(--color-panel)
+    color: #fff
+    display: inline-flex
+    align-items: center
+    justify-content: center
+
+    svg
+      width: 18px
+      height: 18px
+
+  .mobile-menu__meta
+    display: flex
+    flex-direction: column
+    align-items: flex-end
+    gap: 2px
+    font-family: var(--font-mono)
+    font-size: 11px
+    color: var(--color-muted)
+
+    span:last-child
+      font-size: 9px
+      color: var(--color-body)
+
+  .mobile-menu__home-indicator
+    width: 134px
+    height: 5px
+    margin: 0 auto
+    border-radius: 2.5px
+    background: var(--color-body)
+
+@media (max-width: 767px) and (prefers-reduced-motion: reduce)
+  .mobile-menu
+    transition: none
+    will-change: auto

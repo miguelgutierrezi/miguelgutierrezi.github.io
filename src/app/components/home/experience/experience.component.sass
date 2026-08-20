@@ -133,3 +133,41 @@
   .timeline__dot
     width: 14px
     height: 14px
+
+@media (max-width: 767px)
+  .timeline
+    gap: 24px
+
+  .timeline__rail
+    display: none
+
+  .timeline__item
+    gap: 0
+
+  .timeline__content
+    padding: 16px
+    gap: 12px
+    border: 1px solid var(--color-border)
+    border-radius: var(--radius-md)
+    background: var(--color-surface)
+
+  .timeline__role
+    font-size: 16px
+
+  .timeline__meta
+    flex-direction: column
+    align-items: flex-start
+    gap: 4px
+
+  .timeline__sep
+    display: none
+
+  .timeline__company
+    font-size: 14px
+
+  .timeline__duration
+    font-size: 12px
+
+  .timeline__bullets li
+    font-size: 13px
+    line-height: 1.4

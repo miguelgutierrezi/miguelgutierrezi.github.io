@@ -64,12 +64,12 @@ Typed content layer shared by the UI and a future CMS.
 
 Next product focus: Phase 2 (UI modernization) on this model.
 
-### Phase 2: UI modernization — **in progress (Desktop + tablet L/P)**
+### Phase 2: UI modernization — **one-pager breakpoints done**
 
-- Desktop, tablet landscape (`max-width: 1279px`), and tablet portrait (`max-width: 1023px` / Figma `cv-tablet-portrait` ~768) one-pager implemented from Figma.
-- Anchored sections `#about`, `#experience`, `#projects`, `#courses`, `#contact` (no tab-swapped content). Portrait projects carousel uses 2 cards/page + swipe; nav hides Estudios for space (section still on page).
-- Pending: mobile (+ burger), and project-detail routes from the same Figma file.
-- Still pending from the original checklist: broader a11y/SEO polish and localizing remote project/course image assets.
+- Desktop, tablet landscape (`max-width: 1279px`), tablet portrait (`max-width: 1023px`), and mobile (`max-width: 767px` / Figma `cv-mobile`) implemented from Figma.
+- Mobile: hamburger + fullscreen overlay (Figma `mobile-burger-menu-open` `4:12`, accent `#00F2FE`, slide-in/`translateX`), stacked hero (circular photo), experience as cards, projects carousel 1 card/page with swipe animation, centered footer.
+- Anchored sections `#about`, `#experience`, `#projects`, `#courses`. Footer holds contact (`#contact`) but is not listed in nav/burger.
+- Pending optional: project-detail routes from the same Figma file; broader a11y/SEO polish and localizing remote assets.
 
 ### Phase 3: CMS integration (product requirement)
 

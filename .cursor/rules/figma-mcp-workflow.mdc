@@ -30,5 +30,5 @@ Un prompt por frame/breakpoint; no mezclar los cuatro en un solo mensaje si el a
 
 - Respetar tokens/variables de Figma cuando el MCP los exponga
 - Mapear al modelo tipado existente (`ContentService` / `PortfolioContent`); no hardcodear CV en templates
-- Mantener one-pager con anclas `#about|#projects|#experience|#courses|#contact`
+- Mantener one-pager con anclas `#about|#projects|#experience|#courses` (contacto solo en footer, no en nav/burger)
 - Assets: preferir export controlado / `src/assets`; no depender de URLs efímeras de Figma en producción
