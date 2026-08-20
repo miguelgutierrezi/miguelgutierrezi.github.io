@@ -5,7 +5,8 @@ import {
   PortfolioContent,
   SocialLink,
   UiCopy,
-  localize
+  localize,
+  localizeList
 } from '../../../models/portfolio.models';
 import { ContentService } from '../../../services/content.service';
 
@@ -20,10 +21,14 @@ export class ProfileComponent implements OnInit {
   @Input() public language: LocaleCode = 'es';
 
   public imageUrl = '';
-  public emails: string[] = [];
+  public siteName = '';
+  public primaryEmail = '';
   public socialLinks: SocialLink[] = [];
+  public paragraphs: LocalizedString[] = [];
   public ui!: UiCopy;
-  private paragraphs: LocalizedString[] = [];
+  private roleText: LocalizedString = { es: '', en: '' };
+  private pitchText: LocalizedString = { es: '', en: '' };
+  private focusList: { es: string[]; en: string[] } = { es: [], en: [] };
 
   constructor(private readonly contentService: ContentService) {}
 
@@ -31,24 +36,35 @@ export class ProfileComponent implements OnInit {
     this.contentService.loadPortfolio().subscribe((content) => this.applyContent(content));
   }
 
-  public paragraph(index: number): string {
-    const value = this.paragraphs[index];
-    return value ? localize(value, this.language) : '';
+  public role(): string {
+    return localize(this.roleText, this.language);
+  }
+
+  public pitch(): string {
+    return localize(this.pitchText, this.language);
+  }
+
+  public focusAreas(): string[] {
+    return localizeList(this.focusList, this.language);
+  }
+
+  public localizeText(value: LocalizedString): string {
+    return localize(value, this.language);
   }
 
   public label(key: keyof UiCopy): string {
     return this.ui ? localize(this.ui[key], this.language) : '';
   }
 
-  public goToExternalLink(url: string): void {
-    window.open(url, '_blank');
-  }
-
   private applyContent(content: PortfolioContent): void {
     this.imageUrl = content.profile.imageUrl;
-    this.emails = content.site.emails;
+    this.siteName = content.site.name;
+    this.primaryEmail = content.site.emails[0] ?? '';
     this.socialLinks = content.site.socialLinks;
     this.paragraphs = content.profile.paragraphs;
+    this.roleText = content.profile.role;
+    this.pitchText = content.profile.pitch;
+    this.focusList = content.profile.focusAreas;
     this.ui = content.ui;
   }
 }

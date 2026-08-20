@@ -1,114 +1,132 @@
-.custom-container:hover
-  background-color: #D4D5DA
-  border-radius: 15px
+.projects-carousel
+  display: flex
+  flex-direction: column
+  align-items: center
+  gap: 20px
 
-.icon-img
-  width: 20px
-  height: 20px
+.projects-carousel__stage
+  position: relative
+  width: 100%
+  display: flex
+  align-items: stretch
+  gap: 12px
 
-@media (max-width: 575px)
-  .custom-container
-    width: 90%
-    display: flex
-    margin-left: auto
-    margin-right: auto
-    margin-bottom: 20px
+.projects-carousel__grid
+  flex: 1
+  min-width: 0
+  display: grid
+  grid-template-columns: repeat(3, minmax(0, 1fr))
+  gap: 24px
 
-  .custom-card
-    width: 100%
-    height: 390px !important
-    border: 1px solid #7f7f7f
-    border-radius: 15px
+.project-card
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+  gap: 16px
+  padding: 28px
+  border-radius: var(--radius-lg)
+  border: 1px solid var(--color-border)
+  background: var(--color-bg)
+  box-shadow: var(--shadow-card)
+  min-height: 260px
 
-  .img-container
-    width: 100%
-    height: 50%
-    display: flex
-    margin-bottom: auto
-    margin-top: auto
-    border-bottom: 1px solid black
-    order: 1
+.project-card__top
+  display: flex
+  align-items: center
+  justify-content: space-between
 
-  .project-img
-    width: 100%
-    max-height: 100%
-    margin: auto
-    border-top-left-radius: 15px
-    border-top-right-radius: 15px
+.project-card__folder
+  color: var(--color-accent)
+  svg
+    width: 24px
+    height: 24px
 
-  .content
-    width: 100%
-    height: 40%
-    margin: auto
-    padding: 5%
-    order: 2
+.project-card__external
+  color: var(--color-subtle)
+  display: inline-flex
+  transition: color 0.2s ease
 
-@media (min-width: 576px) and (max-width: 768px)
-  .custom-container
-    width: 80%
-    display: flex
-    margin-left: auto
-    margin-right: auto
-    margin-bottom: 20px
+  &:hover
+    color: var(--color-accent-deep)
 
-  .custom-card
-    width: 100%
-    height: 450px !important
-    border: 1px solid #7f7f7f
-    border-radius: 15px
+  svg
+    width: 18px
+    height: 18px
 
-  .img-container
-    width: 100%
-    height: 60%
-    display: flex
-    margin-bottom: auto
-    margin-top: auto
-    border-bottom: 1px solid black
-    order: 1
+.project-card__text
+  display: flex
+  flex-direction: column
+  gap: 8px
+  flex: 1
 
-  .project-img
-    width: 100%
-    max-height: 100%
-    margin: auto
-    border-top-left-radius: 15px
-    border-top-right-radius: 15px
+.project-card__title
+  margin: 0
+  font-size: 18px
+  font-weight: 700
+  color: var(--color-ink-soft)
 
-  .content
-    width: 100%
-    height: 40%
-    margin: auto
-    padding: 5%
-    order: 2
+.project-card__desc
+  margin: 0
+  font-size: 14px
+  line-height: 1.5
+  color: var(--color-body)
 
-@media (min-width: 769px)
-  .custom-container
-    width: 80%
-    display: flex
-    margin-left: auto
-    margin-right: auto
-    margin-bottom: 20px
+.project-card__tags
+  display: flex
+  flex-wrap: wrap
+  gap: 6px
 
-  .custom-card
-    width: 100%
-    height: 300px !important
-    border: 1px solid #7f7f7f
-    border-radius: 15px
-    display: flex
+.project-card__tag
+  padding: 4px 8px
+  border-radius: var(--radius-sm)
+  border: 1px solid var(--color-border)
+  background: var(--color-surface)
+  font-family: var(--font-mono)
+  font-size: 11px
+  font-weight: 600
+  color: var(--color-body)
 
-  .img-container
-    height: 100%
-    width: 40%
-    display: flex
-    margin-bottom: auto
-    margin-top: auto
+.projects-carousel__nav
+  align-self: center
+  width: 40px
+  height: 40px
+  flex-shrink: 0
+  border-radius: 20px
+  border: 1px solid var(--color-panel-border)
+  background: rgba(11, 15, 25, 0.7)
+  color: #fff
+  display: inline-flex
+  align-items: center
+  justify-content: center
+  cursor: pointer
+  backdrop-filter: blur(6px)
 
-  .project-img
-    width: 100%
-    height: 100%
-    margin: auto
-    border-bottom-left-radius: 15px
-    border-top-left-radius: 15px
+  &:disabled
+    opacity: 0.35
+    cursor: not-allowed
 
-  .content
-    width: 50%
-    margin: auto
+  svg
+    width: 18px
+    height: 18px
+
+.projects-carousel__dots
+  display: inline-flex
+  align-items: center
+  gap: 8px
+  padding: 6px 10px
+  border-radius: 999px
+  border: 1px solid var(--color-border)
+  background: rgba(255, 255, 255, 0.8)
+  backdrop-filter: blur(6px)
+
+.projects-carousel__dot
+  width: 8px
+  height: 8px
+  padding: 0
+  border: 0
+  border-radius: 50%
+  background: var(--color-border)
+  cursor: pointer
+
+  &.is-active
+    background: var(--color-accent)

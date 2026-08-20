@@ -1,24 +1,86 @@
-<h1 class="text-center">{{ label('projectsHeading') }}</h1>
-@for (project of projects; track project.id) {
-  <section class="custom-container">
-    <div class="custom-card">
-      <div class="img-container">
-        <img class="project-img" [src]="project.imageUrl" [alt]="project.title">
-      </div>
-      <div class="content">
-        <h5>{{ project.title }}</h5>
-        <section>
-          @for (icon of project.technologyIconUrls; track icon) {
-            <img [src]="icon" alt="" class="icon-img mr-2">
-          }
-        </section>
-        <p>{{ description(project) }}</p>
-        @if (project.repositoryUrl) {
-          <a [href]="project.repositoryUrl" target="_blank" rel="noopener noreferrer">
-            {{ label('viewRepository') }}
-          </a>
+<section class="section-shell section-shell--surface" id="projects">
+  <div class="section-layout">
+    <header class="section-header">
+      <p class="section-code">{{ label('projectsCode') }}</p>
+      <h2 class="section-title">{{ label('projectsTitle') }}</h2>
+    </header>
+    <div class="section-body">
+      <div class="projects-carousel">
+        <div class="projects-carousel__stage">
+          <button
+            type="button"
+            class="projects-carousel__nav projects-carousel__nav--prev"
+            (click)="prev()"
+            [disabled]="!canPrev"
+            [attr.aria-label]="label('previousProject')">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 18l-6-6 6-6"></path>
+            </svg>
+          </button>
+
+          <div class="projects-carousel__grid">
+            @for (project of visibleProjects; track project.id) {
+              <article class="project-card">
+                <div class="project-card__top">
+                  <span class="project-card__folder" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"></path>
+                    </svg>
+                  </span>
+                  @if (project.repositoryUrl || project.demoUrl) {
+                    <a
+                      class="project-card__external"
+                      [href]="project.demoUrl || project.repositoryUrl"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      [attr.aria-label]="label('viewRepository') + ': ' + project.title">
+                      <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 3h7v7"></path>
+                        <path d="M10 14L21 3"></path>
+                        <path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5"></path>
+                      </svg>
+                    </a>
+                  }
+                </div>
+                <div class="project-card__text">
+                  <h3 class="project-card__title">{{ project.title }}</h3>
+                  <p class="project-card__desc">{{ description(project) }}</p>
+                </div>
+                <div class="project-card__tags">
+                  @for (tech of project.technologies; track tech) {
+                    <span class="project-card__tag">{{ tech }}</span>
+                  }
+                </div>
+              </article>
+            }
+          </div>
+
+          <button
+            type="button"
+            class="projects-carousel__nav projects-carousel__nav--next"
+            (click)="next()"
+            [disabled]="!canNext"
+            [attr.aria-label]="label('nextProject')">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 18l6-6-6-6"></path>
+            </svg>
+          </button>
+        </div>
+
+        @if (pageCount > 1) {
+          <div class="projects-carousel__dots" role="tablist">
+            @for (page of pages; track page) {
+              <button
+                type="button"
+                class="projects-carousel__dot"
+                [class.is-active]="page === pageIndex"
+                (click)="goTo(page)"
+                [attr.aria-label]="'Page ' + (page + 1)">
+              </button>
+            }
+          </div>
         }
       </div>
     </div>
-  </section>
-}
+  </div>
+</section>

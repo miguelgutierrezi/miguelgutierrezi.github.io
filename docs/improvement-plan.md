@@ -64,15 +64,12 @@ Typed content layer shared by the UI and a future CMS.
 
 Next product focus: Phase 2 (UI modernization) on this model.
 
-### Phase 2: UI modernization
+### Phase 2: UI modernization — **in progress (Desktop baseline)**
 
-- Establish a small design system for typography, color, spacing, buttons, cards, and responsive breakpoints.
-- Redesign the first viewport around a clear profile summary, primary call to action, and selected work.
-- Keep the main portfolio as a single one-page experience with anchored sections instead of replacing the page content with tabs.
-- Use section navigation for About, Projects, Experience, Courses, and Contact, with the active section reflected in the URL and navigation state.
-- Improve project cards with outcomes, technology labels, repository/demo links, and consistent imagery.
-- Add keyboard navigation, visible focus states, semantic landmarks, alt text, and contrast checks.
-- Optimize remote assets or move important assets into `src/assets`.
+- Desktop one-pager implemented from Figma `cv-desktop` (tokens, Geist fonts, sticky nav, hero, about, experience timeline, project cards carousel pages, courses list, footer).
+- Anchored sections `#about`, `#experience`, `#projects`, `#courses`, `#contact` (no tab-swapped content).
+- Pending: tablet landscape, tablet portrait, mobile (+ burger), and project-detail routes from the same Figma file.
+- Still pending from the original checklist: broader a11y/SEO polish and localizing remote project/course image assets.
 
 ### Phase 3: CMS integration (product requirement)
 

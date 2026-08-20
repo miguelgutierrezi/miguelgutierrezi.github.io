@@ -14,17 +14,20 @@ Portfolio de ingeniería: claro, editorial, creíble. En segundos debe quedar qu
 
 ## Jerarquía
 
-1. Nav compacta + idioma + anclas de sección
-2. Hero de perfil (rol, propuesta, disponibilidad, CTA)
-3. Proyectos destacados (resultado, stack, repo/demo, imagen)
-4. Experiencia, cursos, contacto/footer
+1. Nav compacta sticky + toggle ES/EN + anclas de sección
+2. Hero de perfil (rol badge, nombre, pitch, email CTA, socials, foto)
+3. Sobre mí + tags de foco
+4. Experiencia en timeline (bullets inline)
+5. Proyectos en cards paginadas (tags de stack, link externo)
+6. Cursos/certs en lista
+7. Footer con contacto
 
-## Visual
+## Visual (Phase 2 Desktop)
 
-- Variables CSS: fondo, superficie, texto, muted, acento, borde, spacing, focus
-- Una display + una body legible; base neutra y un acento claro
-- Grid responsive con aspect ratios estables; motion con `prefers-reduced-motion`
-- Cards compactas y consistentes; sin scroll horizontal en móviles comunes
+- Tokens CSS en `styles.sass` (fondo `#F8FAFC`, ink `#0B0F19`, acento cyan `#06B6D4`)
+- Tipografía: Geist Sans + Geist Mono (`@fontsource/geist-*`)
+- One-pager con scroll-spy; `scroll-margin-top` bajo nav sticky
+- Breakpoints tablet/mobile: pendiente (seguir Figma MCP, un frame por prompt)
 
 ## Accesibilidad
 

@@ -3,45 +3,65 @@ import { PortfolioContent } from '../models/portfolio.models';
 export const LOCAL_PORTFOLIO_CONTENT: PortfolioContent = {
   site: {
     name: 'Miguel Ángel Gutiérrez Ibagué',
+    brandHandle: 'miguel.gutierrez',
     emails: ['migueangel97@hotmail.com', 'miguelangelgi.97@gmail.com'],
     socialLinks: [
       {
         id: 'linkedin',
         label: 'LinkedIn',
         url: 'https://www.linkedin.com/in/miguelgutierrezi/',
-        iconUrl: 'https://image.flaticon.com/icons/png/512/174/174857.png'
+        iconUrl: ''
       },
       {
         id: 'github',
         label: 'GitHub',
         url: 'https://github.com/miguelgutierrezi',
-        iconUrl: 'https://image.flaticon.com/icons/png/512/25/25231.png'
+        iconUrl: ''
       }
     ]
   },
   ui: {
     profileHeading: { es: 'Sobre mí', en: 'About me' },
+    aboutCode: { es: '// 01. SOBRE MÍ', en: '// 01. ABOUT' },
+    aboutTitle: { es: 'Trayectoria', en: 'Background' },
     emailLabel: { es: 'Correo', en: 'Email' },
     projectsHeading: { es: 'Mis proyectos', en: 'My projects' },
-    viewRepository: { es: 'Ver repositorio de GitHub', en: 'View GitHub repo' },
+    projectsCode: { es: '// 03. PROYECTOS', en: '// 03. PROJECTS' },
+    projectsTitle: { es: 'Sistemas Destacados', en: 'Featured Systems' },
+    viewRepository: { es: 'Ver repositorio', en: 'View repository' },
     experienceHeading: { es: 'Experiencia laboral', en: 'Professional History' },
+    experienceCode: { es: '// 02. EXPERIENCIA', en: '// 02. EXPERIENCE' },
+    experienceTitle: { es: 'Historial Laboral', en: 'Work History' },
     seeMore: { es: 'Ver más', en: 'See more' },
-    responsibilitiesHeading: { es: 'Funciones', en: 'Functions' },
+    responsibilitiesHeading: { es: 'Funciones', en: 'Responsibilities' },
     close: { es: 'Cerrar', en: 'Close' },
     coursesHeading: { es: 'Mis cursos', en: 'My courses' },
+    coursesCode: { es: '// 04. APRENDIZAJE', en: '// 04. LEARNING' },
+    coursesTitle: { es: 'Cursos y Certificaciones', en: 'Courses & Certifications' },
     viewCredential: { es: 'Ver credencial', en: 'See credential' },
     switchToEnglish: { es: 'English', en: 'English' },
     switchToSpanish: { es: 'Español', en: 'Español' },
-    menuToggle: { es: 'Abrir o cerrar menú', en: 'Toggle navigation' }
+    menuToggle: { es: 'Abrir o cerrar menú', en: 'Toggle navigation' },
+    footerCredit: { es: 'Hecho con Angular • 2026', en: 'Built with Angular • 2026' },
+    previousProject: { es: 'Proyecto anterior', en: 'Previous project' },
+    nextProject: { es: 'Proyecto siguiente', en: 'Next project' }
   },
   profile: {
     imageUrl: 'assets/Fotografia_Miguel_Gutierrez.jpg',
+    role: {
+      es: 'INGENIERO DE SISTEMAS',
+      en: 'SYSTEMS ENGINEER'
+    },
+    pitch: {
+      es: 'Construyendo aplicaciones web y móviles full stack, integraciones en la nube y experiencias digitales con metodologías ágiles.',
+      en: 'Building full-stack web and mobile applications, cloud integrations, and digital experiences with agile methodologies.'
+    },
     paragraphs: [
       {
         es:
-          'Soy un ingeniero de sistemas con experiencia en el desarrollo de proyectos con metodología ágil, enfocado en el desarrollo full stack de aplicaciones web y móviles.',
+          'Ingeniero de sistemas con experiencia en el desarrollo de proyectos con metodología ágil, enfocado en el desarrollo full stack de aplicaciones web y móviles. Comprometido con entregas de calidad, colaboración con el cliente y arquitecturas mantenibles.',
         en:
-          'I am a systems engineer with experience in developing projects with agile methodologies, focused on web and mobile applications full stack development.'
+          'Systems engineer with experience delivering projects with agile methodologies, focused on full-stack web and mobile development. Committed to quality delivery, client collaboration, and maintainable architectures.'
       },
       {
         es:
@@ -49,13 +69,17 @@ export const LOCAL_PORTFOLIO_CONTENT: PortfolioContent = {
         en:
           'I have knowledge in the development of web applications using Angular CLI as a framework for Frontend, and backend using .NET Core and Spring Boot. I have experience in developing hybrid applications using Ionic Framework and Flutter. Also, I have experience managing relational databases like SQL Server and Oracle, and non-relational databases like Firebase and MongoDB.'
       }
-    ]
+    ],
+    focusAreas: {
+      es: ['Full Stack', 'Angular', 'Spring Boot', '.NET', 'Cloud & CI/CD', 'Mobile'],
+      en: ['Full Stack', 'Angular', 'Spring Boot', '.NET', 'Cloud & CI/CD', 'Mobile']
+    }
   },
   navigation: [
-    { id: 'about', label: { es: 'Sobre mí', en: 'About' } },
-    { id: 'projects', label: { es: 'Proyectos', en: 'Projects' } },
+    { id: 'about', label: { es: 'Sobre Mí', en: 'About' } },
     { id: 'experience', label: { es: 'Experiencia', en: 'Experience' } },
-    { id: 'courses', label: { es: 'Cursos', en: 'Courses' } }
+    { id: 'projects', label: { es: 'Proyectos', en: 'Projects' } },
+    { id: 'courses', label: { es: 'Estudios', en: 'Studies' } }
   ],
   projects: [
     {
@@ -65,6 +89,7 @@ export const LOCAL_PORTFOLIO_CONTENT: PortfolioContent = {
         es: 'Esta API fue desarrollada para la administración de una aplicación de agenda simple',
         en: 'This API was developed for the administration of a simple scheduler app'
       },
+      technologies: ['Node.js', 'JavaScript', 'API'],
       technologyIconUrls: [
         'https://d2eip9sf3oo6c2.cloudfront.net/tags/images/000/000/256/full/nodejslogo.png',
         'https://logosvector.net/wp-content/uploads/2015/07/JavaScript_logo.png'
@@ -81,6 +106,7 @@ export const LOCAL_PORTFOLIO_CONTENT: PortfolioContent = {
         es: 'Este front fue desarrollado para la administración de una aplicación de agenda simple',
         en: 'This front was developed for the administration of a simple scheduler app'
       },
+      technologies: ['Angular', 'TypeScript', 'HTML', 'CSS'],
       technologyIconUrls: [
         'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Angular_full_color_logo.svg/250px-Angular_full_color_logo.svg.png',
         'https://logosvector.net/wp-content/uploads/2015/07/JavaScript_logo.png',
@@ -100,6 +126,7 @@ export const LOCAL_PORTFOLIO_CONTENT: PortfolioContent = {
         es: 'Este front fue desarrollado para el curso de Angular - The Complete Guide de Udemy',
         en: 'This front was developed for the course Angular - The Complete Guide de Udemy'
       },
+      technologies: ['Angular', 'TypeScript', 'RxJS'],
       technologyIconUrls: [
         'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Angular_full_color_logo.svg/250px-Angular_full_color_logo.svg.png',
         'https://logosvector.net/wp-content/uploads/2015/07/JavaScript_logo.png',
@@ -119,6 +146,7 @@ export const LOCAL_PORTFOLIO_CONTENT: PortfolioContent = {
         es: 'Este front fue desarrollado para el curso de Ionic - Build, iOS, android & web apps with Ionic and Angular',
         en: 'This front was developed for the course Ionic - Build, iOS, android & web apps with Ionic and Angular'
       },
+      technologies: ['Ionic', 'Angular', 'TypeScript'],
       technologyIconUrls: [
         'https://hackr.io/tutorials/learn-ionic/logo/logo-ionic?ver=1587978084',
         'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Angular_full_color_logo.svg/250px-Angular_full_color_logo.svg.png',
@@ -139,6 +167,7 @@ export const LOCAL_PORTFOLIO_CONTENT: PortfolioContent = {
         es: 'Proyecto realizado para la materia de "Introducción a la computación móvil"',
         en: 'Project developed for "Introducción a la computación móvil" subject'
       },
+      technologies: ['Android', 'Java'],
       technologyIconUrls: [
         'https://logonoid.com/images/android-studio-logo.png',
         'https://qph.fs.quoracdn.net/main-qimg-c43424186b9c089b9aa1d64c7f1989c1'
@@ -155,6 +184,7 @@ export const LOCAL_PORTFOLIO_CONTENT: PortfolioContent = {
         es: 'Proyecto realizado para la materia de "Ingeniería de Software"',
         en: 'Project developed for the "Ingeniería de Software" subject'
       },
+      technologies: ['Django', 'Ionic', 'Angular'],
       technologyIconUrls: [
         'https://splendornet.com/wp-content/uploads/2019/01/django.png',
         'https://hackr.io/tutorials/learn-ionic/logo/logo-ionic?ver=1587978084',

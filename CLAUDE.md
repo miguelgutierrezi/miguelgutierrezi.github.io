@@ -8,14 +8,14 @@ Personal portfolio for Miguel Gutiérrez, built with Angular 22 (TypeScript + Sa
 
 ## Stack
 
-- Angular 22, RxJS 7, Bootstrap 4 CSS only (no jQuery / Bootstrap JS global scripts), application builder
+- Angular 22, RxJS 7, Bootstrap 4 CSS only (legacy import; shell UI no longer Bootstrap-nav based; no jQuery / Bootstrap JS), application builder
 - **Node.js >= 24.15** required for local install/build (see `.nvmrc`)
-- Sass for styles; Firebase Hosting rewrites all routes to `index.html` (SPA)
+- Sass for styles with design tokens + **Geist Sans / Geist Mono** (`@fontsource/geist-*`); Firebase Hosting rewrites all routes to `index.html` (SPA)
 - Build output: `dist/personal-presentation-miguel-gutierrez/browser` (Firebase `public`)
 - `npm run build` uses **production** by default; do not re-add third-party files under `angular.json` `scripts` (known sourcemap crash / exit 134 with Bootstrap minified JS)
 - Structure: `src/app/models/`, `src/app/content/`, `src/app/services/` (content + preferences), `src/app/components/home/` (profile, projects, experience, courses), `src/app/components/shared/` (navbar, loading-spinner), `src/app/components/not-found/`, `src/assets/`, `src/environments/`
-- Local typed content is loaded through `ContentService` / `ContentSource` (`LocalContentAdapter` + `content-validator.ts`). The validator accepts `unknown`, returns a fresh normalized object (no source mutation), enforces unique IDs, logs every rejection, and validates URLs via `new URL()` / `assets/`. UI chrome labels live in `PortfolioContent.ui`. Preferences (`es`/`en`, section ids) live in `PreferencesService` with `localStorage`.
-- Product/architecture decisions live in `docs/` (`architecture.md`, `cms-strategy.md`, `ui-modernization.md`, `persistence-strategy.md`, `improvement-plan.md`) — consult before architectural changes
+- Local typed content is loaded through `ContentService` / `ContentSource` (`LocalContentAdapter` + `content-validator.ts`). The validator accepts `unknown`, returns a fresh normalized object (no source mutation), enforces unique IDs, logs every rejection, and validates URLs via `new URL()` / `assets/`. Profile includes `role`, `pitch`, `focusAreas`; site has `brandHandle`; projects expose text `technologies`. UI chrome labels live in `PortfolioContent.ui`. Preferences (`es`/`en`, section ids) live in `PreferencesService` with `localStorage`.
+- **Phase 2 UI:** Desktop one-pager from Figma `cv-desktop` is the current baseline (anchored sections, sticky nav, hero/timeline/cards/certs/footer). Tablet/mobile breakpoints pending. Product/architecture decisions live in `docs/` — consult before architectural changes.
 
 ## Commands
 
@@ -32,7 +32,7 @@ Personal portfolio for Miguel Gutiérrez, built with Angular 22 (TypeScript + Sa
 - Keep the site static, inexpensive to operate, and free of a custom backend unless a real need appears.
 - Angular is the long-term framework; modernize incrementally rather than rewriting.
 - One main page with anchored sections (`/#projects`, `#about`, `#experience`, `#courses`, `#contact`), not tabs that replace the visible content. Dedicated routes only for detail views (e.g. a single project/article).
-- Delivery order for larger work: stack modernization (done) → typed local content model (done) → UI (Phase 2; use Figma MCP with per-breakpoint frame links) → CMS → hardening.
+- Delivery order for larger work: stack modernization (done) → typed local content model (done) → UI (Phase 2; **Desktop done as baseline**, then tablet landscape → tablet portrait → mobile via Figma MCP) → CMS → hardening.
 
 ## Figma MCP (Phase 2)
 

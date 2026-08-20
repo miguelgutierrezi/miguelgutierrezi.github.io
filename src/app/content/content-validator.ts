@@ -17,34 +17,56 @@ const SECTION_IDS: SectionId[] = ['about', 'projects', 'experience', 'courses'];
 
 const UI_KEYS: (keyof UiCopy)[] = [
   'profileHeading',
+  'aboutCode',
+  'aboutTitle',
   'emailLabel',
   'projectsHeading',
+  'projectsCode',
+  'projectsTitle',
   'viewRepository',
   'experienceHeading',
+  'experienceCode',
+  'experienceTitle',
   'seeMore',
   'responsibilitiesHeading',
   'close',
   'coursesHeading',
+  'coursesCode',
+  'coursesTitle',
   'viewCredential',
   'switchToEnglish',
   'switchToSpanish',
-  'menuToggle'
+  'menuToggle',
+  'footerCredit',
+  'previousProject',
+  'nextProject'
 ];
 
 const UI_FALLBACK: UiCopy = {
   profileHeading: { es: 'Sobre mí', en: 'About me' },
+  aboutCode: { es: '// 01. SOBRE MÍ', en: '// 01. ABOUT' },
+  aboutTitle: { es: 'Trayectoria', en: 'Background' },
   emailLabel: { es: 'Correo', en: 'Email' },
   projectsHeading: { es: 'Mis proyectos', en: 'My projects' },
-  viewRepository: { es: 'Ver repositorio de GitHub', en: 'View GitHub repo' },
+  projectsCode: { es: '// 03. PROYECTOS', en: '// 03. PROJECTS' },
+  projectsTitle: { es: 'Sistemas Destacados', en: 'Featured Systems' },
+  viewRepository: { es: 'Ver repositorio', en: 'View repository' },
   experienceHeading: { es: 'Experiencia laboral', en: 'Professional History' },
+  experienceCode: { es: '// 02. EXPERIENCIA', en: '// 02. EXPERIENCE' },
+  experienceTitle: { es: 'Historial Laboral', en: 'Work History' },
   seeMore: { es: 'Ver más', en: 'See more' },
-  responsibilitiesHeading: { es: 'Funciones', en: 'Functions' },
+  responsibilitiesHeading: { es: 'Funciones', en: 'Responsibilities' },
   close: { es: 'Cerrar', en: 'Close' },
   coursesHeading: { es: 'Mis cursos', en: 'My courses' },
+  coursesCode: { es: '// 04. APRENDIZAJE', en: '// 04. LEARNING' },
+  coursesTitle: { es: 'Cursos y Certificaciones', en: 'Courses & Certifications' },
   viewCredential: { es: 'Ver credencial', en: 'See credential' },
   switchToEnglish: { es: 'English', en: 'English' },
   switchToSpanish: { es: 'Español', en: 'Español' },
-  menuToggle: { es: 'Abrir o cerrar menú', en: 'Toggle navigation' }
+  menuToggle: { es: 'Abrir o cerrar menú', en: 'Toggle navigation' },
+  footerCredit: { es: 'Hecho con Angular • 2026', en: 'Built with Angular • 2026' },
+  previousProject: { es: 'Proyecto anterior', en: 'Previous project' },
+  nextProject: { es: 'Proyecto siguiente', en: 'Next project' }
 };
 
 /**
@@ -67,6 +89,11 @@ export function validatePortfolioContent(raw: unknown): ContentValidationResult 
     issues.push({ path: 'site.name', message: 'Site name is required.' });
   }
 
+  const brandHandle = asTrimmedString(siteRaw['brandHandle']) ?? '';
+  if (!brandHandle) {
+    issues.push({ path: 'site.brandHandle', message: 'Site brandHandle is required.' });
+  }
+
   const emails = asStringArray(siteRaw['emails'])
     .map((email) => email.trim())
     .filter(Boolean);
@@ -86,6 +113,11 @@ export function validatePortfolioContent(raw: unknown): ContentValidationResult 
     allowEmpty: false,
     allowLocalAsset: true
   });
+
+  const role = parseLocalizedString(profileRaw['role'], 'profile.role', issues);
+  const pitch = parseLocalizedString(profileRaw['pitch'], 'profile.pitch', issues);
+  const focusAreas =
+    parseLocalizedList(profileRaw['focusAreas'], 'profile.focusAreas', issues) ?? { es: [], en: [] };
 
   const paragraphs = asArray(profileRaw['paragraphs'])
     .map((paragraph, index) => parseLocalizedString(paragraph, `profile.paragraphs[${index}]`, issues))
@@ -128,12 +160,16 @@ export function validatePortfolioContent(raw: unknown): ContentValidationResult 
   const content: PortfolioContent = {
     site: {
       name: name ?? '',
+      brandHandle: brandHandle || (name ?? ''),
       emails,
       socialLinks
     },
     profile: {
       imageUrl: profileImageUrl ?? '',
-      paragraphs
+      role: role ?? { es: '', en: '' },
+      pitch: pitch ?? { es: '', en: '' },
+      paragraphs,
+      focusAreas
     },
     navigation,
     projects,
@@ -166,7 +202,10 @@ function parseSocialLink(value: unknown, path: string, issues: ContentValidation
   }
 
   const url = parseUrl(value['url'], `${path}.url`, issues, { allowLocalAsset: false });
-  const iconUrl = parseUrl(value['iconUrl'], `${path}.iconUrl`, issues, { allowLocalAsset: true });
+  const iconUrl = parseUrl(value['iconUrl'], `${path}.iconUrl`, issues, {
+    allowEmpty: true,
+    allowLocalAsset: true
+  });
   if (url === null || iconUrl === null) {
     return null;
   }
@@ -236,6 +275,10 @@ function parseProject(value: unknown, path: string, issues: ContentValidationIss
     return null;
   }
 
+  const technologies = asStringArray(value['technologies'])
+    .map((tech) => tech.trim())
+    .filter(Boolean);
+
   const rawIcons = asArray(value['technologyIconUrls']);
   const technologyIconUrls: string[] = [];
   rawIcons.forEach((icon, index) => {
@@ -251,6 +294,7 @@ function parseProject(value: unknown, path: string, issues: ContentValidationIss
     id,
     title,
     description,
+    technologies,
     technologyIconUrls,
     imageUrl,
     featured: Boolean(value['featured']),
@@ -363,7 +407,6 @@ function parseUiCopy(value: unknown, issues: ContentValidationIssue[]): UiCopy {
     if (parsed) {
       result[key] = parsed;
     }
-    // On failure, keep the cloned fallback; parseLocalizedString already recorded the issue.
   }
   return result;
 }
@@ -412,12 +455,6 @@ function parseSortOrder(value: unknown, path: string, issues: ContentValidationI
   return value;
 }
 
-/**
- * Returns:
- * - string for a valid URL
- * - '' when allowEmpty and value is empty
- * - null when invalid (issue already recorded)
- */
 function parseUrl(
   value: unknown,
   path: string,
@@ -469,12 +506,6 @@ function parseUrl(
   }
 }
 
-/**
- * Optional URL field:
- * - null => field omitted (valid empty/absent)
- * - string => valid URL
- * - undefined => invalid (rejected)
- */
 function parseOptionalUrl(
   value: unknown,
   path: string,
@@ -518,8 +549,14 @@ function uniqueById<T extends { id: string }>(
 
 function emptyPortfolio(): PortfolioContent {
   return {
-    site: { name: '', emails: [], socialLinks: [] },
-    profile: { imageUrl: '', paragraphs: [] },
+    site: { name: '', brandHandle: '', emails: [], socialLinks: [] },
+    profile: {
+      imageUrl: '',
+      role: { es: '', en: '' },
+      pitch: { es: '', en: '' },
+      paragraphs: [],
+      focusAreas: { es: [], en: [] }
+    },
     navigation: [],
     projects: [],
     experience: [],

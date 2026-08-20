@@ -1,0 +1,75 @@
+.site-header
+  position: sticky
+  top: 0
+  z-index: 40
+  background: var(--color-ink)
+  border-bottom: 1px solid var(--color-panel-border)
+
+.site-nav
+  display: flex
+  align-items: center
+  justify-content: space-between
+  padding: 24px var(--space-page-x)
+  gap: 24px
+
+.site-nav__brand
+  display: inline-flex
+  align-items: center
+  gap: 8px
+  text-decoration: none
+  color: #fff
+
+.site-nav__brand-brace
+  font-family: var(--font-mono)
+  font-size: 14px
+  font-weight: 700
+  color: var(--color-accent)
+
+.site-nav__brand-name
+  font-size: 18px
+  font-weight: 700
+
+.site-nav__right
+  display: flex
+  align-items: center
+  gap: 32px
+
+.site-nav__links
+  display: flex
+  list-style: none
+  margin: 0
+  padding: 0
+  gap: 24px
+
+.site-nav__link
+  font-size: 14px
+  font-weight: 500
+  color: var(--color-muted)
+  text-decoration: none
+  transition: color 0.2s ease
+
+  &:hover,
+  &.is-active
+    color: #fff
+
+.lang-toggle
+  display: inline-flex
+  padding: 2px
+  gap: 2px
+  border-radius: 20px
+  border: 1px solid var(--color-panel-border)
+  background: var(--color-panel)
+
+.lang-toggle__btn
+  border: 0
+  border-radius: 16px
+  padding: 4px 12px
+  background: transparent
+  color: var(--color-muted)
+  font-size: 11px
+  font-weight: 700
+  cursor: pointer
+
+  &.is-active
+    background: var(--color-accent)
+    color: var(--color-ink)

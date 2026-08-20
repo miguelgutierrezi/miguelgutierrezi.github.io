@@ -1,105 +1,108 @@
-hr
-  color: black
-  opacity: 1
-
-.about-info
-  border-radius: 15px
-  border: 1px solid black
-
-.contact
-  width: 100%
+.hero
   display: flex
-  margin-top: 20px
-  span
-    margin-left: auto
-    margin-right: auto
+  align-items: center
+  gap: 80px
+  padding: var(--space-section-y) var(--space-page-x)
+  background: var(--color-ink)
+  color: #fff
 
-.icons-container
-  width: 100%
-  margin-bottom: 20px
+.hero__left
+  flex: 1
   display: flex
-  .icons
-    margin-left: auto
-    margin-right: auto
-    order: 2
-    img
-      width: 40px
-      height: 40px
+  flex-direction: column
+  gap: 28px
+  min-width: 0
 
-@media (max-width: 575px)
-  .profile-img
-    width: 50%
-    display: flex
-    margin-left: auto
-    margin-right: auto
-    margin-bottom: 15px
+.hero__badge
+  display: inline-flex
+  align-items: center
+  gap: 8px
+  width: fit-content
+  padding: 6px 12px
+  border-radius: var(--radius-sm)
+  border: 1px solid var(--color-panel-border)
+  background: var(--color-panel)
+  font-family: var(--font-mono)
+  font-size: 12px
+  font-weight: 600
+  color: #F1F5F9
 
-  .about-info
-    width: 100%
-    border-radius: 15px
-    border: 1px solid black
-    h2
-      text-align: center
-      margin-left: auto
-      margin-right: auto
-      width: 100%
-    p
-      width: 90%
-      text-align: justify
-      text-justify: inter-word
-      margin-left: auto
-      margin-right: auto
+.hero__badge-dot
+  width: 8px
+  height: 8px
+  border-radius: 50%
+  background: var(--color-accent)
 
-@media (min-width: 576px) and (max-width: 768px)
-  .profile-img
-    width: 30%
-    display: flex
-    margin-left: auto
-    margin-right: auto
-    margin-bottom: 15px
+.hero__name
+  margin: 0
+  font-size: 64px
+  font-weight: 800
+  line-height: 1.05
+  letter-spacing: -0.02em
 
-  .about-info
-    width: 90%
-    border-radius: 15px
-    border: 1px solid black
-    margin-left: auto
-    margin-right: auto
-    h2
-      text-align: center
-      margin-left: auto
-      margin-right: auto
-      width: 100%
-    p
-      width: 90%
-      text-align: justify
-      text-justify: inter-word
-      margin-left: auto
-      margin-right: auto
+.hero__pitch
+  margin: 0
+  max-width: 42rem
+  font-size: 18px
+  line-height: 1.5
+  color: var(--color-muted)
 
-@media (min-width: 769px)
-  .container-fluid
-    width: 80%
-    display: flex
-    margin-left: auto
-    margin-right: auto
+.hero__actions
+  display: flex
+  flex-wrap: wrap
+  align-items: center
+  gap: 24px
 
-  .profile-img
-    margin-left: 10%
-    width: 20%
-    margin-right: 20px
+.hero__email
+  display: inline-flex
+  align-items: center
+  gap: 10px
+  padding: 12px 20px
+  border-radius: var(--radius-md)
+  background: var(--color-accent)
+  color: var(--color-ink)
+  font-size: 14px
+  font-weight: 600
+  text-decoration: none
+  transition: filter 0.2s ease
 
-  .about-info
-    width: 60%
-    border-radius: 15px
-    border: 1px solid black
-    h2
-      text-align: center
-      margin-left: auto
-      margin-right: auto
-      width: 100%
-    p
-      width: 90%
-      text-align: justify
-      text-justify: inter-word
-      margin-left: auto
-      margin-right: auto
+  &:hover
+    filter: brightness(1.05)
+
+  svg
+    width: 16px
+    height: 16px
+
+.hero__socials
+  display: flex
+  gap: 12px
+
+.hero__right
+  width: 380px
+  flex-shrink: 0
+  display: flex
+  justify-content: center
+
+.hero__photo-frame
+  width: 320px
+  height: 320px
+  border-radius: var(--radius-xl)
+  border: 2px solid var(--color-accent)
+  background: var(--color-panel)
+  overflow: hidden
+
+.hero__photo
+  width: 100%
+  height: 100%
+  object-fit: cover
+
+.about-body
+  display: flex
+  flex-direction: column
+  gap: 24px
+
+.about-body__text
+  margin: 0
+  font-size: 18px
+  line-height: 1.6
+  color: var(--color-body)

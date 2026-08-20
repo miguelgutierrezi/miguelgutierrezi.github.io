@@ -23,19 +23,29 @@ export interface SocialLink {
 
 export interface SiteSettings {
   name: string;
+  /** Short handle shown in the nav logo, e.g. `miguel.gutierrez`. */
+  brandHandle: string;
   emails: string[];
   socialLinks: SocialLink[];
 }
 
 export interface ProfileContent {
   imageUrl: string;
+  /** Role badge in the hero (e.g. Systems Engineer). */
+  role: LocalizedString;
+  /** Short hero pitch under the name. */
+  pitch: LocalizedString;
   paragraphs: LocalizedString[];
+  /** Focus / specialty tags under the about copy. */
+  focusAreas: LocalizedStringList;
 }
 
 export interface Project {
   id: string;
   title: string;
   description: LocalizedString;
+  /** Text technology labels for cards (preferred over icon URLs in the UI). */
+  technologies: string[];
   technologyIconUrls: string[];
   repositoryUrl?: string;
   demoUrl?: string;
@@ -72,18 +82,29 @@ export interface NavItem {
 /** Section titles, buttons, and chrome labels — not editorial CV body copy. */
 export interface UiCopy {
   profileHeading: LocalizedString;
+  aboutCode: LocalizedString;
+  aboutTitle: LocalizedString;
   emailLabel: LocalizedString;
   projectsHeading: LocalizedString;
+  projectsCode: LocalizedString;
+  projectsTitle: LocalizedString;
   viewRepository: LocalizedString;
   experienceHeading: LocalizedString;
+  experienceCode: LocalizedString;
+  experienceTitle: LocalizedString;
   seeMore: LocalizedString;
   responsibilitiesHeading: LocalizedString;
   close: LocalizedString;
   coursesHeading: LocalizedString;
+  coursesCode: LocalizedString;
+  coursesTitle: LocalizedString;
   viewCredential: LocalizedString;
   switchToEnglish: LocalizedString;
   switchToSpanish: LocalizedString;
   menuToggle: LocalizedString;
+  footerCredit: LocalizedString;
+  previousProject: LocalizedString;
+  nextProject: LocalizedString;
 }
 
 export interface PortfolioContent {

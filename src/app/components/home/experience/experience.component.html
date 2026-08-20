@@ -1,32 +1,40 @@
-@if (selectedJob) {
-  <app-job-detail
-    class="alert-box"
-    [job]="selectedJob"
-    [language]="language"
-    [ui]="ui"
-    (closeAlert)="onCloseAlert()">
-  </app-job-detail>
-}
-@if (!selectedJob) {
-  <div>
-    <h1 class="text-center">{{ label('experienceHeading') }}</h1>
-    @for (job of experience; track job.id) {
-      <section class="custom-container">
-        <div class="custom-card">
-          <div class="img-container">
-            <img class="job-img" [src]="job.imageUrl" [alt]="job.company">
-          </div>
-          <div class="content">
-            <h5>{{ role(job) }}</h5>
-            <p>{{ job.company }} | {{ duration(job) }}</p>
-            <div class="btn-more">
-              <button class="btn btn-primary" (click)="onSelectJob(job)">
-                {{ label('seeMore') }}
-              </button>
+<section class="section-shell section-shell--muted" id="experience">
+  <div class="section-layout">
+    <header class="section-header">
+      <p class="section-code">{{ label('experienceCode') }}</p>
+      <h2 class="section-title">{{ label('experienceTitle') }}</h2>
+    </header>
+    <div class="section-body">
+      <ol class="timeline">
+        @for (job of experience; track job.id; let last = $last) {
+          <li class="timeline__item">
+            <div class="timeline__rail" aria-hidden="true">
+              <span class="timeline__dot"></span>
+              @if (!last) {
+                <span class="timeline__line"></span>
+              }
             </div>
-          </div>
-        </div>
-      </section>
-    }
+            <article class="timeline__content">
+              <header class="timeline__header">
+                <h3 class="timeline__role">{{ role(job) }}</h3>
+                <p class="timeline__meta">
+                  <span class="timeline__company">{{ job.company }}</span>
+                  <span class="timeline__sep" aria-hidden="true">|</span>
+                  <span class="timeline__duration">{{ duration(job) }}</span>
+                </p>
+              </header>
+              <ul class="timeline__bullets">
+                @for (item of responsibilities(job); track item) {
+                  <li>
+                    <span class="timeline__chevron" aria-hidden="true">&gt;</span>
+                    <span>{{ item }}</span>
+                  </li>
+                }
+              </ul>
+            </article>
+          </li>
+        }
+      </ol>
+    </div>
   </div>
-}
+</section>
