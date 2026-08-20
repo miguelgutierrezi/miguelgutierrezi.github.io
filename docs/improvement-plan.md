@@ -69,7 +69,7 @@ Next product focus: Phase 2 (UI modernization) on this model.
 - Desktop, tablet landscape (`max-width: 1279px`), tablet portrait (`max-width: 1023px`), and mobile (`max-width: 767px` / Figma `cv-mobile`) implemented from Figma.
 - Mobile: hamburger + fullscreen overlay (Figma `mobile-burger-menu-open` `4:12`, accent `#00F2FE`, slide-in/`translateX`), stacked hero (circular photo), experience as cards, projects carousel 1 card/page with swipe animation, centered footer.
 - Anchored sections `#about`, `#experience`, `#projects`, `#courses`. Footer holds contact (`#contact`) but is not listed in nav/burger.
-- **Project detail desktop + tablet landscape** (`/projects/:id`, Figma `4:678` / `4:1170`) implemented with typed `Project.detail` for all projects. Pending: tablet portrait + mobile project-detail frames; broader a11y/SEO polish and localizing remote assets.
+- **Project detail desktop + tablet L/P** (`/projects/:id`, Figma `4:678` / `4:1170` / `4:1019`) implemented with typed `Project.detail` for all projects. Pending: mobile project-detail frame; broader a11y/SEO polish and localizing remote assets.
 
 ### Phase 3: CMS integration (product requirement)
 
