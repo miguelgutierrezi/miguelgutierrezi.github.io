@@ -1,0 +1,30 @@
+---
+description: CI/CD con GitHub Actions y Firebase Hosting
+globs: .github/workflows/**/*,firebase.json,.firebaserc
+alwaysApply: false
+---
+
+# Deploy y CI
+
+## Target
+
+- Firebase Hosting, project `miguel-angel-gutierrez-ibague`
+- Public dir: `dist/personal-presentation-miguel-gutierrez/browser`
+- SPA rewrite a `index.html`
+
+## GitHub Actions (CircleCI eliminado)
+
+- `ci.yml` — push/PR → `npm ci` + `npm run build`
+- `deploy.yml` — push `master` → build + live channel
+- `firebase-hosting-pull-request.yml` — PR → preview channel
+
+Secret requerido: `FIREBASE_SERVICE_ACCOUNT` (JSON de service account).
+
+## Validación
+
+- Gate principal: `npm run build`
+- No correr `npm test` / lint / e2e en CI hasta tener suite real
+
+## Manual
+
+`npm run build` luego `npx firebase-tools deploy --only hosting`

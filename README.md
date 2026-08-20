@@ -41,12 +41,28 @@ Agents and contributors should validate changes with `npm run build` (and a manu
 
 The project is configured for Firebase Hosting. The application builder writes to `dist/personal-presentation-miguel-gutierrez/browser` (configured in `firebase.json`).
 
+### Manual
+
 ```bash
 npm run build
 npx firebase-tools deploy --only hosting
 ```
 
-The hosting configuration rewrites application routes to `index.html` so Angular routing works when a route is opened directly.
+### GitHub Actions (replaces CircleCI)
+
+| Workflow | Trigger | Purpose |
+| --- | --- | --- |
+| `.github/workflows/ci.yml` | Push / PR to `master` | `npm ci` + `npm run build` (primary validation) |
+| `.github/workflows/deploy.yml` | Push to `master` (and manual) | Build + deploy to Firebase **live** |
+| `.github/workflows/firebase-hosting-pull-request.yml` | PR to `master` | Build + Firebase **preview** channel |
+
+Required GitHub secret:
+
+- `FIREBASE_SERVICE_ACCOUNT` — JSON of a Firebase/GCP service account with Hosting Admin (create via Firebase console or `firebase init hosting:github`)
+
+Project ID: `miguel-angel-gutierrez-ibague`
+
+The hosting configuration rewrites application routes to `index.html` so Angular routing works when a route is opened directly. CircleCI has been removed.
 
 ## Project structure
 
@@ -67,7 +83,7 @@ The current application is intentionally static, but the next evolution is docum
 2. Moving portfolio content into a typed, reusable local content model, with language preferences in `localStorage` (**done**).
 3. Modernizing the visual system, responsive layout, accessibility, and SEO.
 4. Integrating a headless CMS so CV and portfolio content can be updated online without code changes, with a local fallback and no write credentials in the client.
-5. Production hardening (CI, metadata, performance, and dependency health).
+5. Production hardening (CI, metadata, performance, and dependency health) — **CI migrated to GitHub Actions** (CircleCI removed); remaining: metadata/SEO/Lighthouse automation.
 6. Keeping Angular as the long-term framework for the portfolio.
 
 Supporting decisions are documented in:

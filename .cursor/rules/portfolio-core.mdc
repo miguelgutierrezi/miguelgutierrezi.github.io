@@ -20,9 +20,9 @@ Portfolio personal en Angular 22 (TypeScript + Sass), desplegado como sitio est�
 
 - `nvm use` → `npm install` → `npm start` — desarrollo
 - `npm run build` — **producción** (validación principal; `defaultConfiguration: production`)
-- `npm run watch` — build development con watch
+- CI: GitHub Actions (`.github/workflows/`); secret `FIREBASE_SERVICE_ACCOUNT` para deploy
 - Deploy: `npm run build` luego `npx firebase-tools deploy --only hosting`
-- **No existen** `npm run lint` ni `npm run e2e` (targets eliminados)
+- **No existen** `npm run lint` ni `npm run e2e`
 - **No ejecutar** `npm test` / `test:web` al validar cambios
 
 ## Principios permanentes

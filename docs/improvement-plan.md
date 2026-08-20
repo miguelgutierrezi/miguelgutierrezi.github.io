@@ -9,6 +9,8 @@ This document defines the roadmap for evolving the portfolio from a static Angul
 - Angular 22 single-page application (upgraded from Angular 11), application builder, TypeScript 6.
 - Node.js >= 24.15 documented in `.nvmrc` / `engines`.
 - Firebase Hosting deployment with an SPA rewrite to `index.html`; public dir `dist/.../browser`.
+- CI/CD: **GitHub Actions** (`.github/workflows/`) — build on PR/push; deploy live on `master`; preview channels on PRs. CircleCI removed.
+- Required secret: `FIREBASE_SERVICE_ACCOUNT`.
 - Portfolio content lives in a typed local content layer (`src/app/content/`) consumed via `ContentService`; components no longer own ES/EN datasets.
 - Language and section preferences persist in `localStorage` via `PreferencesService` (legacy `sessionStorage` values are migrated once).
 - Remote image and technology-logo URLs remain embedded in content data (asset localization is Phase 2).
@@ -82,10 +84,11 @@ A headless CMS is intentional product scope: update CV and portfolio content onl
 - Add a preview workflow before publishing content changes.
 - Never expose CMS write credentials in the Angular client bundle.
 
-### Phase 4: Production hardening
+### Phase 4: Production hardening — **partially started**
 
-- Add automated build, test, link, accessibility, and Lighthouse checks in CI.
-- Add metadata, Open Graph tags, sitemap, robots rules, structured data, and a custom 404 experience.
+- **Done:** replace CircleCI with GitHub Actions (`ci.yml`, `deploy.yml`, PR preview). Gate on `npm run build` only (no legacy unit/e2e).
+- Pending: metadata, Open Graph tags, sitemap, robots rules, structured data, and a custom 404 experience.
+- Pending: broader automated link/accessibility/Lighthouse checks in CI.
 - Review caching, image formats, security headers, and dependency health.
 
 ## Delivery order (summary)

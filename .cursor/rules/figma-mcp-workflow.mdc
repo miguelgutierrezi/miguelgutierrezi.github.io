@@ -1,0 +1,34 @@
+---
+description: Cómo usar diseños Figma (MCP) para Phase 2 multi-breakpoint
+alwaysApply: false
+---
+
+# Figma MCP — flujo de diseño → código
+
+## Setup
+
+- MCP remoto: `https://mcp.figma.com/mcp` (proyecto: `.cursor/mcp.json`; también puede estar en `~/.cursor/mcp.json`)
+- En Cursor: **Settings → MCP → Connect** junto a Figma y completar OAuth
+- No hace falta `FIGMA_API_KEY` con el servidor remoto (OAuth)
+
+## Cómo pasar contexto
+
+1. En Figma, selecciona el **frame** del breakpoint (Desktop / Tablet landscape / Tablet portrait / Mobile)
+2. Click derecho → **Copy link to selection** (incluye `node-id`)
+3. Pega ese link en el chat del agente y pide implementar ese frame
+
+## Orden de trabajo recomendado (este portfolio)
+
+1. **Desktop** — composición principal / design tokens
+2. **Tablet landscape** — ajustes de grid
+3. **Tablet portrait** — tipografía y spacing intermedios
+4. **Mobile** — nav, stacking, CTA
+
+Un prompt por frame/breakpoint; no mezclar los cuatro en un solo mensaje si el archivo es grande.
+
+## Reglas al implementar
+
+- Respetar tokens/variables de Figma cuando el MCP los exponga
+- Mapear al modelo tipado existente (`ContentService` / `PortfolioContent`); no hardcodear CV en templates
+- Mantener one-pager con anclas `#about|#projects|#experience|#courses|#contact`
+- Assets: preferir export controlado / `src/assets`; no depender de URLs efímeras de Figma en producción

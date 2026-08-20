@@ -23,15 +23,22 @@ Personal portfolio for Miguel Gutiérrez, built with Angular 22 (TypeScript + Sa
 - `npm run build` — production build (**primary validation**)
 - `npm run watch` — development configuration with watch
 - Deploy: `npm run build` then `npx firebase-tools deploy --only hosting` (or a global Firebase CLI)
-- There is **no** `npm run lint` or `npm run e2e` (removed with Protractor / old lint target)
+- CI/CD: GitHub Actions (`.github/workflows/ci.yml`, `deploy.yml`, PR preview). Secret: `FIREBASE_SERVICE_ACCOUNT`. CircleCI is removed.
 - Do **not** run `npm test` or `npm run test:web` unless the user explicitly asks — existing specs are incomplete/unreliable
+- There is **no** `npm run lint` or `npm run e2e`
 
 ## Product principles
 
 - Keep the site static, inexpensive to operate, and free of a custom backend unless a real need appears.
 - Angular is the long-term framework; modernize incrementally rather than rewriting.
 - One main page with anchored sections (`/#projects`, `#about`, `#experience`, `#courses`, `#contact`), not tabs that replace the visible content. Dedicated routes only for detail views (e.g. a single project/article).
-- Delivery order for larger work: stack modernization (done) → typed local content model (done) → UI → CMS → hardening.
+- Delivery order for larger work: stack modernization (done) → typed local content model (done) → UI (Phase 2; use Figma MCP with per-breakpoint frame links) → CMS → hardening.
+
+## Figma MCP (Phase 2)
+
+- Project config: `.cursor/mcp.json` → remote server `https://mcp.figma.com/mcp`
+- Connect via Cursor Settings → MCP → Connect (OAuth). Prefer frame links: in Figma, Copy link to selection for Desktop / Tablet L/P / Mobile, one prompt per breakpoint.
+- See `.cursor/rules/figma-mcp-workflow.mdc`
 
 ## Architecture rules
 

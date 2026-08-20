@@ -4,7 +4,7 @@
 
 This repo is a personal portfolio built with Angular 22, TypeScript, Sass, and Firebase Hosting. It is a static one-page site in Spanish and English with sections for profile, projects, experience, courses, and contact.
 
-Local toolchain: **Node.js >= 24.15** (see `.nvmrc`). Build uses the application builder with **production** as the default `npm run build` configuration; deploy from `dist/personal-presentation-miguel-gutierrez/browser`. Bootstrap CSS only — do not re-add jQuery/Bootstrap JS under `angular.json` `scripts` (sourcemap crash / exit 134). There are no `lint` or `e2e` npm scripts.
+Local toolchain: **Node.js >= 24.15** (see `.nvmrc`). Build uses the application builder with **production** as the default `npm run build` configuration; deploy from `dist/personal-presentation-miguel-gutierrez/browser`. CI is **GitHub Actions** (not CircleCI); live/preview deploys need secret `FIREBASE_SERVICE_ACCOUNT`. Bootstrap CSS only — do not re-add jQuery/Bootstrap JS under `angular.json` `scripts`. There are no `lint` or `e2e` npm scripts.
 
 ## Product principles
 
@@ -74,4 +74,8 @@ A change that updates only application code or `docs/` without reviewing these t
 - Before architectural changes, consult the docs in `docs/`.
 - Preserve the existing static hosting model unless the task explicitly changes it.
 - Prefer precise, surgical changes that fit the current codebase conventions.
-- Keep the implementation aligned with the documented delivery order: stack done → typed local content model done -> UI -> CMS -> hardening.
+- Keep the implementation aligned with the documented delivery order: stack done → typed local content model done -> UI (Figma MCP, per-breakpoint frames) -> CMS -> hardening.
+
+## Figma
+
+- MCP: `.cursor/mcp.json` with `https://mcp.figma.com/mcp`. Authenticate in Cursor Settings → MCP. Pass Figma frame links (Copy link to selection) for each breakpoint.
