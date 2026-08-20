@@ -1,13 +1,13 @@
 <div class="container-fluid mt-5">
   <img class="profile-img" [src]="imageUrl" alt="Miguel Gutiérrez">
   <section class="about-info">
-    <h2>{{ language === 'es' ? 'Sobre mí' : 'About me' }}</h2>
+    <h2>{{ label('profileHeading') }}</h2>
     <p>{{ paragraph(0) }}</p>
     <p>{{ paragraph(1) }}</p>
   </section>
 </div>
 <div class="contact">
-  <span class="text-center">{{ language === 'es' ? 'Correo' : 'Email' }}: {{ emails.join(' - ') }}</span>
+  <span class="text-center">{{ label('emailLabel') }}: {{ emails.join(' - ') }}</span>
 </div>
 <div class="icons-container">
   <br>

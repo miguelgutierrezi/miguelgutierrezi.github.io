@@ -3,12 +3,13 @@
     class="alert-box"
     [job]="selectedJob"
     [language]="language"
+    [ui]="ui"
     (closeAlert)="onCloseAlert()">
   </app-job-detail>
 }
 @if (!selectedJob) {
   <div>
-    <h1 class="text-center">{{ language === 'es' ? 'Experiencia laboral' : 'Professional History' }}</h1>
+    <h1 class="text-center">{{ label('experienceHeading') }}</h1>
     @for (job of experience; track job.id) {
       <section class="custom-container">
         <div class="custom-card">
@@ -20,7 +21,7 @@
             <p>{{ job.company }} | {{ duration(job) }}</p>
             <div class="btn-more">
               <button class="btn btn-primary" (click)="onSelectJob(job)">
-                {{ language === 'es' ? 'Ver más' : 'See more' }}
+                {{ label('seeMore') }}
               </button>
             </div>
           </div>

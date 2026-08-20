@@ -49,24 +49,18 @@ Primary validation for Phase 0 closure: a clean, reproducible `npm run build` (e
 
 Next focus: Phase 1 (typed local content model).
 
-### Phase 1: Content architecture — **in progress / foundation done**
+### Phase 1: Content architecture — **done**
 
-Create one typed content layer that both the UI and a future CMS can share.
+Typed content layer shared by the UI and a future CMS.
 
-Done in the codebase:
-
-- Typed models in `src/app/models/portfolio.models.ts` (`PortfolioContent`, profile, project, experience, course, navigation, preferences).
-- Local content layer in `src/app/content/portfolio.content.ts` with localized fields and stable IDs (no parallel ES/EN arrays).
+- Typed models in `src/app/models/portfolio.models.ts` (`PortfolioContent`, profile, project, experience, course, navigation, `UiCopy`, preferences).
+- Local content in `src/app/content/portfolio.content.ts` with localized fields and stable IDs (no parallel ES/EN arrays).
+- Validation in `src/app/content/content-validator.ts`: accepts `unknown`, returns a **new** normalized `PortfolioContent` (never mutates the source), enforces unique IDs per collection, records an issue for every rejected entry (including invalid `sortOrder`), and validates external URLs with `new URL()` plus separate `assets/` local paths.
 - `ContentSource` + `LocalContentAdapter` + `ContentService` so components consume content instead of owning datasets.
 - `PreferencesService` with versioned `localStorage` (`language`, `section`) and one-time migration from legacy `sessionStorage`.
+- Section titles and chrome labels live in `PortfolioContent.ui` (not hard-coded in templates).
 
-Still open before Phase 1 is fully closed:
-
-- Stronger validation of required fields and external URLs.
-- Optional UI copy (section titles, button labels) moved fully into the content model.
-- Smoke-check language persistence across refresh in the browser.
-
-Next product focus after Phase 1 closure: Phase 2 (UI modernization) on this model.
+Next product focus: Phase 2 (UI modernization) on this model.
 
 ### Phase 2: UI modernization
 
@@ -97,7 +91,7 @@ A headless CMS is intentional product scope: update CV and portfolio content onl
 ## Delivery order (summary)
 
 1. Baseline + stack modernization — **done** (Angular 22 / Node 24)
-2. Typed local content model and preference persistence  
+2. Typed local content model and preference persistence — **done**
 3. UI modernization on that model  
 4. CMS for online CV/portfolio edits, with local fallback  
 5. Production hardening  

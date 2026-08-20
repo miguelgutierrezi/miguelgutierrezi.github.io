@@ -10,10 +10,10 @@ Fuente: `docs/architecture.md` y `docs/improvement-plan.md`.
 
 ## Estado
 
-- Modelos en `src/app/models/portfolio.models.ts`
+- Modelos en `src/app/models/portfolio.models.ts` (incluye `UiCopy`)
 - Contenido local en `src/app/content/portfolio.content.ts`
-- `ContentSource` → `LocalContentAdapter` → `ContentService`
-- Preferencias en `PreferencesService` (`localStorage`, codes `es`/`en`, sections `about|projects|experience|courses`)
+- Validación en `src/app/content/content-validator.ts`: entrada `unknown`, salida objeto **nuevo** (sin mutar fuente), IDs únicos por colección, issue en cada rechazo, URLs con `new URL()` + `assets/` local
+- Phase 1 **cerrada**; siguiente: UI modernization
 
 ## Límites
 

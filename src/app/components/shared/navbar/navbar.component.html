@@ -6,7 +6,7 @@
     (click)="toggleMenu()"
     [attr.aria-expanded]="menuOpen"
     aria-controls="navbarText"
-    aria-label="Toggle navigation">
+    [attr.aria-label]="menuToggleLabel()">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" [class.show]="menuOpen" id="navbarText">
@@ -19,12 +19,12 @@
     </ul>
     <button (click)="onChangeLanguage()" class="navbar-text btn">
       @if (language === 'en') {
-        <img style="width: 15px" src="https://ippon-shop.es/1072-large_default/bordado-bandera-espa%C3%B1a.jpg" alt="Flag">
+        <img style="width: 15px" src="https://ippon-shop.es/1072-large_default/bordado-bandera-espa%C3%B1a.jpg" alt="">
       }
       @if (language === 'es') {
-        <img style="width: 15px" src="https://educationatw.com/wp-content/uploads/2016/06/Bandera-USA.png" alt="Flag">
+        <img style="width: 15px" src="https://educationatw.com/wp-content/uploads/2016/06/Bandera-USA.png" alt="">
       }
-      {{ language === 'es' ? 'English' : 'Español' }}
+      {{ languageSwitchLabel() }}
     </button>
   </div>
 </nav>

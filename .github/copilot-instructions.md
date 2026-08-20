@@ -19,7 +19,7 @@ Local toolchain: **Node.js >= 24.15** (see `.nvmrc`). Build uses the application
 ## Architecture rules
 
 - Components should render and handle interaction, not own large content datasets.
-- Content should flow through typed models in `src/app/models/`, local data in `src/app/content/`, and `ContentService` / `ContentSource` (local adapter today; CMS adapter later).
+- Content should flow through typed models in `src/app/models/`, local data in `src/app/content/`, and `ContentService` / `ContentSource` (local adapter today; CMS adapter later). Validate remote/local payloads with `validatePortfolioContent(unknown)` which returns a new normalized object and never mutates the source.
 - Preferences (`language`, `section`) go through `PreferencesService` and `localStorage`, not ad-hoc `sessionStorage` in components.
 - Use stable IDs and localized fields instead of separate Spanish and English arrays.
 - Do not call CMS APIs directly from templates or individual section components.
@@ -74,4 +74,4 @@ A change that updates only application code or `docs/` without reviewing these t
 - Before architectural changes, consult the docs in `docs/`.
 - Preserve the existing static hosting model unless the task explicitly changes it.
 - Prefer precise, surgical changes that fit the current codebase conventions.
-- Keep the implementation aligned with the documented delivery order: stack done → typed local content model (foundation done) -> UI -> CMS -> hardening.
+- Keep the implementation aligned with the documented delivery order: stack done → typed local content model done -> UI -> CMS -> hardening.

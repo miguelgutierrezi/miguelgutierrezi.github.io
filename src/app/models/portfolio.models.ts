@@ -69,6 +69,23 @@ export interface NavItem {
   label: LocalizedString;
 }
 
+/** Section titles, buttons, and chrome labels — not editorial CV body copy. */
+export interface UiCopy {
+  profileHeading: LocalizedString;
+  emailLabel: LocalizedString;
+  projectsHeading: LocalizedString;
+  viewRepository: LocalizedString;
+  experienceHeading: LocalizedString;
+  seeMore: LocalizedString;
+  responsibilitiesHeading: LocalizedString;
+  close: LocalizedString;
+  coursesHeading: LocalizedString;
+  viewCredential: LocalizedString;
+  switchToEnglish: LocalizedString;
+  switchToSpanish: LocalizedString;
+  menuToggle: LocalizedString;
+}
+
 export interface PortfolioContent {
   site: SiteSettings;
   profile: ProfileContent;
@@ -76,6 +93,7 @@ export interface PortfolioContent {
   experience: Experience[];
   courses: Course[];
   navigation: NavItem[];
+  ui: UiCopy;
 }
 
 export interface UserPreferences {
@@ -89,3 +107,13 @@ export const DEFAULT_PREFERENCES: UserPreferences = {
   language: 'es',
   section: 'about'
 };
+
+export interface ContentValidationIssue {
+  path: string;
+  message: string;
+}
+
+export interface ContentValidationResult {
+  content: PortfolioContent;
+  issues: ContentValidationIssue[];
+}

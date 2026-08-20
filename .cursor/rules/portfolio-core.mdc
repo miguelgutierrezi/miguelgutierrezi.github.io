@@ -30,7 +30,7 @@ Portfolio personal en Angular 22 (TypeScript + Sass), desplegado como sitio est�
 - Mantener el sitio estático, barato de operar y sin backend propio salvo necesidad clara
 - Angular a largo plazo; modernizar de forma incremental
 - One-pager con anclas (`/#projects`), no tabs que reemplacen contenido
-- Orden: stack ✓ → modelo tipado ✓ (foundation) → UI → CMS → hardening
+- Orden: stack ✓ → modelo tipado ✓ → UI → CMS → hardening
 - CMS = editar CV online sin código; fallback local; sin tokens de escritura en el cliente
 - Tras **cualquier** cambio, sincronizar o revisar `CLAUDE.md`, `.github/copilot-instructions.md` y `.cursor/rules/`
 

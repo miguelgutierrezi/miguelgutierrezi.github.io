@@ -19,6 +19,21 @@ export const LOCAL_PORTFOLIO_CONTENT: PortfolioContent = {
       }
     ]
   },
+  ui: {
+    profileHeading: { es: 'Sobre mí', en: 'About me' },
+    emailLabel: { es: 'Correo', en: 'Email' },
+    projectsHeading: { es: 'Mis proyectos', en: 'My projects' },
+    viewRepository: { es: 'Ver repositorio de GitHub', en: 'View GitHub repo' },
+    experienceHeading: { es: 'Experiencia laboral', en: 'Professional History' },
+    seeMore: { es: 'Ver más', en: 'See more' },
+    responsibilitiesHeading: { es: 'Funciones', en: 'Functions' },
+    close: { es: 'Cerrar', en: 'Close' },
+    coursesHeading: { es: 'Mis cursos', en: 'My courses' },
+    viewCredential: { es: 'Ver credencial', en: 'See credential' },
+    switchToEnglish: { es: 'English', en: 'English' },
+    switchToSpanish: { es: 'Español', en: 'Español' },
+    menuToggle: { es: 'Abrir o cerrar menú', en: 'Toggle navigation' }
+  },
   profile: {
     imageUrl: 'assets/Fotografia_Miguel_Gutierrez.jpg',
     paragraphs: [

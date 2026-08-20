@@ -8,7 +8,7 @@
     <section class="ml-3 mr-3">
       <label class="text-center">{{ duration() }}</label>
       <br>
-      <h6>{{ language === 'es' ? 'Funciones' : 'Functions' }}</h6>
+      <h6>{{ label('responsibilitiesHeading') }}</h6>
       <ul>
         @for (item of responsibilities(); track item) {
           <li>{{ item }}</li>
@@ -17,6 +17,6 @@
     </section>
   </section>
   <div class="alert-box-actions">
-    <button class="btn btn-primary" (click)="onClose()">{{ language === 'es' ? 'Cerrar' : 'Close' }}</button>
+    <button class="btn btn-primary" (click)="onClose()">{{ label('close') }}</button>
   </div>
 </div>

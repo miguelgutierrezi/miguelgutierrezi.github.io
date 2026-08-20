@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output, ChangeDetectionStrategy } from '@angular/core';
-import { LocaleCode, NavItem, SectionId, localize } from '../../../models/portfolio.models';
+import { LocaleCode, NavItem, SectionId, UiCopy, localize } from '../../../models/portfolio.models';
 import { ContentService } from '../../../services/content.service';
 import { PreferencesService } from '../../../services/preferences.service';
 
@@ -16,6 +16,7 @@ export class NavbarComponent implements OnInit {
   public menuOpen = false;
   public navigation: NavItem[] = [];
   public brandName = '';
+  public ui!: UiCopy;
 
   @Output() changeLanguage = new EventEmitter<void>();
   @Output() changeSection = new EventEmitter<SectionId>();
@@ -38,6 +39,7 @@ export class NavbarComponent implements OnInit {
     this.contentService.loadPortfolio().subscribe((content) => {
       this.brandName = content.site.name;
       this.navigation = content.navigation;
+      this.ui = content.ui;
     });
   }
 
@@ -57,6 +59,19 @@ export class NavbarComponent implements OnInit {
 
   public labelFor(item: NavItem): string {
     return localize(item.label, this.language);
+  }
+
+  public languageSwitchLabel(): string {
+    if (!this.ui) {
+      return '';
+    }
+    return this.language === 'es'
+      ? localize(this.ui.switchToEnglish, this.language)
+      : localize(this.ui.switchToSpanish, this.language);
+  }
+
+  public menuToggleLabel(): string {
+    return this.ui ? localize(this.ui.menuToggle, this.language) : 'Toggle navigation';
   }
 
   public isActive(section: SectionId): boolean {

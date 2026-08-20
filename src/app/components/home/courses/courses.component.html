@@ -1,4 +1,4 @@
-<h1 class="text-center">{{ language === 'es' ? 'Mis cursos' : 'My courses' }}</h1>
+<h1 class="text-center">{{ label('coursesHeading') }}</h1>
 @for (course of courses; track course.id) {
   <section class="custom-container">
     <div class="custom-card">
@@ -10,7 +10,7 @@
         <p>{{ course.institution }} - {{ date(course) }}</p>
         @if (course.credentialUrl) {
           <a [href]="course.credentialUrl" target="_blank" rel="noopener noreferrer">
-            {{ language === 'es' ? 'Ver credencial' : 'See credential' }}
+            {{ label('viewCredential') }}
           </a>
         }
       </div>
