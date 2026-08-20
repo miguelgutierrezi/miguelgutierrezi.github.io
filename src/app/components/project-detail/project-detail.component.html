@@ -14,8 +14,32 @@
           </svg>
           {{ label('backToProjects') }}
         </a>
-        <h1 class="pd-hero__title">{{ project.title }}</h1>
-        <p class="pd-hero__summary">{{ text(project.detail.summary) }}</p>
+        <div class="pd-hero__info">
+          <h1 class="pd-hero__title">{{ project.title }}</h1>
+          <p class="pd-hero__summary">{{ text(project.detail.summary) }}</p>
+        </div>
+        <dl class="pd-hero__meta">
+          <div class="pd-meta__row">
+            <dt>{{ label('metaRole') }}</dt>
+            <dd>{{ text(project.detail.role) }}</dd>
+          </div>
+          <div class="pd-meta__row">
+            <dt>{{ label('metaDuration') }}</dt>
+            <dd>{{ text(project.detail.duration) }}</dd>
+          </div>
+          <div class="pd-meta__row">
+            <dt>{{ label('metaTeam') }}</dt>
+            <dd>{{ text(project.detail.team) }}</dd>
+          </div>
+          <div class="pd-meta__row">
+            <dt>{{ label('metaYear') }}</dt>
+            <dd>{{ project.detail.year }}</dd>
+          </div>
+          <div class="pd-meta__row">
+            <dt>{{ label('metaClient') }}</dt>
+            <dd>{{ text(project.detail.client) }}</dd>
+          </div>
+        </dl>
       </section>
 
       <section class="pd-overview">
@@ -55,15 +79,17 @@
       </section>
 
       <section class="pd-section pd-section--surface">
-        <header class="pd-section__intro">
-          <p class="pd-section__code">{{ label('perspectiveCode') }}</p>
-          <h2 class="pd-section__title">{{ label('perspectiveTitle') }}</h2>
-        </header>
         <div class="pd-perspective">
-          <div class="pd-perspective__copy">
-            @for (block of project.detail.body; track $index) {
-              <p>{{ text(block) }}</p>
-            }
+          <div class="pd-perspective__main">
+            <header class="pd-section__intro">
+              <p class="pd-section__code">{{ label('perspectiveCode') }}</p>
+              <h2 class="pd-section__title">{{ label('perspectiveTitle') }}</h2>
+            </header>
+            <div class="pd-perspective__copy">
+              @for (block of project.detail.body; track $index) {
+                <p>{{ text(block) }}</p>
+              }
+            </div>
           </div>
           <div class="pd-perspective__tech">
             <h3>{{ label('keyTechnologies') }}</h3>
