@@ -17,6 +17,11 @@
   display: grid
   grid-template-columns: repeat(3, minmax(0, 1fr))
   gap: 24px
+  touch-action: pan-y
+  cursor: grab
+
+  &:active
+    cursor: grabbing
 
 .project-card
   display: flex

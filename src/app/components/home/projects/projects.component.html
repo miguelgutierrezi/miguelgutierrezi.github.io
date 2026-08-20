@@ -18,7 +18,11 @@
             </svg>
           </button>
 
-          <div class="projects-carousel__grid">
+          <div
+            class="projects-carousel__grid"
+            (pointerdown)="onSwipePointerDown($event)"
+            (pointerup)="onSwipePointerUp($event)"
+            (pointercancel)="onSwipePointerCancel()">
             @for (project of visibleProjects; track project.id) {
               <article class="project-card">
                 <div class="project-card__top">

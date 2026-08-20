@@ -15,6 +15,9 @@ export class ProjectsComponent implements OnInit {
   public ui!: UiCopy;
   public pageIndex = 0;
   private readonly pageSize = 3;
+  private readonly swipeThresholdPx = 48;
+  private swipeStartX: number | null = null;
+  private swipeStartY: number | null = null;
 
   constructor(private readonly contentService: ContentService) {}
 
@@ -63,11 +66,48 @@ export class ProjectsComponent implements OnInit {
     this.pageIndex = Math.max(0, Math.min(page, this.pageCount - 1));
   }
 
+  public onSwipePointerDown(event: PointerEvent): void {
+    if (this.pageCount <= 1) {
+      return;
+    }
+    this.swipeStartX = event.clientX;
+    this.swipeStartY = event.clientY;
+  }
+
+  public onSwipePointerUp(event: PointerEvent): void {
+    if (this.swipeStartX === null || this.swipeStartY === null) {
+      return;
+    }
+
+    const dx = event.clientX - this.swipeStartX;
+    const dy = event.clientY - this.swipeStartY;
+    this.clearSwipe();
+
+    if (Math.abs(dx) < this.swipeThresholdPx || Math.abs(dx) <= Math.abs(dy)) {
+      return;
+    }
+
+    if (dx < 0) {
+      this.next();
+    } else {
+      this.prev();
+    }
+  }
+
+  public onSwipePointerCancel(): void {
+    this.clearSwipe();
+  }
+
   public description(project: Project): string {
     return localize(project.description, this.language);
   }
 
   public label(key: keyof UiCopy): string {
     return this.ui ? localize(this.ui[key], this.language) : '';
+  }
+
+  private clearSwipe(): void {
+    this.swipeStartX = null;
+    this.swipeStartY = null;
   }
 }
