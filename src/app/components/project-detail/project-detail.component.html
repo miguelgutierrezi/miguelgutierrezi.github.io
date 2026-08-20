@@ -1,0 +1,272 @@
+@if (project) {
+  <div class="project-detail">
+    <app-navbar
+      (changeLanguage)="onChangeLanguage($event)"
+      (changeSection)="onChangeSection()">
+    </app-navbar>
+
+    <main>
+      <section class="pd-hero">
+        <a class="pd-back" routerLink="/home" fragment="projects">
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19 12H5"></path>
+            <path d="M12 19l-7-7 7-7"></path>
+          </svg>
+          {{ label('backToProjects') }}
+        </a>
+        <h1 class="pd-hero__title">{{ project.title }}</h1>
+        <p class="pd-hero__summary">{{ text(project.detail.summary) }}</p>
+      </section>
+
+      <section class="pd-overview">
+        <div class="pd-overview__media">
+          <img
+            [src]="project.imageUrl"
+            [alt]="project.title"
+            width="960"
+            height="540"
+            loading="eager">
+        </div>
+        <aside class="pd-overview__meta">
+          <h2 class="pd-overview__heading">{{ label('projectDetailsHeading') }}</h2>
+          <dl class="pd-meta">
+            <div class="pd-meta__row">
+              <dt>{{ label('metaRole') }}</dt>
+              <dd>{{ text(project.detail.role) }}</dd>
+            </div>
+            <div class="pd-meta__row">
+              <dt>{{ label('metaDuration') }}</dt>
+              <dd>{{ text(project.detail.duration) }}</dd>
+            </div>
+            <div class="pd-meta__row">
+              <dt>{{ label('metaTeam') }}</dt>
+              <dd>{{ text(project.detail.team) }}</dd>
+            </div>
+            <div class="pd-meta__row">
+              <dt>{{ label('metaYear') }}</dt>
+              <dd>{{ project.detail.year }}</dd>
+            </div>
+            <div class="pd-meta__row">
+              <dt>{{ label('metaClient') }}</dt>
+              <dd>{{ text(project.detail.client) }}</dd>
+            </div>
+          </dl>
+        </aside>
+      </section>
+
+      <section class="pd-section pd-section--surface">
+        <header class="pd-section__intro">
+          <p class="pd-section__code">{{ label('perspectiveCode') }}</p>
+          <h2 class="pd-section__title">{{ label('perspectiveTitle') }}</h2>
+        </header>
+        <div class="pd-perspective">
+          <div class="pd-perspective__copy">
+            @for (block of project.detail.body; track $index) {
+              <p>{{ text(block) }}</p>
+            }
+          </div>
+          <div class="pd-perspective__tech">
+            <h3>{{ label('keyTechnologies') }}</h3>
+            <div class="pd-tags">
+              @for (tech of project.technologies; track tech) {
+                <span class="pd-tag">{{ tech }}</span>
+              }
+            </div>
+          </div>
+        </div>
+      </section>
+
+      @if (project.detail.features.length) {
+        <section class="pd-section">
+          <header class="pd-section__intro">
+            <p class="pd-section__code">{{ label('capabilitiesCode') }}</p>
+            <h2 class="pd-section__title">{{ label('capabilitiesTitle') }}</h2>
+          </header>
+          <div class="pd-features">
+            @for (feature of project.detail.features; track feature.id) {
+              <article class="pd-feature">
+                <span class="pd-feature__icon" aria-hidden="true">
+                  @switch (feature.icon) {
+                    @case ('shield') {
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 3l8 4v5c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V7l8-4z"></path>
+                        <path d="M9 12l2 2 4-4"></path>
+                      </svg>
+                    }
+                    @case ('bell') {
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 8a6 6 0 1 1 12 0c0 7 3 7 3 7H3s3 0 3-7"></path>
+                        <path d="M10 18a2 2 0 0 0 4 0"></path>
+                      </svg>
+                    }
+                    @case ('terminal') {
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+                        <path d="M7 9l3 3-3 3"></path>
+                        <path d="M12 15h5"></path>
+                      </svg>
+                    }
+                    @case ('users') {
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                      </svg>
+                    }
+                    @case ('api') {
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M4 7h6v10H4z"></path>
+                        <path d="M14 7h6v4h-6z"></path>
+                        <path d="M14 13h6v4h-6z"></path>
+                      </svg>
+                    }
+                    @case ('mobile') {
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="7" y="2" width="10" height="20" rx="2"></rect>
+                        <path d="M11 18h2"></path>
+                      </svg>
+                    }
+                    @case ('database') {
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <ellipse cx="12" cy="5" rx="8" ry="3"></ellipse>
+                        <path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5"></path>
+                        <path d="M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"></path>
+                      </svg>
+                    }
+                    @default {
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="16 18 22 12 16 6"></polyline>
+                        <polyline points="8 6 2 12 8 18"></polyline>
+                      </svg>
+                    }
+                  }
+                </span>
+                <h3 class="pd-feature__title">{{ text(feature.title) }}</h3>
+                <p class="pd-feature__desc">{{ text(feature.description) }}</p>
+              </article>
+            }
+          </div>
+        </section>
+      }
+
+      @if (project.detail.gallery.length) {
+        <section class="pd-section pd-section--surface">
+          <header class="pd-section__intro">
+            <p class="pd-section__code">{{ label('interfaceCode') }}</p>
+            <h2 class="pd-section__title">{{ label('interfaceTitle') }}</h2>
+          </header>
+          <div class="pd-gallery">
+            @for (item of project.detail.gallery; track item.id) {
+              <figure class="pd-gallery__item">
+                <div class="pd-gallery__frame">
+                  <img [src]="item.imageUrl" [alt]="text(item.title)" width="640" height="400" loading="lazy">
+                </div>
+                <figcaption>
+                  <strong>{{ text(item.title) }}</strong>
+                  <span>{{ text(item.caption) }}</span>
+                </figcaption>
+              </figure>
+            }
+          </div>
+        </section>
+      }
+
+      <section class="pd-actions">
+        <div class="pd-actions__ctas">
+          @if (project.repositoryUrl) {
+            <a
+              class="pd-btn pd-btn--primary"
+              [href]="project.repositoryUrl"
+              target="_blank"
+              rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" width="18" height="18">
+                <path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.52 2.87 8.35 6.84 9.7.5.1.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.27 2.75 1.05A9.3 9.3 0 0 1 12 6.8c.85 0 1.71.12 2.51.35 1.91-1.32 2.75-1.05 2.75-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.95.68 1.92 0 1.38-.01 2.49-.01 2.83 0 .26.18.59.69.48A10.03 10.03 0 0 0 22 12.26C22 6.58 17.52 2 12 2z"/>
+              </svg>
+              {{ label('viewGithub') }}
+            </a>
+          }
+          @if (project.demoUrl) {
+            <a
+              class="pd-btn pd-btn--ghost"
+              [href]="project.demoUrl"
+              target="_blank"
+              rel="noopener noreferrer">
+              <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+                <circle cx="12" cy="12" r="9"></circle>
+                <path d="M3 12h18"></path>
+                <path d="M12 3a14 14 0 0 1 0 18"></path>
+                <path d="M12 3a14 14 0 0 0 0 18"></path>
+              </svg>
+              {{ label('viewLiveDemo') }}
+            </a>
+          }
+        </div>
+
+        <div class="pd-pager">
+          @if (previous) {
+            <a class="pd-pager__link" [routerLink]="['/projects', previous.id]">
+              <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M15 18l-6-6 6-6"></path>
+              </svg>
+              <span>
+                <small>{{ label('previousProject') }}</small>
+                <strong>{{ previous.title }}</strong>
+              </span>
+            </a>
+          } @else {
+            <span></span>
+          }
+          @if (next) {
+            <a class="pd-pager__link pd-pager__link--next" [routerLink]="['/projects', next.id]">
+              <span>
+                <small>{{ label('nextProject') }}</small>
+                <strong>{{ next.title }}</strong>
+              </span>
+              <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 18l6-6-6-6"></path>
+              </svg>
+            </a>
+          }
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer" id="contact">
+      <p class="site-footer__name">{{ siteName }}</p>
+      <div class="site-footer__aside">
+        @if (primaryEmail) {
+          <a class="site-footer__email" [href]="'mailto:' + primaryEmail">{{ primaryEmail }}</a>
+        }
+        <div class="site-footer__socials">
+          @for (link of socialLinks; track link.id) {
+            <a
+              [href]="link.url"
+              [attr.target]="isExternal(link.url) ? '_blank' : null"
+              [attr.rel]="isExternal(link.url) ? 'noopener noreferrer' : null"
+              [attr.aria-label]="link.label">
+              @if (link.id === 'github') {
+                <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" width="16" height="16">
+                  <path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.52 2.87 8.35 6.84 9.7.5.1.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.27 2.75 1.05A9.3 9.3 0 0 1 12 6.8c.85 0 1.71.12 2.51.35 1.91-1.32 2.75-1.05 2.75-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.95.68 1.92 0 1.38-.01 2.49-.01 2.83 0 .26.18.59.69.48A10.03 10.03 0 0 0 22 12.26C22 6.58 17.52 2 12 2z"/>
+                </svg>
+              } @else if (link.id === 'linkedin') {
+                <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" width="16" height="16">
+                  <path d="M6.94 8.5H3.56V20h3.38V8.5zM5.25 4a1.96 1.96 0 1 0 0 3.92 1.96 1.96 0 0 0 0-3.92zM20.44 20h-3.37v-5.6c0-1.34-.02-3.06-1.86-3.06-1.87 0-2.15 1.46-2.15 2.96V20h-3.37V8.5h3.24v1.57h.05c.45-.85 1.55-1.75 3.19-1.75 3.41 0 4.04 2.25 4.04 5.17V20z"/>
+                </svg>
+              } @else if (link.id === 'phone') {
+                <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="16" height="16">
+                  <path d="M14.08 15.86c-.18.05-.38.03-.55-.05-2.31-1.14-4.19-3.01-5.32-5.32-.08-.17-.11-.37-.06-.56.04-.19.15-.35.3-.47l.39-.29c.21-.15.38-.35.49-.58.12-.23.18-.49.18-.74V5.33c0-.44-.18-.86-.49-1.18-.31-.31-.74-.49-1.18-.49H5.33c-.44 0-.86.18-1.18.49-.31.32-.49.74-.49 1.18 0 3.98 1.58 7.79 4.39 10.61 2.82 2.81 6.63 4.39 10.61 4.39.44 0 .86-.18 1.18-.49.31-.32.49-.74.49-1.18v-2.5c0-.44-.18-.86-.49-1.18-.32-.31-.74-.49-1.18-.49h-2.5c-.26 0-.51.06-.74.18-.23.11-.43.28-.58.49l-.29.39c-.12.15-.24.27-.39.31z"/>
+                </svg>
+              } @else if (link.id === 'whatsapp') {
+                <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="16" height="16">
+                  <path d="M4.57 16.59c.07-.32.04-.66-.08-.97A7.5 7.5 0 1 1 12 19.5a7.45 7.45 0 0 1-3.3-.77c-.29-.11-.61-.14-.91-.08l-2.84.83a.75.75 0 0 1-.94-.94l.88-2.73z"/>
+                </svg>
+              }
+            </a>
+          }
+        </div>
+      </div>
+      <p class="site-footer__credit">{{ footerCredit }}</p>
+    </footer>
+  </div>
+}

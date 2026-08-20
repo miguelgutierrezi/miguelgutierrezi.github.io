@@ -8,6 +8,9 @@ import {
   NavItem,
   PortfolioContent,
   Project,
+  ProjectDetail,
+  ProjectFeature,
+  ProjectGalleryItem,
   SectionId,
   SocialLink,
   UiCopy
@@ -39,7 +42,23 @@ const UI_KEYS: (keyof UiCopy)[] = [
   'menuToggle',
   'footerCredit',
   'previousProject',
-  'nextProject'
+  'nextProject',
+  'backToProjects',
+  'projectDetailsHeading',
+  'perspectiveCode',
+  'perspectiveTitle',
+  'capabilitiesCode',
+  'capabilitiesTitle',
+  'interfaceCode',
+  'interfaceTitle',
+  'keyTechnologies',
+  'viewGithub',
+  'viewLiveDemo',
+  'metaRole',
+  'metaDuration',
+  'metaTeam',
+  'metaYear',
+  'metaClient'
 ];
 
 const UI_FALLBACK: UiCopy = {
@@ -66,7 +85,23 @@ const UI_FALLBACK: UiCopy = {
   menuToggle: { es: 'Abrir o cerrar menú', en: 'Toggle navigation' },
   footerCredit: { es: 'Hecho con Angular • 2026', en: 'Built with Angular • 2026' },
   previousProject: { es: 'Proyecto anterior', en: 'Previous project' },
-  nextProject: { es: 'Proyecto siguiente', en: 'Next project' }
+  nextProject: { es: 'Proyecto siguiente', en: 'Next project' },
+  backToProjects: { es: 'Volver a proyectos', en: 'Back to projects' },
+  projectDetailsHeading: { es: 'Detalles del Proyecto', en: 'Project Details' },
+  perspectiveCode: { es: '// 01. PERSPECTIVA', en: '// 01. PERSPECTIVE' },
+  perspectiveTitle: { es: 'Descripción e Impacto', en: 'Description & Impact' },
+  capabilitiesCode: { es: '// 02. CAPACIDADES', en: '// 02. CAPABILITIES' },
+  capabilitiesTitle: { es: 'Características Clave', en: 'Key Features' },
+  interfaceCode: { es: '// 03. INTERFAZ', en: '// 03. INTERFACE' },
+  interfaceTitle: { es: 'Capturas de Pantalla', en: 'Screenshots' },
+  keyTechnologies: { es: 'Tecnologías clave', en: 'Key technologies' },
+  viewGithub: { es: 'Ver Código en GitHub', en: 'View Code on GitHub' },
+  viewLiveDemo: { es: 'Ver Demo en Vivo', en: 'View Live Demo' },
+  metaRole: { es: 'Rol', en: 'Role' },
+  metaDuration: { es: 'Duración', en: 'Duration' },
+  metaTeam: { es: 'Equipo', en: 'Team' },
+  metaYear: { es: 'Año', en: 'Year' },
+  metaClient: { es: 'Cliente', en: 'Client' }
 };
 
 /**
@@ -293,6 +328,11 @@ function parseProject(value: unknown, path: string, issues: ContentValidationIss
     }
   });
 
+  const detail = parseProjectDetail(value['detail'], `${path}.detail`, issues);
+  if (!detail) {
+    return null;
+  }
+
   return {
     id,
     title,
@@ -302,9 +342,112 @@ function parseProject(value: unknown, path: string, issues: ContentValidationIss
     imageUrl,
     featured: Boolean(value['featured']),
     sortOrder,
+    detail,
     ...(repositoryUrl !== null ? { repositoryUrl } : {}),
     ...(demoUrl !== null ? { demoUrl } : {})
   };
+}
+
+function parseProjectDetail(
+  value: unknown,
+  path: string,
+  issues: ContentValidationIssue[]
+): ProjectDetail | null {
+  if (!isRecord(value)) {
+    issues.push({ path, message: 'Project detail must be an object.' });
+    return null;
+  }
+
+  const summary = parseLocalizedString(value['summary'], `${path}.summary`, issues);
+  const role = parseLocalizedString(value['role'], `${path}.role`, issues);
+  const duration = parseLocalizedString(value['duration'], `${path}.duration`, issues);
+  const team = parseLocalizedString(value['team'], `${path}.team`, issues);
+  const client = parseLocalizedString(value['client'], `${path}.client`, issues);
+  const year = asTrimmedString(value['year']);
+  if (!summary || !role || !duration || !team || !client || !year) {
+    if (!year) {
+      issues.push({ path: `${path}.year`, message: 'Project detail year is required.' });
+    }
+    return null;
+  }
+
+  const body = asArray(value['body'])
+    .map((paragraph, index) => parseLocalizedString(paragraph, `${path}.body[${index}]`, issues))
+    .filter((paragraph): paragraph is LocalizedString => paragraph !== null);
+  if (body.length === 0) {
+    issues.push({ path: `${path}.body`, message: 'Project detail requires at least one body paragraph.' });
+    return null;
+  }
+
+  const features = uniqueById(
+    asArray(value['features'])
+      .map((feature, index) => parseProjectFeature(feature, `${path}.features[${index}]`, issues))
+      .filter((feature): feature is ProjectFeature => feature !== null),
+    `${path}.features`,
+    issues
+  );
+
+  const gallery = uniqueById(
+    asArray(value['gallery'])
+      .map((item, index) => parseProjectGalleryItem(item, `${path}.gallery[${index}]`, issues))
+      .filter((item): item is ProjectGalleryItem => item !== null),
+    `${path}.gallery`,
+    issues
+  );
+
+  return { summary, role, duration, team, year, client, body, features, gallery };
+}
+
+function parseProjectFeature(
+  value: unknown,
+  path: string,
+  issues: ContentValidationIssue[]
+): ProjectFeature | null {
+  if (!isRecord(value)) {
+    issues.push({ path, message: 'Project feature must be an object.' });
+    return null;
+  }
+
+  const id = asTrimmedString(value['id']);
+  const icon = asTrimmedString(value['icon']) || 'code';
+  if (!id) {
+    issues.push({ path, message: 'Project feature requires id.' });
+    return null;
+  }
+
+  const title = parseLocalizedString(value['title'], `${path}.title`, issues);
+  const description = parseLocalizedString(value['description'], `${path}.description`, issues);
+  if (!title || !description) {
+    return null;
+  }
+
+  return { id, icon, title, description };
+}
+
+function parseProjectGalleryItem(
+  value: unknown,
+  path: string,
+  issues: ContentValidationIssue[]
+): ProjectGalleryItem | null {
+  if (!isRecord(value)) {
+    issues.push({ path, message: 'Project gallery item must be an object.' });
+    return null;
+  }
+
+  const id = asTrimmedString(value['id']);
+  if (!id) {
+    issues.push({ path, message: 'Project gallery item requires id.' });
+    return null;
+  }
+
+  const imageUrl = parseUrl(value['imageUrl'], `${path}.imageUrl`, issues, { allowLocalAsset: true });
+  const title = parseLocalizedString(value['title'], `${path}.title`, issues);
+  const caption = parseLocalizedString(value['caption'], `${path}.caption`, issues);
+  if (imageUrl === null || !title || !caption) {
+    return null;
+  }
+
+  return { id, imageUrl, title, caption };
 }
 
 function parseExperience(value: unknown, path: string, issues: ContentValidationIssue[]): Experience | null {

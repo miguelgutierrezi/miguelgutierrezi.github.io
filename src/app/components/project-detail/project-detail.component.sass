@@ -1,0 +1,311 @@
+.pd-hero
+  padding: 80px
+  background: var(--color-ink)
+  color: #fff
+  display: flex
+  flex-direction: column
+  gap: 24px
+
+.pd-back
+  display: inline-flex
+  align-items: center
+  gap: 8px
+  width: fit-content
+  font-family: var(--font-mono)
+  font-size: 14px
+  font-weight: 600
+  color: var(--color-accent)
+  text-decoration: none
+  text-transform: uppercase
+
+  svg
+    width: 14px
+    height: 14px
+
+  &:hover
+    color: var(--color-focus)
+
+.pd-hero__title
+  margin: 0
+  font-size: 48px
+  font-weight: 800
+  line-height: 1.1
+
+.pd-hero__summary
+  margin: 0
+  max-width: 52rem
+  font-size: 18px
+  line-height: 1.5
+  color: var(--color-muted)
+
+.pd-overview
+  display: grid
+  grid-template-columns: 1fr 380px
+  gap: 64px
+  padding: 80px
+  background: #fff
+  border-bottom: 1px solid var(--color-border)
+
+.pd-overview__media
+  border: 1px solid var(--color-border)
+  border-radius: 16px
+  background: var(--color-bg)
+  overflow: hidden
+  min-height: 420px
+
+  img
+    display: block
+    width: 100%
+    height: 420px
+    object-fit: cover
+
+.pd-overview__heading
+  margin: 0 0 32px
+  font-size: 22px
+  font-weight: 800
+  color: var(--color-ink-soft)
+
+.pd-meta
+  margin: 0
+  display: flex
+  flex-direction: column
+  gap: 20px
+
+.pd-meta__row
+  padding-bottom: 12px
+  border-bottom: 1px solid var(--color-border)
+  display: flex
+  flex-direction: column
+  gap: 6px
+
+  dt
+    margin: 0
+    font-family: var(--font-mono)
+    font-size: 11px
+    font-weight: 600
+    color: var(--color-subtle)
+    text-transform: uppercase
+
+  dd
+    margin: 0
+    font-size: 15px
+    font-weight: 600
+    color: var(--color-ink-soft)
+
+.pd-section
+  padding: 80px
+  background: #fff
+
+  &--surface
+    background: var(--color-bg)
+
+.pd-section__intro
+  margin-bottom: 48px
+  max-width: 280px
+
+.pd-section__code
+  margin: 0 0 12px
+  font-family: var(--font-mono)
+  font-size: 13px
+  font-weight: 600
+  color: var(--color-accent)
+
+.pd-section__title
+  margin: 0
+  font-size: 28px
+  font-weight: 800
+  color: var(--color-ink-soft)
+
+.pd-perspective
+  display: grid
+  grid-template-columns: 1fr 340px
+  gap: 48px
+
+.pd-perspective__copy
+  display: flex
+  flex-direction: column
+  gap: 20px
+
+  p
+    margin: 0
+    font-size: 16px
+    line-height: 1.6
+    color: var(--color-body)
+
+.pd-perspective__tech
+  h3
+    margin: 0 0 16px
+    font-size: 16px
+    font-weight: 700
+    color: var(--color-ink-soft)
+    text-transform: uppercase
+
+.pd-tags
+  display: flex
+  flex-wrap: wrap
+  gap: 8px
+
+.pd-tag
+  padding: 6px 12px
+  border: 1px solid var(--color-border)
+  border-radius: 6px
+  background: var(--color-bg)
+  font-family: var(--font-mono)
+  font-size: 12px
+  font-weight: 500
+  color: var(--color-body)
+
+.pd-features
+  display: grid
+  grid-template-columns: repeat(4, 1fr)
+  gap: 24px
+
+.pd-feature
+  padding: 24px
+  border: 1px solid var(--color-border)
+  border-radius: 12px
+  background: var(--color-bg)
+  display: flex
+  flex-direction: column
+  gap: 12px
+
+.pd-feature__icon
+  width: 40px
+  height: 40px
+  border-radius: 8px
+  background: rgba(6, 182, 212, 0.08)
+  color: var(--color-accent)
+  display: inline-flex
+  align-items: center
+  justify-content: center
+
+  svg
+    width: 20px
+    height: 20px
+
+.pd-feature__title
+  margin: 0
+  font-size: 18px
+  font-weight: 700
+  color: var(--color-ink-soft)
+
+.pd-feature__desc
+  margin: 0
+  font-size: 14px
+  line-height: 1.5
+  color: var(--color-body)
+
+.pd-gallery
+  display: grid
+  grid-template-columns: repeat(3, 1fr)
+  gap: 24px
+
+.pd-gallery__item
+  margin: 0
+  display: flex
+  flex-direction: column
+  gap: 16px
+
+.pd-gallery__frame
+  height: 220px
+  border: 1px solid var(--color-border)
+  border-radius: 8px
+  overflow: hidden
+  background: #fff
+
+  img
+    display: block
+    width: 100%
+    height: 100%
+    object-fit: cover
+
+.pd-gallery__item figcaption
+  display: flex
+  flex-direction: column
+  gap: 4px
+
+  strong
+    font-size: 15px
+    font-weight: 700
+    color: var(--color-ink-soft)
+
+  span
+    font-size: 13px
+    color: var(--color-subtle)
+
+.pd-actions
+  padding: 80px
+  background: #fff
+  border-top: 1px solid var(--color-border)
+  display: flex
+  flex-direction: column
+  gap: 48px
+
+.pd-actions__ctas
+  display: flex
+  justify-content: center
+  flex-wrap: wrap
+  gap: 16px
+
+.pd-btn
+  display: inline-flex
+  align-items: center
+  gap: 8px
+  padding: 12px 24px
+  border-radius: 8px
+  font-size: 15px
+  font-weight: 600
+  text-decoration: none
+
+  &--primary
+    background: var(--color-accent)
+    color: var(--color-ink)
+
+  &--ghost
+    background: var(--color-panel)
+    border: 1px solid var(--color-accent)
+    color: var(--color-accent)
+
+.pd-pager
+  display: flex
+  justify-content: space-between
+  align-items: center
+  gap: 24px
+  padding-top: 48px
+  border-top: 1px solid var(--color-border)
+
+.pd-pager__link
+  display: inline-flex
+  align-items: center
+  gap: 8px
+  text-decoration: none
+  color: var(--color-ink-soft)
+
+  svg
+    width: 14px
+    height: 14px
+    color: var(--color-subtle)
+    flex-shrink: 0
+
+  span
+    display: flex
+    flex-direction: column
+    gap: 2px
+
+  small
+    font-family: var(--font-mono)
+    font-size: 11px
+    font-weight: 600
+    color: var(--color-subtle)
+    text-transform: uppercase
+
+  strong
+    font-size: 15px
+    font-weight: 700
+
+  &--next
+    margin-left: auto
+    text-align: right
+
+  &:hover strong
+    color: var(--color-accent)

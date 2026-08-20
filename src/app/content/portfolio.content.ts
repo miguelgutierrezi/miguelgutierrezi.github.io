@@ -56,7 +56,23 @@ export const LOCAL_PORTFOLIO_CONTENT: PortfolioContent = {
     menuToggle: { es: 'Abrir o cerrar menú', en: 'Toggle navigation' },
     footerCredit: { es: 'Hecho con Angular • 2026', en: 'Built with Angular • 2026' },
     previousProject: { es: 'Proyecto anterior', en: 'Previous project' },
-    nextProject: { es: 'Proyecto siguiente', en: 'Next project' }
+    nextProject: { es: 'Proyecto siguiente', en: 'Next project' },
+    backToProjects: { es: 'Volver a proyectos', en: 'Back to projects' },
+    projectDetailsHeading: { es: 'Detalles del Proyecto', en: 'Project Details' },
+    perspectiveCode: { es: '// 01. PERSPECTIVA', en: '// 01. PERSPECTIVE' },
+    perspectiveTitle: { es: 'Descripción e Impacto', en: 'Description & Impact' },
+    capabilitiesCode: { es: '// 02. CAPACIDADES', en: '// 02. CAPABILITIES' },
+    capabilitiesTitle: { es: 'Características Clave', en: 'Key Features' },
+    interfaceCode: { es: '// 03. INTERFAZ', en: '// 03. INTERFACE' },
+    interfaceTitle: { es: 'Capturas de Pantalla', en: 'Screenshots' },
+    keyTechnologies: { es: 'Tecnologías clave', en: 'Key technologies' },
+    viewGithub: { es: 'Ver Código en GitHub', en: 'View Code on GitHub' },
+    viewLiveDemo: { es: 'Ver Demo en Vivo', en: 'View Live Demo' },
+    metaRole: { es: 'Rol', en: 'Role' },
+    metaDuration: { es: 'Duración', en: 'Duration' },
+    metaTeam: { es: 'Equipo', en: 'Team' },
+    metaYear: { es: 'Año', en: 'Year' },
+    metaClient: { es: 'Cliente', en: 'Client' }
   },
   profile: {
     imageUrl: 'assets/Fotografia_Miguel_Gutierrez.jpg',
@@ -109,7 +125,89 @@ export const LOCAL_PORTFOLIO_CONTENT: PortfolioContent = {
       repositoryUrl: 'https://github.com/miguelgutierrezi/NodeJS-Scheduler-Back',
       imageUrl: 'https://cdn.pixabay.com/photo/2018/03/13/11/18/timetable-3222252_1280.jpg',
       featured: true,
-      sortOrder: 1
+      sortOrder: 1,
+      detail: {
+        summary: {
+          es: 'API REST en Node.js para gestionar eventos, usuarios y operaciones de una agenda personal.',
+          en: 'Node.js REST API to manage events, users, and operations for a personal scheduler.'
+        },
+        role: {
+          es: 'Desarrollador backend',
+          en: 'Backend developer'
+        },
+        duration: {
+          es: '~3 meses',
+          en: '~3 months'
+        },
+        team: {
+          es: 'Proyecto individual',
+          en: 'Solo project'
+        },
+        year: '2019',
+        client: {
+          es: 'Proyecto personal',
+          en: 'Personal project'
+        },
+        body: [
+          {
+            es: 'Backend de una aplicación de agenda simple: endpoints para crear, listar, actualizar y eliminar eventos, con una capa de API pensada para consumirse desde un front Angular.',
+            en: 'Backend for a simple scheduler app: endpoints to create, list, update, and delete events, with an API layer designed to be consumed by an Angular front end.'
+          },
+          {
+            es: 'El objetivo fue practicar diseño de API REST, manejo de rutas y separación clara entre lógica de negocio y capa HTTP en Node.js y JavaScript.',
+            en: 'The goal was to practice REST API design, routing, and a clear separation between business logic and the HTTP layer in Node.js and JavaScript.'
+          }
+        ],
+        features: [
+          {
+            id: 'nsb-api',
+            icon: 'api',
+            title: { es: 'API REST', en: 'REST API' },
+            description: {
+              es: 'Endpoints CRUD para la administración de la agenda.',
+              en: 'CRUD endpoints for scheduler administration.'
+            }
+          },
+          {
+            id: 'nsb-events',
+            icon: 'bell',
+            title: { es: 'Gestión de eventos', en: 'Event management' },
+            description: {
+              es: 'Creación y actualización de citas y recordatorios.',
+              en: 'Create and update appointments and reminders.'
+            }
+          },
+          {
+            id: 'nsb-code',
+            icon: 'code',
+            title: { es: 'Node.js / JavaScript', en: 'Node.js / JavaScript' },
+            description: {
+              es: 'Servidor HTTP ligero y modular para el backend.',
+              en: 'Lightweight, modular HTTP server for the backend.'
+            }
+          },
+          {
+            id: 'nsb-terminal',
+            icon: 'terminal',
+            title: { es: 'Integración con el front', en: 'Front-end integration' },
+            description: {
+              es: 'Contrato de API listo para el cliente Angular Scheduler.',
+              en: 'API contract ready for the Angular Scheduler client.'
+            }
+          }
+        ],
+        gallery: [
+          {
+            id: 'nsb-cover',
+            imageUrl: 'https://cdn.pixabay.com/photo/2018/03/13/11/18/timetable-3222252_1280.jpg',
+            title: { es: 'Agenda / timetable', en: 'Schedule / timetable' },
+            caption: {
+              es: 'Imagen representativa del dominio de la agenda.',
+              en: 'Representative image of the scheduler domain.'
+            }
+          }
+        ]
+      }
     },
     {
       id: 'angular-scheduler-front',
@@ -129,7 +227,89 @@ export const LOCAL_PORTFOLIO_CONTENT: PortfolioContent = {
       repositoryUrl: 'https://github.com/miguelgutierrezi/Angular-Scheduler-Front',
       imageUrl: 'https://cdn.pixabay.com/photo/2018/03/13/11/18/timetable-3222252_1280.jpg',
       featured: true,
-      sortOrder: 2
+      sortOrder: 2,
+      detail: {
+        summary: {
+          es: 'Cliente Angular para administrar eventos de una agenda, consumiendo la API Node.js asociada.',
+          en: 'Angular client to manage scheduler events, consuming the related Node.js API.'
+        },
+        role: {
+          es: 'Desarrollador frontend',
+          en: 'Frontend developer'
+        },
+        duration: {
+          es: '~3 meses',
+          en: '~3 months'
+        },
+        team: {
+          es: 'Proyecto individual',
+          en: 'Solo project'
+        },
+        year: '2019',
+        client: {
+          es: 'Proyecto personal',
+          en: 'Personal project'
+        },
+        body: [
+          {
+            es: 'Interfaz web en Angular y TypeScript para listar y gestionar citas de una agenda simple, conectada al backend NodeJS Scheduler.',
+            en: 'Web UI in Angular and TypeScript to list and manage appointments for a simple scheduler, connected to the NodeJS Scheduler backend.'
+          },
+          {
+            es: 'Sirvió para consolidar componentes, formularios, servicios HTTP y estilos HTML/CSS en un flujo full stack con el repositorio hermano de la API.',
+            en: 'It helped consolidate components, forms, HTTP services, and HTML/CSS styling in a full-stack flow with the sibling API repository.'
+          }
+        ],
+        features: [
+          {
+            id: 'asf-ui',
+            icon: 'code',
+            title: { es: 'UI Angular', en: 'Angular UI' },
+            description: {
+              es: 'Vistas tipadas en TypeScript para la agenda.',
+              en: 'Typed TypeScript views for the scheduler.'
+            }
+          },
+          {
+            id: 'asf-api',
+            icon: 'api',
+            title: { es: 'Consumo de API', en: 'API consumption' },
+            description: {
+              es: 'Servicios HTTP hacia el backend Node.js.',
+              en: 'HTTP services against the Node.js backend.'
+            }
+          },
+          {
+            id: 'asf-events',
+            icon: 'bell',
+            title: { es: 'Administración de citas', en: 'Appointment admin' },
+            description: {
+              es: 'Alta, edición y consulta de eventos en pantalla.',
+              en: 'Create, edit, and browse events on screen.'
+            }
+          },
+          {
+            id: 'asf-users',
+            icon: 'users',
+            title: { es: 'Flujo de usuario', en: 'User flow' },
+            description: {
+              es: 'Navegación enfocada en tareas diarias de la agenda.',
+              en: 'Navigation focused on day-to-day scheduler tasks.'
+            }
+          }
+        ],
+        gallery: [
+          {
+            id: 'asf-cover',
+            imageUrl: 'https://cdn.pixabay.com/photo/2018/03/13/11/18/timetable-3222252_1280.jpg',
+            title: { es: 'Vista de agenda', en: 'Scheduler view' },
+            caption: {
+              es: 'Referencia visual del front de la agenda.',
+              en: 'Visual reference for the scheduler front end.'
+            }
+          }
+        ]
+      }
     },
     {
       id: 'angular-course-final-project',
@@ -149,7 +329,89 @@ export const LOCAL_PORTFOLIO_CONTENT: PortfolioContent = {
       repositoryUrl: 'https://github.com/miguelgutierrezi/Angular-Course-Final-Project',
       imageUrl: 'https://cdn.pixabay.com/photo/2016/05/06/12/25/cook-1375797_1280.jpg',
       featured: false,
-      sortOrder: 3
+      sortOrder: 3,
+      detail: {
+        summary: {
+          es: 'Proyecto final del curso Angular - The Complete Guide (Udemy / Academind), aplicando componentes, routing y RxJS.',
+          en: 'Final project for Angular - The Complete Guide (Udemy / Academind), applying components, routing, and RxJS.'
+        },
+        role: {
+          es: 'Estudiante / desarrollador frontend',
+          en: 'Student / frontend developer'
+        },
+        duration: {
+          es: 'Duración del curso',
+          en: 'Course duration'
+        },
+        team: {
+          es: 'Proyecto individual',
+          en: 'Solo project'
+        },
+        year: '2020',
+        client: {
+          es: 'Udemy — Angular The Complete Guide',
+          en: 'Udemy — Angular The Complete Guide'
+        },
+        body: [
+          {
+            es: 'Aplicación front construida como entrega práctica del curso de Angular: módulos, componentes, servicios y flujos reactivos con RxJS según el temario.',
+            en: 'Front-end app built as the course practical deliverable: modules, components, services, and reactive flows with RxJS following the syllabus.'
+          },
+          {
+            es: 'Reforzó fundamentos de Angular CLI, TypeScript tipado y patrones comunes de una SPA antes de llevarlos a proyectos laborales.',
+            en: 'It reinforced Angular CLI fundamentals, typed TypeScript, and common SPA patterns before applying them in professional work.'
+          }
+        ],
+        features: [
+          {
+            id: 'acf-angular',
+            icon: 'code',
+            title: { es: 'Angular + TypeScript', en: 'Angular + TypeScript' },
+            description: {
+              es: 'Estructura de app con componentes y tipado estricto.',
+              en: 'App structure with components and strong typing.'
+            }
+          },
+          {
+            id: 'acf-rxjs',
+            icon: 'api',
+            title: { es: 'RxJS', en: 'RxJS' },
+            description: {
+              es: 'Observables y flujos asíncronos del curso.',
+              en: 'Observables and async flows from the course.'
+            }
+          },
+          {
+            id: 'acf-ui',
+            icon: 'users',
+            title: { es: 'UI del caso de estudio', en: 'Case-study UI' },
+            description: {
+              es: 'Pantallas alineadas con el proyecto final del curso.',
+              en: 'Screens aligned with the course final project.'
+            }
+          },
+          {
+            id: 'acf-shield',
+            icon: 'shield',
+            title: { es: 'Buenas prácticas del curso', en: 'Course best practices' },
+            description: {
+              es: 'Organización de módulos y servicios según la guía.',
+              en: 'Module and service organization per the guide.'
+            }
+          }
+        ],
+        gallery: [
+          {
+            id: 'acf-cover',
+            imageUrl: 'https://cdn.pixabay.com/photo/2016/05/06/12/25/cook-1375797_1280.jpg',
+            title: { es: 'Proyecto del curso', en: 'Course project' },
+            caption: {
+              es: 'Imagen asociada al proyecto final de Angular.',
+              en: 'Image associated with the Angular final project.'
+            }
+          }
+        ]
+      }
     },
     {
       id: 'ionic-course-final-project',
@@ -170,7 +432,89 @@ export const LOCAL_PORTFOLIO_CONTENT: PortfolioContent = {
       repositoryUrl: 'https://github.com/miguelgutierrezi/Ionic-Course-Final-Project',
       imageUrl: 'https://cdn.pixabay.com/photo/2017/06/05/11/01/airport-2373727_1280.jpg',
       featured: false,
-      sortOrder: 4
+      sortOrder: 4,
+      detail: {
+        summary: {
+          es: 'App híbrida del curso Ionic (iOS, Android y web) con Angular y TypeScript.',
+          en: 'Hybrid app from the Ionic course (iOS, Android, and web) with Angular and TypeScript.'
+        },
+        role: {
+          es: 'Estudiante / desarrollador mobile',
+          en: 'Student / mobile developer'
+        },
+        duration: {
+          es: 'Duración del curso',
+          en: 'Course duration'
+        },
+        team: {
+          es: 'Proyecto individual',
+          en: 'Solo project'
+        },
+        year: '2020',
+        client: {
+          es: 'Udemy — Ionic & Angular (Academind)',
+          en: 'Udemy — Ionic & Angular (Academind)'
+        },
+        body: [
+          {
+            es: 'Proyecto final del curso de Ionic: aplicación multiplataforma sobre Angular, con componentes Ionic y flujos típicos de una app móvil/web.',
+            en: 'Final project for the Ionic course: a cross-platform Angular-based app using Ionic components and typical mobile/web flows.'
+          },
+          {
+            es: 'Permitió practicar Capacitor/cordova-style packaging mental model, navegación móvil y reutilización de conocimiento Angular en un stack híbrido.',
+            en: 'It was a chance to practice hybrid app navigation and reuse Angular knowledge in a hybrid stack.'
+          }
+        ],
+        features: [
+          {
+            id: 'icf-mobile',
+            icon: 'mobile',
+            title: { es: 'App híbrida', en: 'Hybrid app' },
+            description: {
+              es: 'Misma base para web, iOS y Android vía Ionic.',
+              en: 'Same codebase for web, iOS, and Android via Ionic.'
+            }
+          },
+          {
+            id: 'icf-angular',
+            icon: 'code',
+            title: { es: 'Angular + Ionic', en: 'Angular + Ionic' },
+            description: {
+              es: 'Componentes y routing del ecosistema Ionic.',
+              en: 'Components and routing from the Ionic ecosystem.'
+            }
+          },
+          {
+            id: 'icf-ui',
+            icon: 'users',
+            title: { es: 'UI móvil', en: 'Mobile UI' },
+            description: {
+              es: 'Pantallas orientadas a uso táctil y navegación app.',
+              en: 'Screens oriented to touch use and app navigation.'
+            }
+          },
+          {
+            id: 'icf-api',
+            icon: 'api',
+            title: { es: 'Integraciones del curso', en: 'Course integrations' },
+            description: {
+              es: 'Servicios y patrones enseñados en el temario.',
+              en: 'Services and patterns taught in the syllabus.'
+            }
+          }
+        ],
+        gallery: [
+          {
+            id: 'icf-cover',
+            imageUrl: 'https://cdn.pixabay.com/photo/2017/06/05/11/01/airport-2373727_1280.jpg',
+            title: { es: 'Proyecto Ionic', en: 'Ionic project' },
+            caption: {
+              es: 'Imagen representativa del proyecto final Ionic.',
+              en: 'Representative image for the Ionic final project.'
+            }
+          }
+        ]
+      }
     },
     {
       id: 'check-in-now',
@@ -187,7 +531,89 @@ export const LOCAL_PORTFOLIO_CONTENT: PortfolioContent = {
       repositoryUrl: 'https://github.com/IntroCompuMovil18302/CheckInNow',
       imageUrl: 'https://cdn.pixabay.com/photo/2017/06/05/11/01/airport-2373727_1280.jpg',
       featured: false,
-      sortOrder: 5
+      sortOrder: 5,
+      detail: {
+        summary: {
+          es: 'App Android nativa (Java) para check-in, desarrollada en la materia Introducción a la computación móvil.',
+          en: 'Native Android (Java) check-in app built for the Introducción a la computación móvil course.'
+        },
+        role: {
+          es: 'Desarrollador Android (equipo académico)',
+          en: 'Android developer (academic team)'
+        },
+        duration: {
+          es: '1 semestre',
+          en: '1 semester'
+        },
+        team: {
+          es: 'Equipo académico',
+          en: 'Academic team'
+        },
+        year: '2018',
+        client: {
+          es: 'Introducción a la computación móvil',
+          en: 'Introducción a la computación móvil'
+        },
+        body: [
+          {
+            es: 'CheckInNow es una aplicación Android en Java orientada a registrar check-ins, como entrega de la asignatura de computación móvil en la universidad.',
+            en: 'CheckInNow is a Java Android app focused on recording check-ins, delivered for the university mobile computing course.'
+          },
+          {
+            es: 'El trabajo en equipo permitió aplicar ciclo de vida de Activities, UI nativa y buenas prácticas básicas de apps móviles en un contexto académico.',
+            en: 'Teamwork applied Activity lifecycle, native UI, and basic mobile app practices in an academic setting.'
+          }
+        ],
+        features: [
+          {
+            id: 'cin-mobile',
+            icon: 'mobile',
+            title: { es: 'Android nativo', en: 'Native Android' },
+            description: {
+              es: 'Aplicación Java sobre Android Studio.',
+              en: 'Java app built with Android Studio.'
+            }
+          },
+          {
+            id: 'cin-checkin',
+            icon: 'bell',
+            title: { es: 'Check-in', en: 'Check-in' },
+            description: {
+              es: 'Flujo principal de registro / llegada.',
+              en: 'Primary check-in / arrival flow.'
+            }
+          },
+          {
+            id: 'cin-users',
+            icon: 'users',
+            title: { es: 'Trabajo en equipo', en: 'Teamwork' },
+            description: {
+              es: 'Desarrollo colaborativo del curso (repo IntroCompuMovil).',
+              en: 'Collaborative course development (IntroCompuMovil repo).'
+            }
+          },
+          {
+            id: 'cin-code',
+            icon: 'code',
+            title: { es: 'Java', en: 'Java' },
+            description: {
+              es: 'Lógica y pantallas en Java para Android.',
+              en: 'Logic and screens in Java for Android.'
+            }
+          }
+        ],
+        gallery: [
+          {
+            id: 'cin-cover',
+            imageUrl: 'https://cdn.pixabay.com/photo/2017/06/05/11/01/airport-2373727_1280.jpg',
+            title: { es: 'CheckInNow', en: 'CheckInNow' },
+            caption: {
+              es: 'Imagen representativa del proyecto móvil académico.',
+              en: 'Representative image of the academic mobile project.'
+            }
+          }
+        ]
+      }
     },
     {
       id: 'synchronous',
@@ -209,7 +635,89 @@ export const LOCAL_PORTFOLIO_CONTENT: PortfolioContent = {
       repositoryUrl: 'https://github.com/miguelgutierrezi/Synchronous',
       imageUrl: 'https://cdn.pixabay.com/photo/2017/03/20/03/06/desk-2158142_1280.jpg',
       featured: false,
-      sortOrder: 6
+      sortOrder: 6,
+      detail: {
+        summary: {
+          es: 'Sistema full stack (Django + Ionic/Angular) para la materia Ingeniería de Software.',
+          en: 'Full-stack system (Django + Ionic/Angular) for the Software Engineering course.'
+        },
+        role: {
+          es: 'Desarrollador full stack (equipo académico)',
+          en: 'Full-stack developer (academic team)'
+        },
+        duration: {
+          es: '1 semestre',
+          en: '1 semester'
+        },
+        team: {
+          es: 'Equipo académico',
+          en: 'Academic team'
+        },
+        year: '2019',
+        client: {
+          es: 'Ingeniería de Software',
+          en: 'Ingeniería de Software'
+        },
+        body: [
+          {
+            es: 'Synchronous integra un backend Django con un cliente Ionic/Angular, como proyecto de la asignatura de Ingeniería de Software: requisitos, diseño y entrega iterativa.',
+            en: 'Synchronous integrates a Django backend with an Ionic/Angular client as a Software Engineering course project: requirements, design, and iterative delivery.'
+          },
+          {
+            es: 'El alcance académico cubrió modelado, API/servicios y una interfaz híbrida, aplicando prácticas de proceso de software vistas en clase.',
+            en: 'The academic scope covered modeling, API/services, and a hybrid UI, applying software process practices from the course.'
+          }
+        ],
+        features: [
+          {
+            id: 'syn-database',
+            icon: 'database',
+            title: { es: 'Backend Django', en: 'Django backend' },
+            description: {
+              es: 'Modelos y servicios del lado servidor.',
+              en: 'Server-side models and services.'
+            }
+          },
+          {
+            id: 'syn-mobile',
+            icon: 'mobile',
+            title: { es: 'Cliente Ionic', en: 'Ionic client' },
+            description: {
+              es: 'App híbrida sobre Angular para el front.',
+              en: 'Hybrid Angular-based app for the front end.'
+            }
+          },
+          {
+            id: 'syn-users',
+            icon: 'users',
+            title: { es: 'Proceso en equipo', en: 'Team process' },
+            description: {
+              es: 'Trabajo colaborativo según la materia de IS.',
+              en: 'Collaborative work per the SE course.'
+            }
+          },
+          {
+            id: 'syn-api',
+            icon: 'api',
+            title: { es: 'Integración full stack', en: 'Full-stack integration' },
+            description: {
+              es: 'Conexión entre API Django y UI Ionic/Angular.',
+              en: 'Connection between Django API and Ionic/Angular UI.'
+            }
+          }
+        ],
+        gallery: [
+          {
+            id: 'syn-cover',
+            imageUrl: 'https://cdn.pixabay.com/photo/2017/03/20/03/06/desk-2158142_1280.jpg',
+            title: { es: 'Synchronous', en: 'Synchronous' },
+            caption: {
+              es: 'Imagen representativa del proyecto de Ingeniería de Software.',
+              en: 'Representative image of the Software Engineering project.'
+            }
+          }
+        ]
+      }
     }
   ],
   experience: [

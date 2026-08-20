@@ -30,7 +30,10 @@
               @for (page of projectPages; track $index; let pageIdx = $index) {
                 <div class="projects-carousel__page" [attr.aria-hidden]="pageIdx !== pageIndex">
                   @for (project of page; track project.id) {
-                    <article class="project-card">
+                    <article
+                      class="project-card"
+                      [routerLink]="['/projects', project.id]"
+                      [attr.tabindex]="pageIdx === pageIndex ? 0 : -1">
                       <div class="project-card__top">
                         <span class="project-card__folder" aria-hidden="true">
                           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -43,6 +46,7 @@
                             [href]="project.demoUrl || project.repositoryUrl"
                             target="_blank"
                             rel="noopener noreferrer"
+                            (click)="$event.stopPropagation()"
                             [attr.aria-label]="label('viewRepository') + ': ' + project.title"
                             [attr.tabindex]="pageIdx === pageIndex ? null : -1">
                             <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2">

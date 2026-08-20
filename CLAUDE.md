@@ -15,7 +15,7 @@ Personal portfolio for Miguel Gutiérrez, built with Angular 22 (TypeScript + Sa
 - `npm run build` uses **production** by default; do not re-add third-party files under `angular.json` `scripts` (known sourcemap crash / exit 134 with Bootstrap minified JS)
 - Structure: `src/app/models/`, `src/app/content/`, `src/app/services/` (content + preferences), `src/app/components/home/` (profile, projects, experience, courses), `src/app/components/shared/` (navbar, loading-spinner), `src/app/components/not-found/`, `src/assets/`, `src/environments/`
 - Local typed content is loaded through `ContentService` / `ContentSource` (`LocalContentAdapter` + `content-validator.ts`). The validator accepts `unknown`, returns a fresh normalized object (no source mutation), enforces unique IDs, logs every rejection, and validates URLs via `new URL()` / `assets/` (social links may also use `tel:` / `mailto:`). Profile includes `role`, `pitch`, `focusAreas`; site has `brandHandle`; projects expose text `technologies`; contact socials include GitHub, LinkedIn, phone, WhatsApp. UI chrome labels live in `PortfolioContent.ui`. Preferences (`es`/`en`, section ids) live in `PreferencesService` with `localStorage`.
-- **Phase 2 UI:** Desktop + tablet landscape/portrait + **mobile** (`max-width: 767px`, Figma `cv-mobile` + burger open `4:12` with slide-in; burger meta uses `ui.footerCredit`, not fake version/uptime) one-pager baselines are in place. Product/architecture decisions live in `docs/` — consult before architectural changes.
+- **Phase 2 UI:** Desktop + tablet landscape/portrait + **mobile** one-pager baselines are in place. **Project detail desktop** (`/projects/:id`, Figma `4:678`) is implemented; tablet/mobile detail frames pending. Product/architecture decisions live in `docs/` — consult before architectural changes.
 
 ## Commands
 
@@ -31,8 +31,8 @@ Personal portfolio for Miguel Gutiérrez, built with Angular 22 (TypeScript + Sa
 
 - Keep the site static, inexpensive to operate, and free of a custom backend unless a real need appears.
 - Angular is the long-term framework; modernize incrementally rather than rewriting.
-- One main page with anchored sections (`/#projects`, `#about`, `#experience`, `#courses`), not tabs that replace the visible content. Contact lives in the footer (`#contact`) and is **not** a nav/burger item. Dedicated routes only for detail views (e.g. a single project/article).
-- Delivery order for larger work: stack modernization (done) → typed local content model (done) → UI (Phase 2; **Desktop + tablet L/P + mobile done**; project-detail frames optional next) → CMS → hardening.
+- One main page with anchored sections (`/#projects`, `#about`, `#experience`, `#courses`), not tabs that replace the visible content. Contact lives in the footer (`#contact`) and is **not** a nav/burger item. Dedicated project case studies use `/projects/:id` (desktop layout from Figma `project-detail-desktop`).
+- Delivery order for larger work: stack modernization (done) → typed local content model (done) → UI (Phase 2; **Desktop + tablet L/P + mobile done**; **project-detail desktop done**, tablet/mobile detail next) → CMS → hardening.
 
 ## Figma MCP (Phase 2)
 

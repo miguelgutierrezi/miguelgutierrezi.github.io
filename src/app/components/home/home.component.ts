@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import {
   LocaleCode,
   LocalizedString,
@@ -31,7 +32,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly preferences: PreferencesService,
-    private readonly contentService: ContentService
+    private readonly contentService: ContentService,
+    private readonly route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -57,13 +59,15 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     this.setupScrollSpy();
 
-    const hash = window.location.hash.replace('#', '') as SectionId;
-    if (this.sectionIds.includes(hash)) {
-      this.preferences.setSection(hash);
-      queueMicrotask(() => {
-        document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
-    }
+    this.route.fragment.subscribe((fragment) => {
+      const hash = (fragment || '') as SectionId;
+      if (this.sectionIds.includes(hash)) {
+        this.preferences.setSection(hash);
+        queueMicrotask(() => {
+          document.getElementById(hash)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      }
+    });
   }
 
   ngOnDestroy(): void {

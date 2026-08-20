@@ -6,6 +6,7 @@ import {
   Output,
   ChangeDetectionStrategy
 } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   LocaleCode,
   LocalizedString,
@@ -54,7 +55,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly contentService: ContentService,
-    private readonly preferences: PreferencesService
+    private readonly preferences: PreferencesService,
+    private readonly router: Router
   ) {}
 
   ngOnInit(): void {
@@ -122,6 +124,11 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.closeMenu();
     this.afterMenuClose(() => {
       this.changeSection.emit(section);
+      const onHome = this.router.url.startsWith('/home') || this.router.url === '/';
+      if (!onHome) {
+        void this.router.navigate(['/home'], { fragment: section });
+        return;
+      }
       const el = document.getElementById(section);
       if (el) {
         el.scrollIntoView({ behavior: 'smooth', block: 'start' });

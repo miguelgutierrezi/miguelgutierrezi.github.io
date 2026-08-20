@@ -45,6 +45,33 @@ export interface ProfileContent {
   focusAreas: LocalizedStringList;
 }
 
+export interface ProjectFeature {
+  id: string;
+  /** Icon key rendered in the detail UI (shield, bell, terminal, users, api, mobile, code, database). */
+  icon: string;
+  title: LocalizedString;
+  description: LocalizedString;
+}
+
+export interface ProjectGalleryItem {
+  id: string;
+  imageUrl: string;
+  title: LocalizedString;
+  caption: LocalizedString;
+}
+
+export interface ProjectDetail {
+  summary: LocalizedString;
+  role: LocalizedString;
+  duration: LocalizedString;
+  team: LocalizedString;
+  year: string;
+  client: LocalizedString;
+  body: LocalizedString[];
+  features: ProjectFeature[];
+  gallery: ProjectGalleryItem[];
+}
+
 export interface Project {
   id: string;
   title: string;
@@ -57,6 +84,8 @@ export interface Project {
   imageUrl: string;
   featured: boolean;
   sortOrder: number;
+  /** Long-form case study used by `/projects/:id`. */
+  detail: ProjectDetail;
 }
 
 export interface Experience {
@@ -110,6 +139,22 @@ export interface UiCopy {
   footerCredit: LocalizedString;
   previousProject: LocalizedString;
   nextProject: LocalizedString;
+  backToProjects: LocalizedString;
+  projectDetailsHeading: LocalizedString;
+  perspectiveCode: LocalizedString;
+  perspectiveTitle: LocalizedString;
+  capabilitiesCode: LocalizedString;
+  capabilitiesTitle: LocalizedString;
+  interfaceCode: LocalizedString;
+  interfaceTitle: LocalizedString;
+  keyTechnologies: LocalizedString;
+  viewGithub: LocalizedString;
+  viewLiveDemo: LocalizedString;
+  metaRole: LocalizedString;
+  metaDuration: LocalizedString;
+  metaTeam: LocalizedString;
+  metaYear: LocalizedString;
+  metaClient: LocalizedString;
 }
 
 export interface PortfolioContent {
