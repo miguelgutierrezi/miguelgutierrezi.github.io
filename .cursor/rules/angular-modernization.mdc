@@ -10,16 +10,17 @@ Fuente: `docs/architecture.md` y Phase 0.5 de `docs/improvement-plan.md`.
 
 ## Reglas
 
-- Subir **un major de Angular a la vez**; build + tests verdes antes del siguiente
-- Alinear Node.js con la versión de Angular (documentar con `.nvmrc` u equivalente)
-- Actualizar TypeScript, CLI y tooling de tests según cada major
+- Subir **un major de Angular a la vez**; `npm run build` verde antes del siguiente (no gatear por unit/e2e legacy)
+- Alinear Node.js con la versión de Angular (hoy: Node 16 vía `.nvmrc` hasta subir Angular)
+- Actualizar TypeScript, CLI y tooling según cada major
 - Quitar dependencias obsoletas/no usadas (p. ej. jQuery) durante modernización
 - No mezclar un salto mayor de dependencias con un rediseño visual no relacionado
 - Firebase Hosting sigue siendo el target mientras el portfolio sea estático
+- **No ejecutar** `npm test` / e2e al validar cambios; la suite actual no es fiable
 
 ## Tras cada major
 
-Unit tests, build de producción, smoke test y, cuando aplique, checks de accesibilidad.
+Build de producción y smoke manual. Checks de accesibilidad cuando aplique. Tests unitarios solo cuando exista una suite real.
 
 ## Fuera de alcance temprano
 

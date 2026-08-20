@@ -43,9 +43,9 @@ Unlock a maintainable toolchain before larger product work.
 - Upgrade TypeScript, Angular CLI, Webpack-related tooling, and test dependencies as required by each Angular version.
 - Replace deprecated APIs and remove obsolete dependencies that are not needed by the redesigned UI, including jQuery-related packages where possible.
 - Keep Firebase Hosting as the deployment target while the application remains a static portfolio.
-- Run unit tests, production builds, accessibility checks, and a smoke test after every major upgrade.
+- After every major upgrade: run a production build and a manual smoke test of the app. Do **not** gate progress on the legacy Karma/Protractor suites until they are rewritten.
 
-The current build already shows that Angular 11 and its legacy Webpack/PostCSS toolchain are not compatible with the workspace's Node 24 runtime. This phase should resolve that maintenance risk before content and CMS work.
+The current build already shows that Angular 11 and its legacy Webpack/PostCSS toolchain are not compatible with the workspace's Node 24 runtime. Local development is pinned to **Node.js 16.x** via `.nvmrc` as an interim bridge until Angular majors are upgraded. Node 14 cannot be compiled on newer macOS toolchains; use the Node 16 binary from nvm.
 
 ### Phase 1: Content architecture
 
@@ -106,7 +106,7 @@ Separate routes should be reserved for content that needs its own depth or disco
 - Switching language survives a browser refresh.
 - The home page works on mobile, tablet, and desktop without horizontal scrolling.
 - Content is navigable by keyboard and readable by assistive technology.
-- Production builds are reproducible and validated in CI.
+- Production builds are reproducible; CI and a rewritten test suite are future hardening work (current unit/e2e specs are not a reliable gate).
 - CMS downtime does not produce an empty portfolio.
 
 ## Decision gates

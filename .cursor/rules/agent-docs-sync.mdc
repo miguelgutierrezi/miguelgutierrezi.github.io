@@ -1,0 +1,20 @@
+---
+description: Obligatorio — sincronizar CLAUDE.md, copilot-instructions y Cursor rules en todo cambio
+alwaysApply: true
+---
+
+# Sync obligatorio de instrucciones de agentes
+
+**Regla dura (cualquier agente, cualquier cambio):** al modificar este repositorio, actualizar **en el mismo cambio** estas tres superficies para que digan lo mismo:
+
+1. `CLAUDE.md`
+2. `.github/copilot-instructions.md`
+3. `.cursor/rules/*.mdc` (editar o crear la regla que corresponda; eliminar guía obsoleta)
+
+No importa si el agente es Cursor, Claude Code, Copilot u otro: **ningún PR/diff se considera completo** si solo actualiza código o `docs/` y deja desfasadas estas tres.
+
+## Cómo cumplir
+
+- Si el cambio introduce o altera una decisión, comando, convención, stack, roadmap, CMS, UI, persistencia, tests o working style → reflejarlo en las tres.
+- Si el cambio es pequeño (typo, texto de portfolio, asset) → revisar igual las tres; si no hay nada que cambiar en ellas, dejar constancia breve en el mensaje de commit o en la respuesta al usuario de que se revisaron y no requerían update.
+- Nunca actualizar solo una de las tres superficies dejando las otras desactualizadas.

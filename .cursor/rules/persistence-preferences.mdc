@@ -30,6 +30,6 @@ El contenido del portfolio **no** va en storage del navegador.
 
 Datos personales, credenciales, tokens ni identificadores de analytics en este objeto.
 
-## Tests mínimos
+## Testing
 
-Defaults vacíos, valores válidos/inválidos, escritura tras cambio, render si storage lanza error.
+When a real preferences suite exists, cover defaults, valid/invalid values, writes, and storage failures. Until then, do not run legacy Karma specs to validate preference work.

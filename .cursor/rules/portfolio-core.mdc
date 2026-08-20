@@ -9,7 +9,8 @@ Portfolio personal en Angular 11 (TypeScript + Sass), desplegado como sitio est�
 
 ## Stack actual
 
-- Angular 11, RxJS 6, Bootstrap 4, Karma/Jasmine
+- Angular 11, RxJS 6, Bootstrap 4
+- Node.js 16.x requerido (`.nvmrc`); no usar Node 24+ con Angular 11
 - Estilos con Sass; host con rewrite SPA a `index.html`
 - Estructura: `src/app/components/home/` (secciones), `shared/` (nav, loading), `src/assets/`, `src/environments/`
 - Decisiones de producto en `docs/` (`architecture.md`, `improvement-plan.md`, etc.)
@@ -17,9 +18,9 @@ Portfolio personal en Angular 11 (TypeScript + Sass), desplegado como sitio est�
 ## Comandos
 
 - `npm start` — desarrollo en `http://localhost:4200/`
-- `npm run build` — build de producción
-- `npm test` / `npm run lint` / `npm run e2e`
+- `npm run build` — build de producción (validación principal)
 - Deploy: `npm run build` luego `firebase deploy --only hosting`
+- **No ejecutar** `npm test`, `npm run test:web` ni `npm run e2e` al validar cambios: los specs actuales no son fiables ni están bien hechos. Lint solo si el cambio lo requiere.
 
 ## Principios permanentes
 
@@ -29,5 +30,6 @@ Portfolio personal en Angular 11 (TypeScript + Sass), desplegado como sitio est�
 - Orden de trabajo: stack → modelo local tipado → UI → CMS editorial → hardening
 - CMS es requisito de producto para editar CV/portfolio en línea sin cambios de código; siempre con fallback local y sin tokens de escritura en el cliente
 - No reescribir el framework antes de resolver contenido y UX; no auth multi-usuario hasta que haga falta
+- Tras **cualquier** cambio, el agente (sea cual sea) debe sincronizar o revisar `CLAUDE.md`, `.github/copilot-instructions.md` y `.cursor/rules/` en el mismo cambio
 
 Consultar `docs/improvement-plan.md` antes de cambios de arquitectura o stack.

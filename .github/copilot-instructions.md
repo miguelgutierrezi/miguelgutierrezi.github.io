@@ -4,6 +4,8 @@
 
 This repo is a personal portfolio built with Angular 11, TypeScript, Sass, and Firebase Hosting. It is a static one-page site in Spanish and English with sections for profile, projects, experience, courses, and contact.
 
+Local toolchain: **Node.js 16.x** (see `.nvmrc`). Do not use Node 24+ with Angular 11.
+
 ## Product principles
 
 - Keep the site static, inexpensive to operate, and easy to deploy.
@@ -25,7 +27,7 @@ This repo is a personal portfolio built with Angular 11, TypeScript, Sass, and F
 ## Persistence rules
 
 - Persist only low-risk preferences such as language and the active home section.
-- Use `localStorage`, not `sessionStorage`, behind a small testable service.
+- Use `localStorage`, not `sessionStorage`, behind a small service.
 - Keep preference keys stable and versioned.
 - Fall back to defaults when storage is missing, invalid, or unavailable.
 - Never store portfolio content, credentials, or personal data in browser storage.
@@ -44,11 +46,27 @@ This repo is a personal portfolio built with Angular 11, TypeScript, Sass, and F
 ## Modernization rules
 
 - Upgrade Angular one major version at a time.
-- Keep Node.js aligned with the Angular version being upgraded.
-- Update TypeScript, CLI, and test tooling as required by each Angular major.
+- Keep Node.js aligned with the Angular version being upgraded (today: Node 16 via `.nvmrc`).
+- Update TypeScript, CLI, and tooling as required by each Angular major.
 - Remove obsolete dependencies during modernization when they are no longer needed.
-- Validate build and tests before moving to the next major.
+- Gate each major on a successful `npm run build` and a manual smoke check — **not** on unit/e2e tests.
 - Do not mix a major dependency upgrade with an unrelated visual redesign.
+
+## Testing policy
+
+- Existing Karma/Jasmine and Protractor suites are incomplete and unreliable.
+- Do **not** run `npm test`, `npm run test:web`, or `npm run e2e` when validating routine changes unless the user explicitly asks.
+- Primary validation: `npm run build` (and `npm start` for UI work).
+
+## Agent documentation sync (mandatory)
+
+**Hard rule for every agent (Cursor, Claude Code, Copilot, or any other) and every change:** in the **same** change set, keep these three surfaces aligned with the same meaning:
+
+1. `CLAUDE.md`
+2. `.github/copilot-instructions.md`
+3. `.cursor/rules/*.mdc`
+
+A change that updates only application code or `docs/` without reviewing these three is incomplete. For tiny content/typo edits, still review all three; if none need edits, say so explicitly when finishing the task. Never update only one of the three and leave the others stale.
 
 ## Working style
 

@@ -8,20 +8,19 @@ Personal portfolio for Miguel Gutiérrez, built with Angular 11 (TypeScript + Sa
 
 ## Stack
 
-- Angular 11, RxJS 6, Bootstrap 4, Karma/Jasmine, Protractor (e2e)
+- Angular 11, RxJS 6, Bootstrap 4
+- **Node.js 16.x** required for local install/build (see `.nvmrc`). Node 24+ is incompatible with Angular 11's toolchain.
 - Sass for styles; Firebase Hosting rewrites all routes to `index.html` (SPA)
 - Structure: `src/app/components/home/` (profile, projects, experience, courses), `src/app/components/shared/` (navbar, loading-spinner), `src/app/components/not-found/`, `src/assets/`, `src/environments/`
 - Product/architecture decisions live in `docs/` (`architecture.md`, `cms-strategy.md`, `ui-modernization.md`, `persistence-strategy.md`, `improvement-plan.md`) — consult before architectural changes
 
 ## Commands
 
-- `npm start` — dev server at `http://localhost:4200/`
-- `npm run build` — production build
-- `npm test` — unit tests with coverage (`ng test --code-coverage --watch=false`)
-- `npm run test:web` — tests + serve coverage report
-- `npm run lint` — `ng lint`
-- `npm run e2e` — Protractor e2e tests
+- `nvm use` then `npm install` / `npm start` — dev server at `http://localhost:4200/`
+- `npm run build` — production build (**primary validation**)
 - Deploy: `npm run build` then `firebase deploy --only hosting`
+- Do **not** run `npm test`, `npm run test:web`, or `npm run e2e` unless the user explicitly asks — existing specs are incomplete/unreliable
+- `npm run lint` — only when the change warrants it
 
 ## Product principles
 
@@ -73,16 +72,33 @@ Personal portfolio for Miguel Gutiérrez, built with Angular 11 (TypeScript + Sa
 
 ## Modernization rules
 
-- Upgrade Angular one major version at a time; build and tests must be green before moving to the next.
-- Keep Node.js aligned with the Angular version being upgraded (document with `.nvmrc` or equivalent).
-- Update TypeScript, CLI, and test tooling as required by each major.
+- Upgrade Angular one major version at a time; production `npm run build` must succeed before moving to the next. Do **not** gate upgrades on unit/e2e tests until a real suite exists.
+- Keep Node.js aligned with the Angular version being upgraded (today: Node 16 via `.nvmrc` until Angular is upgraded).
+- Update TypeScript, CLI, and tooling as required by each major.
 - Remove obsolete/unused dependencies during modernization (e.g. jQuery) when no longer needed.
-- After each major: run unit tests, production build, a smoke test, and accessibility checks where applicable.
+- After each major: production build and a manual smoke test of the app; accessibility checks where applicable. Skip `npm test` / e2e until tests are rewritten.
 - Do not mix a major dependency upgrade with an unrelated visual redesign.
 - Firebase Hosting remains the deploy target while the portfolio stays static. Do not rewrite to another framework; pursue SEO/performance gains via Angular upgrades, hosting, assets, and content architecture instead.
+
+## Testing policy
+
+- Existing Karma/Jasmine specs and Protractor e2e are **not** a reliable signal. Do not run or “fix” them as part of routine changes.
+- Validate with `npm run build` and, when UI changes, a quick manual check of `npm start`.
+- A real test suite is future work; until then, agents must not spend time chasing green unit/e2e runs.
+
+## Agent documentation sync (mandatory)
+
+**Hard rule for every agent (Cursor, Claude Code, Copilot, or any other) and every change:** in the **same** change set, keep these three surfaces aligned with the same meaning:
+
+1. `CLAUDE.md`
+2. `.github/copilot-instructions.md`
+3. `.cursor/rules/*.mdc` (edit/add the matching rule; remove stale guidance)
+
+A change that updates only application code or `docs/` without reviewing these three is incomplete. For tiny content/typo edits, still review all three; if none need edits, say so explicitly when finishing the task. Never update only one of the three and leave the others stale.
 
 ## Working style
 
 - Before architectural changes, consult `docs/` (`architecture.md`, `improvement-plan.md`, `cms-strategy.md`, `ui-modernization.md`, `persistence-strategy.md`).
 - Preserve the existing static hosting model unless the task explicitly changes it.
 - Prefer precise, surgical changes that fit current codebase conventions over broad refactors.
+- Do not run unit or e2e tests to validate work unless the user explicitly asks.

@@ -8,13 +8,14 @@ Personal portfolio built with Angular and deployed as a static site through Fire
 - TypeScript
 - Sass
 - Firebase Hosting
-- Karma/Jasmine unit tests
+- Node.js 16.x (required for local install/build; see `.nvmrc`)
 
 ## Local development
 
-Install dependencies and start the development server:
+Use **Node.js 16** (see `.nvmrc`). Node 24+ is not compatible with Angular 11's toolchain. With [nvm](https://github.com/nvm-sh/nvm):
 
 ```bash
+nvm use
 npm install
 npm start
 ```
@@ -26,11 +27,13 @@ Open `http://localhost:4200/`. The application reloads automatically when source
 | Command | Purpose |
 | --- | --- |
 | `npm start` | Start the local development server |
-| `npm run build` | Build the application |
-| `npm test` | Run unit tests with coverage |
+| `npm run build` | Build the application (primary validation) |
 | `npm run lint` | Run the Angular lint task |
-| `npm run e2e` | Run end-to-end tests |
-| `npm run test:web` | Run tests and serve the coverage report |
+| `npm test` | Legacy unit-test script — **do not rely on it**; specs are incomplete/unreliable |
+| `npm run e2e` | Legacy Protractor script — **do not rely on it** |
+| `npm run test:web` | Legacy coverage viewer — skip unless rewriting the suite |
+
+Agents and contributors should validate changes with `npm run build` (and a manual check of `npm start` for UI work), not with the current test suite.
 
 ## Deployment
 
@@ -68,6 +71,16 @@ Supporting decisions are documented in:
 - [CMS strategy](docs/cms-strategy.md)
 - [UI modernization](docs/ui-modernization.md)
 - [Persistence strategy](docs/persistence-strategy.md)
+
+## Agent guidance
+
+**Mandatory for every agent and every change:** keep these three surfaces in sync in the same change set:
+
+- [`CLAUDE.md`](CLAUDE.md)
+- [`.github/copilot-instructions.md`](.github/copilot-instructions.md)
+- [`.cursor/rules/`](.cursor/rules/)
+
+A change is incomplete if only code or `docs/` were updated without reviewing those three.
 
 ## Generated project history
 
