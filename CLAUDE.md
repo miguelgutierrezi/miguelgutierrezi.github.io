@@ -4,13 +4,15 @@ Guidance for Claude Code when working in this repository.
 
 ## Context
 
-Personal portfolio for Miguel Gutiérrez, built with Angular 11 (TypeScript + Sass) and deployed as a static site on Firebase Hosting. It's a one-page site in Spanish and English covering profile, projects, experience, courses, and contact. No custom backend.
+Personal portfolio for Miguel Gutiérrez, built with Angular 22 (TypeScript + Sass) and deployed as a static site on Firebase Hosting. It's a one-page site in Spanish and English covering profile, projects, experience, courses, and contact. No custom backend.
 
 ## Stack
 
-- Angular 11, RxJS 6, Bootstrap 4
-- **Node.js 16.x** required for local install/build (see `.nvmrc`). Node 24+ is incompatible with Angular 11's toolchain.
+- Angular 22, RxJS 7, Bootstrap 4 CSS only (no jQuery / Bootstrap JS global scripts), application builder
+- **Node.js >= 24.15** required for local install/build (see `.nvmrc`)
 - Sass for styles; Firebase Hosting rewrites all routes to `index.html` (SPA)
+- Build output: `dist/personal-presentation-miguel-gutierrez/browser` (Firebase `public`)
+- `npm run build` uses **production** by default; do not re-add third-party files under `angular.json` `scripts` (known sourcemap crash / exit 134 with Bootstrap minified JS)
 - Structure: `src/app/components/home/` (profile, projects, experience, courses), `src/app/components/shared/` (navbar, loading-spinner), `src/app/components/not-found/`, `src/assets/`, `src/environments/`
 - Product/architecture decisions live in `docs/` (`architecture.md`, `cms-strategy.md`, `ui-modernization.md`, `persistence-strategy.md`, `improvement-plan.md`) — consult before architectural changes
 
@@ -18,16 +20,17 @@ Personal portfolio for Miguel Gutiérrez, built with Angular 11 (TypeScript + Sa
 
 - `nvm use` then `npm install` / `npm start` — dev server at `http://localhost:4200/`
 - `npm run build` — production build (**primary validation**)
-- Deploy: `npm run build` then `firebase deploy --only hosting`
-- Do **not** run `npm test`, `npm run test:web`, or `npm run e2e` unless the user explicitly asks — existing specs are incomplete/unreliable
-- `npm run lint` — only when the change warrants it
+- `npm run watch` — development configuration with watch
+- Deploy: `npm run build` then `npx firebase-tools deploy --only hosting` (or a global Firebase CLI)
+- There is **no** `npm run lint` or `npm run e2e` (removed with Protractor / old lint target)
+- Do **not** run `npm test` or `npm run test:web` unless the user explicitly asks — existing specs are incomplete/unreliable
 
 ## Product principles
 
 - Keep the site static, inexpensive to operate, and free of a custom backend unless a real need appears.
 - Angular is the long-term framework; modernize incrementally rather than rewriting.
 - One main page with anchored sections (`/#projects`, `#about`, `#experience`, `#courses`, `#contact`), not tabs that replace the visible content. Dedicated routes only for detail views (e.g. a single project/article).
-- Delivery order for larger work: stack modernization → typed local content model → UI → CMS → hardening.
+- Delivery order for larger work: stack modernization (done — reproducible production build on Angular 22 / Node 24) → typed local content model → UI → CMS → hardening.
 
 ## Architecture rules
 
@@ -73,11 +76,12 @@ Personal portfolio for Miguel Gutiérrez, built with Angular 11 (TypeScript + Sa
 ## Modernization rules
 
 - Upgrade Angular one major version at a time; production `npm run build` must succeed before moving to the next. Do **not** gate upgrades on unit/e2e tests until a real suite exists.
-- Keep Node.js aligned with the Angular version being upgraded (today: Node 16 via `.nvmrc` until Angular is upgraded).
+- Keep Node.js aligned with the Angular version being upgraded (today: Node >= 24.15 via `.nvmrc` with Angular 22).
 - Update TypeScript, CLI, and tooling as required by each major.
-- Remove obsolete/unused dependencies during modernization (e.g. jQuery) when no longer needed.
-- After each major: production build and a manual smoke test of the app; accessibility checks where applicable. Skip `npm test` / e2e until tests are rewritten.
+- Remove obsolete/unused dependencies during modernization when no longer needed (jQuery/Popper/Bootstrap JS scripts already removed from the build; Bootstrap CSS may remain until UI modernization).
+- After each major: production build and a manual smoke test of the app; accessibility checks where applicable. Skip `npm test` / e2e until tests are rewritten. There is no `npm run lint` / `npm run e2e`.
 - Do not mix a major dependency upgrade with an unrelated visual redesign.
+- Do not put third-party minified bundles in `angular.json` `scripts` unless they are proven safe with the application builder (Bootstrap JS previously caused exit 134 during sourcemap processing).
 - Firebase Hosting remains the deploy target while the portfolio stays static. Do not rewrite to another framework; pursue SEO/performance gains via Angular upgrades, hosting, assets, and content architecture instead.
 
 ## Testing policy

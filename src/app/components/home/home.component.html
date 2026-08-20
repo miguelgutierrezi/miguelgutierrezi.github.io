@@ -1,5 +1,13 @@
 <app-navbar (changeLanguage)="onChangeLanguage()" (changeOption)="onChangeOption($event)"></app-navbar>
-<app-profile [language]="language" *ngIf="option === 'About' || option === 'Sobre mí'"></app-profile>
-<app-projects [language]="language" *ngIf="option === 'Projects' || option === 'Proyectos'"></app-projects>
-<app-experience [language]="language" *ngIf="option === 'Experience' || option === 'Experiencia'"></app-experience>
-<app-courses [language]="language" *ngIf="option === 'Courses' || option === 'Cursos'"></app-courses>
+@if (option === 'About' || option === 'Sobre mí') {
+  <app-profile [language]="language"></app-profile>
+}
+@if (option === 'Projects' || option === 'Proyectos') {
+  <app-projects [language]="language"></app-projects>
+}
+@if (option === 'Experience' || option === 'Experiencia') {
+  <app-experience [language]="language"></app-experience>
+}
+@if (option === 'Courses' || option === 'Cursos') {
+  <app-courses [language]="language"></app-courses>
+}

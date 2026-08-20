@@ -1,17 +1,29 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <a class="navbar-brand">Miguel Ángel Gutiérrez Ibagué</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+  <button
+    class="navbar-toggler"
+    type="button"
+    (click)="toggleMenu()"
+    [attr.aria-expanded]="menuOpen"
+    aria-controls="navbarText"
+    aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarText">
+  <div class="collapse navbar-collapse" [class.show]="menuOpen" id="navbarText">
     <ul class="navbar-nav mr-auto">
-      <li data-target="#navbarText" data-toggle="collapse" class="nav-item" *ngFor="let option of spanishOptions; let i = index" [ngClass]="validateOption(i) ? 'active': ''">
-        <a class="nav-link" href="javascript: void(0)" (click)="onChangeOption(i)">{{language === 'Spanish' ? spanishOptions[i] : englishOptions[i]}}</a>
-      </li>
+      @for (option of spanishOptions; track option; let i = $index) {
+        <li class="nav-item" [ngClass]="validateOption(i) ? 'active': ''">
+          <a class="nav-link" href="javascript: void(0)" (click)="onChangeOption(i)">{{language === 'Spanish' ? spanishOptions[i] : englishOptions[i]}}</a>
+        </li>
+      }
     </ul>
-    <button data-target="#navbarText" data-toggle="collapse" (click)="onChangeLanguage()" class="navbar-text btn">
-      <img *ngIf="language === 'English'" style="width: 15px" src="https://ippon-shop.es/1072-large_default/bordado-bandera-espa%C3%B1a.jpg" alt="Flag">
-      <img *ngIf="language === 'Spanish'" style="width: 15px" src="https://educationatw.com/wp-content/uploads/2016/06/Bandera-USA.png" alt="Flag">
+    <button (click)="onChangeLanguage()" class="navbar-text btn">
+      @if (language === 'English') {
+        <img style="width: 15px" src="https://ippon-shop.es/1072-large_default/bordado-bandera-espa%C3%B1a.jpg" alt="Flag">
+      }
+      @if (language === 'Spanish') {
+        <img style="width: 15px" src="https://educationatw.com/wp-content/uploads/2016/06/Bandera-USA.png" alt="Flag">
+      }
       {{language === 'Spanish' ? 'English' : 'Español'}}
     </button>
   </div>

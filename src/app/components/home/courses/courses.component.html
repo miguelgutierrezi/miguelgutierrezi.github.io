@@ -1,15 +1,19 @@
 <h1 class="text-center">{{language === 'Spanish' ? 'Mis cursos' : 'My courses'}}</h1>
-<section class="custom-container" *ngFor="let course of spanishCourses; let i = index">
-  <div class="custom-card">
-    <div class="img-container">
-      <img class="course-img" src="{{spanishCourses[i].imageLink}}"
-           alt="{{spanishCourses[i].name}}">
-    </div>
-    <div class="content">
-      <h5>{{language === 'Spanish' ? spanishCourses[i].name : englishCourses[i].name}}</h5>
-      <p>{{language === 'Spanish' ? spanishCourses[i].company + ' - ' + spanishCourses[i].date :
+@for (course of spanishCourses; track course; let i = $index) {
+  <section class="custom-container">
+    <div class="custom-card">
+      <div class="img-container">
+        <img class="course-img" src="{{spanishCourses[i].imageLink}}"
+          alt="{{spanishCourses[i].name}}">
+      </div>
+      <div class="content">
+        <h5>{{language === 'Spanish' ? spanishCourses[i].name : englishCourses[i].name}}</h5>
+        <p>{{language === 'Spanish' ? spanishCourses[i].company + ' - ' + spanishCourses[i].date :
         englishCourses[i].company + ' - ' + englishCourses[i].date}}</p>
-      <a href="{{spanishCourses[i].credential}}" target="_blank" *ngIf="spanishCourses[i].credential">{{language === 'Spanish' ? 'Ver credencial' : 'See credential'}}</a>
+        @if (spanishCourses[i].credential) {
+          <a href="{{spanishCourses[i].credential}}" target="_blank">{{language === 'Spanish' ? 'Ver credencial' : 'See credential'}}</a>
+        }
+      </div>
     </div>
-  </div>
-</section>
+  </section>
+}

@@ -6,22 +6,25 @@ alwaysApply: false
 
 # Modernización del stack
 
-Fuente: `docs/architecture.md` y Phase 0.5 de `docs/improvement-plan.md`.
+Fuente: `docs/architecture.md` y `docs/improvement-plan.md`.
+
+## Estado actual
+
+- Angular **22**, TypeScript **6**, Node **>= 24.15** (`.nvmrc`)
+- Builder: `@angular-devkit/build-angular:application`
+- `npm run build` → configuration **production** por defecto
+- Deploy output: `dist/.../browser`
+- **No** incluir jQuery/Bootstrap/Popper en `angular.json` `scripts` (crash de sourcemap / exit 134)
 
 ## Reglas
 
-- Subir **un major de Angular a la vez**; `npm run build` verde antes del siguiente (no gatear por unit/e2e legacy)
-- Alinear Node.js con la versión de Angular (hoy: Node 16 vía `.nvmrc` hasta subir Angular)
-- Actualizar TypeScript, CLI y tooling según cada major
-- Quitar dependencias obsoletas/no usadas (p. ej. jQuery) durante modernización
-- No mezclar un salto mayor de dependencias con un rediseño visual no relacionado
-- Firebase Hosting sigue siendo el target mientras el portfolio sea estático
-- **No ejecutar** `npm test` / e2e al validar cambios; la suite actual no es fiable
+- Subir **un major de Angular a la vez**; `npm run build` verde y reproducible antes del siguiente
+- Alinear Node.js con Angular
+- No reintroducir scripts globales minificados con sourcemaps rotos
+- No mezclar salto mayor de deps con rediseño visual no relacionado
+- Firebase Hosting sigue siendo el target
+- **No ejecutar** `npm test` / e2e al validar; no hay `lint`/`e2e` scripts
 
 ## Tras cada major
 
-Build de producción y smoke manual. Checks de accesibilidad cuando aplique. Tests unitarios solo cuando exista una suite real.
-
-## Fuera de alcance temprano
-
-No reescribir a otro framework. Mejoras de SEO/rendimiento vía upgrades Angular, hosting, assets y arquitectura de contenido.
+Build de producción (dos corridas si hubo crash previo) y smoke con `npm start`.

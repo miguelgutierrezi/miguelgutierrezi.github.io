@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/personal-presentation-miguel-gutierrez",
+    "public": "dist/personal-presentation-miguel-gutierrez/browser",
     "ignore": [
       "firebase.json",
       "**/.*",

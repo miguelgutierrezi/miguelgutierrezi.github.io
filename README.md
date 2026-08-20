@@ -4,15 +4,16 @@ Personal portfolio built with Angular and deployed as a static site through Fire
 
 ## Technology
 
-- Angular 11
-- TypeScript
+- Angular 22
+- TypeScript 6
 - Sass
+- Bootstrap 4 (CSS only; no jQuery/Bootstrap JS global scripts)
 - Firebase Hosting
-- Node.js 16.x (required for local install/build; see `.nvmrc`)
+- Node.js >= 24.15 (required for local install/build; see `.nvmrc`)
 
 ## Local development
 
-Use **Node.js 16** (see `.nvmrc`). Node 24+ is not compatible with Angular 11's toolchain. With [nvm](https://github.com/nvm-sh/nvm):
+Use **Node.js 24+** (see `.nvmrc`). With [nvm](https://github.com/nvm-sh/nvm):
 
 ```bash
 nvm use
@@ -26,22 +27,23 @@ Open `http://localhost:4200/`. The application reloads automatically when source
 
 | Command | Purpose |
 | --- | --- |
-| `npm start` | Start the local development server |
-| `npm run build` | Build the application (primary validation) |
-| `npm run lint` | Run the Angular lint task |
+| `npm start` | Start the local development server (development configuration) |
+| `npm run build` | Production build — **primary validation** (`defaultConfiguration: production`) |
+| `npm run watch` | Rebuild on change using the development configuration |
 | `npm test` | Legacy unit-test script — **do not rely on it**; specs are incomplete/unreliable |
-| `npm run e2e` | Legacy Protractor script — **do not rely on it** |
 | `npm run test:web` | Legacy coverage viewer — skip unless rewriting the suite |
+
+There is no `lint` or `e2e` script: the old Angular lint target and Protractor e2e target were removed with the toolchain upgrade.
 
 Agents and contributors should validate changes with `npm run build` (and a manual check of `npm start` for UI work), not with the current test suite.
 
 ## Deployment
 
-The project is configured for Firebase Hosting. Build the application and deploy the generated output using the Firebase CLI configured for this repository:
+The project is configured for Firebase Hosting. The application builder writes to `dist/personal-presentation-miguel-gutierrez/browser` (configured in `firebase.json`).
 
 ```bash
 npm run build
-firebase deploy --only hosting
+npx firebase-tools deploy --only hosting
 ```
 
 The hosting configuration rewrites application routes to `index.html` so Angular routing works when a route is opened directly.
@@ -58,7 +60,7 @@ The hosting configuration rewrites application routes to `index.html` so Angular
 
 The current application is intentionally static, but the next evolution is documented in [docs/improvement-plan.md](docs/improvement-plan.md). Delivery order:
 
-1. Baseline and incremental modernization of Angular, TypeScript, Node.js, and build tooling.
+1. Baseline and incremental modernization of Angular, TypeScript, Node.js, and build tooling (**done**: Angular 22 / Node 24; reproducible `npm run build` without global jQuery/Bootstrap JS scripts).
 2. Moving portfolio content into a typed, reusable local content model, with language preferences in `localStorage`.
 3. Modernizing the visual system, responsive layout, accessibility, and SEO.
 4. Integrating a headless CMS so CV and portfolio content can be updated online without code changes, with a local fallback and no write credentials in the client.

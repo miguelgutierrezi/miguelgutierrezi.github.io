@@ -5,31 +5,32 @@ alwaysApply: true
 
 # Portfolio Miguel Gutierrez
 
-Portfolio personal en Angular 11 (TypeScript + Sass), desplegado como sitio estático en Firebase Hosting. Contenido en español e inglés: perfil, proyectos, experiencia y cursos.
+Portfolio personal en Angular 22 (TypeScript + Sass), desplegado como sitio estático en Firebase Hosting. Contenido en español e inglés: perfil, proyectos, experiencia y cursos.
 
 ## Stack actual
 
-- Angular 11, RxJS 6, Bootstrap 4
-- Node.js 16.x requerido (`.nvmrc`); no usar Node 24+ con Angular 11
-- Estilos con Sass; host con rewrite SPA a `index.html`
-- Estructura: `src/app/components/home/` (secciones), `shared/` (nav, loading), `src/assets/`, `src/environments/`
-- Decisiones de producto en `docs/` (`architecture.md`, `improvement-plan.md`, etc.)
+- Angular 22, RxJS 7, Bootstrap 4 **CSS only**, application builder
+- Node.js >= 24.15 (`.nvmrc` → `24`)
+- Sin scripts globales de jQuery/Bootstrap JS (rompían el build vía sourcemaps → exit 134)
+- Navbar collapse en Angular; output: `dist/.../browser`
+- Decisiones de producto en `docs/`
 
 ## Comandos
 
-- `npm start` — desarrollo en `http://localhost:4200/`
-- `npm run build` — build de producción (validación principal)
-- Deploy: `npm run build` luego `firebase deploy --only hosting`
-- **No ejecutar** `npm test`, `npm run test:web` ni `npm run e2e` al validar cambios: los specs actuales no son fiables ni están bien hechos. Lint solo si el cambio lo requiere.
+- `nvm use` → `npm install` → `npm start` — desarrollo
+- `npm run build` — **producción** (validación principal; `defaultConfiguration: production`)
+- `npm run watch` — build development con watch
+- Deploy: `npm run build` luego `npx firebase-tools deploy --only hosting`
+- **No existen** `npm run lint` ni `npm run e2e` (targets eliminados)
+- **No ejecutar** `npm test` / `test:web` al validar cambios
 
 ## Principios permanentes
 
 - Mantener el sitio estático, barato de operar y sin backend propio salvo necesidad clara
-- Angular es el framework a largo plazo; modernizar de forma incremental
-- Una página principal con secciones ancladas (`/#projects`), no tabs que reemplacen el contenido
-- Orden de trabajo: stack → modelo local tipado → UI → CMS editorial → hardening
-- CMS es requisito de producto para editar CV/portfolio en línea sin cambios de código; siempre con fallback local y sin tokens de escritura en el cliente
-- No reescribir el framework antes de resolver contenido y UX; no auth multi-usuario hasta que haga falta
-- Tras **cualquier** cambio, el agente (sea cual sea) debe sincronizar o revisar `CLAUDE.md`, `.github/copilot-instructions.md` y `.cursor/rules/` en el mismo cambio
+- Angular a largo plazo; modernizar de forma incremental
+- One-pager con anclas (`/#projects`), no tabs que reemplacen contenido
+- Orden: stack ✓ (build reproducible) → modelo local tipado → UI → CMS → hardening
+- CMS = editar CV online sin código; fallback local; sin tokens de escritura en el cliente
+- Tras **cualquier** cambio, sincronizar o revisar `CLAUDE.md`, `.github/copilot-instructions.md` y `.cursor/rules/`
 
 Consultar `docs/improvement-plan.md` antes de cambios de arquitectura o stack.

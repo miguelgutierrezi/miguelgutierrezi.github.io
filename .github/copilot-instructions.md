@@ -2,9 +2,9 @@
 
 ## Context
 
-This repo is a personal portfolio built with Angular 11, TypeScript, Sass, and Firebase Hosting. It is a static one-page site in Spanish and English with sections for profile, projects, experience, courses, and contact.
+This repo is a personal portfolio built with Angular 22, TypeScript, Sass, and Firebase Hosting. It is a static one-page site in Spanish and English with sections for profile, projects, experience, courses, and contact.
 
-Local toolchain: **Node.js 16.x** (see `.nvmrc`). Do not use Node 24+ with Angular 11.
+Local toolchain: **Node.js >= 24.15** (see `.nvmrc`). Build uses the application builder with **production** as the default `npm run build` configuration; deploy from `dist/personal-presentation-miguel-gutierrez/browser`. Bootstrap CSS only — do not re-add jQuery/Bootstrap JS under `angular.json` `scripts` (sourcemap crash / exit 134). There are no `lint` or `e2e` npm scripts.
 
 ## Product principles
 
@@ -46,7 +46,7 @@ Local toolchain: **Node.js 16.x** (see `.nvmrc`). Do not use Node 24+ with Angul
 ## Modernization rules
 
 - Upgrade Angular one major version at a time.
-- Keep Node.js aligned with the Angular version being upgraded (today: Node 16 via `.nvmrc`).
+- Keep Node.js aligned with the Angular version being upgraded (today: Node >= 24.15 with Angular 22).
 - Update TypeScript, CLI, and tooling as required by each Angular major.
 - Remove obsolete dependencies during modernization when they are no longer needed.
 - Gate each major on a successful `npm run build` and a manual smoke check — **not** on unit/e2e tests.
@@ -73,4 +73,4 @@ A change that updates only application code or `docs/` without reviewing these t
 - Before architectural changes, consult the docs in `docs/`.
 - Preserve the existing static hosting model unless the task explicitly changes it.
 - Prefer precise, surgical changes that fit the current codebase conventions.
-- Keep the implementation aligned with the documented delivery order: stack -> typed local content model -> UI -> CMS -> hardening.
+- Keep the implementation aligned with the documented delivery order: stack (Angular 22 / Node 24, reproducible production build) -> typed local content model -> UI -> CMS -> hardening.

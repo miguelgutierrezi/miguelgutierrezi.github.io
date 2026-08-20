@@ -1,15 +1,17 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.sass']
+    selector: 'app-profile',
+    templateUrl: './profile.component.html',
+    styleUrls: ['./profile.component.sass'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class ProfileComponent implements OnInit {
 
   public linkedInUrl = 'https://www.linkedin.com/in/miguelgutierrezi/';
   public gitHubUrl = 'https://github.com/miguelgutierrezi';
-  @Input() public language: string;
+  @Input() public language = 'Spanish';
   public text1Spanish = 'Soy un ingeniero de sistemas con experiencia en el\n' +
     'desarrollo de proyectos con metodología ágil, enfocado en el\n' +
     'desarrollo full stack de aplicaciones web y móviles.';

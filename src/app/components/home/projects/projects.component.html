@@ -1,18 +1,24 @@
 <h1 class="text-center">{{language === 'Spanish' ? 'Mis proyectos' : 'My projects'}}</h1>
-<section class="custom-container" *ngFor="let project of spanishProjects; let i = index">
-  <div class="custom-card">
-    <div class="img-container">
-      <img class="project-img" src="{{spanishProjects[i].image}}"
-           alt="{{spanishProjects[i].name}}">
+@for (project of spanishProjects; track project; let i = $index) {
+  <section class="custom-container">
+    <div class="custom-card">
+      <div class="img-container">
+        <img class="project-img" src="{{spanishProjects[i].image}}"
+          alt="{{spanishProjects[i].name}}">
+      </div>
+      <div class="content">
+        <h5>{{language === 'Spanish' ? spanishProjects[i].name : englishProjects[i].name}}</h5>
+        <section>
+          @for (icon of spanishProjects[i].icons; track icon) {
+            <img src="{{icon}}" alt="icon" class="icon-img mr-2">
+          }
+        </section>
+        <p>{{language === 'Spanish' ? spanishProjects[i].description : englishProjects[i].description}}</p>
+        @if (spanishProjects[i].gitHubURL) {
+          <a href="{{spanishProjects[i].gitHubURL}}"
+          target="_blank">{{language === 'Spanish' ? 'Ver repositorio de GitHub' : 'View GitHub repo'}}</a>
+        }
+      </div>
     </div>
-    <div class="content">
-      <h5>{{language === 'Spanish' ? spanishProjects[i].name : englishProjects[i].name}}</h5>
-      <section>
-        <img *ngFor="let icon of spanishProjects[i].icons" src="{{icon}}" alt="icon" class="icon-img mr-2">
-      </section>
-      <p>{{language === 'Spanish' ? spanishProjects[i].description : englishProjects[i].description}}</p>
-      <a *ngIf="spanishProjects[i].gitHubURL" href="{{spanishProjects[i].gitHubURL}}"
-         target="_blank">{{language === 'Spanish' ? 'Ver repositorio de GitHub' : 'View GitHub repo'}}</a>
-    </div>
-  </div>
-</section>
+  </section>
+}

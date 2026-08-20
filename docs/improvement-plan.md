@@ -6,12 +6,14 @@ This document defines the roadmap for evolving the portfolio from a static Angul
 
 ## Current baseline
 
-- Angular 11 single-page application.
-- Firebase Hosting deployment with an SPA rewrite to `index.html`.
-- Portfolio content hard-coded in components.
+- Angular 22 single-page application (upgraded from Angular 11), application builder, TypeScript 6.
+- Node.js >= 24.15 documented in `.nvmrc` / `engines`.
+- Firebase Hosting deployment with an SPA rewrite to `index.html`; public dir `dist/.../browser`.
+- Portfolio content still hard-coded in components.
 - Spanish and English content maintained manually in parallel structures.
-- Language and selected section are read from `sessionStorage`, but changes are not persisted.
+- Language and selected section are read from `sessionStorage`, but changes are not persisted to `localStorage` yet.
 - Remote image and technology-logo URLs are embedded directly in the source.
+- Bootstrap 4 CSS remains for layout utilities; jQuery and Bootstrap JS were removed from the build pipeline.
 
 ## Goals
 
@@ -32,20 +34,21 @@ This document defines the roadmap for evolving the portfolio from a static Angul
 
 ## Recommended delivery phases
 
-### Phase 0: Baseline and stack modernization
+### Phase 0: Baseline and stack modernization — **done**
 
-Unlock a maintainable toolchain before larger product work.
+Unlocked a maintainable, reproducible toolchain before larger product work.
 
-- Capture the current production behavior and responsive screenshots.
-- Record current build and test results; remove debug logging and document deployment prerequisites.
-- Establish a supported Node.js version for the current Angular release and document it with an `.nvmrc` or equivalent.
-- Upgrade Angular incrementally, one major version at a time, keeping the application buildable after each step.
-- Upgrade TypeScript, Angular CLI, Webpack-related tooling, and test dependencies as required by each Angular version.
-- Replace deprecated APIs and remove obsolete dependencies that are not needed by the redesigned UI, including jQuery-related packages where possible.
-- Keep Firebase Hosting as the deployment target while the application remains a static portfolio.
-- After every major upgrade: run a production build and a manual smoke test of the app. Do **not** gate progress on the legacy Karma/Protractor suites until they are rewritten.
+- Documented Node via `.nvmrc` / `engines` (**Node >= 24.15** with Angular 22).
+- Upgraded Angular incrementally from 11 → 22; migrated to the application builder.
+- Firebase `public` points at `dist/.../browser`.
+- Removed obsolete packages and targets: tslint, codelyzer, protractor/`e2e`, Angular `lint` script/target, in-repo `firebase-tools`, jQuery, Popper, and Bootstrap **JS** global scripts (kept Bootstrap CSS only).
+- Navbar collapse is handled in Angular (no Bootstrap JS / jQuery).
+- `npm run build` defaults to **production** (`defaultConfiguration: production`). Development builds use `ng serve` / `npm run watch` / `--configuration development` and no longer process third-party minified JS sourcemaps via `scripts`.
+- Do not treat legacy unit tests as a gate.
 
-The current build already shows that Angular 11 and its legacy Webpack/PostCSS toolchain are not compatible with the workspace's Node 24 runtime. Local development is pinned to **Node.js 16.x** via `.nvmrc` as an interim bridge until Angular majors are upgraded. Node 14 cannot be compiled on newer macOS toolchains; use the Node 16 binary from nvm.
+Primary validation for Phase 0 closure: a clean, reproducible `npm run build` (exit 0) on Node 24.
+
+Next focus: Phase 1 (typed local content model).
 
 ### Phase 1: Content architecture
 
@@ -86,7 +89,7 @@ A headless CMS is intentional product scope: update CV and portfolio content onl
 
 ## Delivery order (summary)
 
-1. Baseline + stack modernization  
+1. Baseline + stack modernization — **done** (Angular 22 / Node 24)
 2. Typed local content model and preference persistence  
 3. UI modernization on that model  
 4. CMS for online CV/portfolio edits, with local fallback  

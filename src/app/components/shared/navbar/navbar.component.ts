@@ -1,15 +1,18 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, ChangeDetectionStrategy} from '@angular/core';
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.sass']
+    selector: 'app-navbar',
+    templateUrl: './navbar.component.html',
+    styleUrls: ['./navbar.component.sass'],
+    changeDetection: ChangeDetectionStrategy.Eager,
+    standalone: false
 })
 export class NavbarComponent implements OnInit {
   public spanishOptions = ['Sobre mí', 'Proyectos', 'Experiencia', 'Cursos'];
   public englishOptions = ['About', 'Projects', 'Experience', 'Courses'];
   public language = 'Spanish';
   public option = 'Sobre mí';
+  public menuOpen = false;
   private position = 0;
   @Output() changeLanguage = new EventEmitter<string>();
   @Output() changeOption = new EventEmitter<string>();
@@ -17,15 +20,22 @@ export class NavbarComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    if (sessionStorage.getItem('language')) {
-      this.language = sessionStorage.getItem('language');
+    const language = sessionStorage.getItem('language');
+    if (language) {
+      this.language = language;
     }
-    if (sessionStorage.getItem('option')) {
-      this.option = sessionStorage.getItem('option');
+    const option = sessionStorage.getItem('option');
+    if (option) {
+      this.option = option;
     }
-    if (sessionStorage.getItem('position')) {
-      this.position = +sessionStorage.getItem('position');
+    const position = sessionStorage.getItem('position');
+    if (position) {
+      this.position = +position;
     }
+  }
+
+  public toggleMenu(): void {
+    this.menuOpen = !this.menuOpen;
   }
 
   public onChangeLanguage(): void {
@@ -44,6 +54,7 @@ export class NavbarComponent implements OnInit {
       sessionStorage.setItem('option', this.option);
       this.changeLanguage.emit(this.language);
     }
+    this.menuOpen = false;
   }
 
   public onChangeOption(i: number): void {
@@ -62,6 +73,7 @@ export class NavbarComponent implements OnInit {
       sessionStorage.setItem('language', 'English');
       this.changeOption.emit(this.option);
     }
+    this.menuOpen = false;
   }
 
   public validateOption(i: number): boolean {

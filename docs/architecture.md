@@ -7,7 +7,7 @@
 - Keep components responsible for rendering and interaction, not large content datasets.
 - Prefer typed, validated data over duplicated object literals.
 - Treat the CMS as the editorial source for day-to-day CV updates, while keeping a local content fallback so external services remain non-blocking at build and runtime.
-- Keep Angular as the long-term application framework and upgrade it incrementally.
+- Keep Angular as the long-term application framework and upgrade it incrementally (currently Angular 22 on Node >= 24.15).
 - Keep the main portfolio as one routed page with semantic sections and URL fragments.
 
 ## Target shape
@@ -60,7 +60,7 @@ Do not mix CMS calls directly into templates or individual section components. D
 
 The application should remain on Angular while its dependencies are modernized. Upgrade one Angular major version at a time, use the migration recommendations for that version, and validate the build and tests before continuing. Keep the Node.js version aligned with the Angular version being upgraded.
 
-Remove unused framework and UI dependencies during the modernization work, but avoid combining unrelated visual refactors with a major dependency jump. Firebase Hosting remains an appropriate target because the portfolio does not require a long-running server.
+Remove unused framework and UI dependencies during the modernization work, but avoid combining unrelated visual refactors with a major dependency jump. Do not bundle third-party minified JavaScript through `angular.json` `scripts` (jQuery/Bootstrap JS caused non-reproducible build crashes via sourcemap processing). Bootstrap CSS may remain until the UI redesign. Firebase Hosting remains an appropriate target because the portfolio does not require a long-running server.
 
 Angular remains the long-term framework for this portfolio. Content-first rendering, SEO, and performance improvements should be addressed through Angular upgrades, better static hosting configuration, optimized assets, and the content architecture described above.
 
