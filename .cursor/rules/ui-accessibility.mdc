@@ -1,0 +1,40 @@
+---
+description: Dirección visual, one-pager, accesibilidad, rendimiento y SEO
+globs: src/app/**/*.{html,sass,scss,css},src/styles.*
+alwaysApply: false
+---
+
+# UI, accesibilidad y SEO
+
+Fuente: `docs/ui-modernization.md`.
+
+## Producto
+
+Portfolio de ingeniería: claro, editorial, creíble. En segundos debe quedar quién es Miguel, qué construye y cómo contactar o ver el trabajo.
+
+## Jerarquía
+
+1. Nav compacta + idioma + anclas de sección
+2. Hero de perfil (rol, propuesta, disponibilidad, CTA)
+3. Proyectos destacados (resultado, stack, repo/demo, imagen)
+4. Experiencia, cursos, contacto/footer
+
+## Visual
+
+- Variables CSS: fondo, superficie, texto, muted, acento, borde, spacing, focus
+- Una display + una body legible; base neutra y un acento claro
+- Grid responsive con aspect ratios estables; motion con `prefers-reduced-motion`
+- Cards compactas y consistentes; sin scroll horizontal en móviles comunes
+
+## Accesibilidad
+
+- Landmarks: `header`, `nav`, `main`, `section`, `footer`
+- Controles con teclado y focus visible; botones/enlaces reales (no divs clicables)
+- `alt` descriptivo o vacío si es decorativo; no depender solo del color
+- Contraste legible en texto de cuerpo
+
+## Rendimiento / SEO
+
+- Imágenes importantes locales (WebP/AVIF), lazy-load below-the-fold
+- Metadata: title, description, canonical, Open Graph, JSON-LD persona/portfolio
+- Evitar URLs remotas inestables de logos/imágenes embebidas en el código

@@ -1,0 +1,35 @@
+---
+description: Persistencia de preferencias (idioma/sección) con localStorage
+globs: src/app/**/*.{ts,spec.ts}
+alwaysApply: false
+---
+
+# Persistencia de preferencias
+
+Fuente: `docs/persistence-strategy.md`.
+
+## Qué persistir
+
+Solo preferencias de presentación de bajo riesgo:
+
+- Idioma seleccionado
+- Sección activa (si aplica al diseño)
+- Estado de dismiss de avisos no críticos
+
+El contenido del portfolio **no** va en storage del navegador.
+
+## Cómo
+
+- Usar `localStorage` (no `sessionStorage`) detrás de un servicio testeable
+- Objeto versionado, p. ej. `{ "version": 1, "language": "en", "section": "projects" }`
+- Valores internos estables (`en`, `es`, `about`, `projects`); traducir labels solo al renderizar
+- Defaults en un solo servicio; validar al init; ignorar valores inválidos
+- Escribir al cambiar; fallos de storage no deben romper el render
+
+## No guardar
+
+Datos personales, credenciales, tokens ni identificadores de analytics en este objeto.
+
+## Tests mínimos
+
+Defaults vacíos, valores válidos/inválidos, escritura tras cambio, render si storage lanza error.

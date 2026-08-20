@@ -1,0 +1,39 @@
+---
+description: Separación contenido/UI, modelos tipados y límites de arquitectura
+globs: src/app/**/*.{ts,html},docs/**/*.md
+alwaysApply: false
+---
+
+# Arquitectura y contenido
+
+Fuente de verdad: `docs/architecture.md` y `docs/improvement-plan.md`.
+
+## Límites
+
+- Componentes: render e interacción; no grandes datasets ni contenido duplicado ES/EN
+- Preferir modelo tipado + capa local primero; luego adaptador CMS para edición online del CV (con fallback local)
+- Carpetas objetivo: `models/`, `content/`, `services/`, `components/`, `assets/`
+- Servicios cargan/validan contenido; la UI solo consume el modelo tipado
+
+## ContentService
+
+```ts
+interface ContentSource {
+  loadPortfolio(): Observable<PortfolioContent>;
+}
+```
+
+- Primer adaptador: contenido local; CMS se añade sin tocar componentes de sección
+- Validar/normalizar antes de exponer a la UI
+- Si falla remoto: fallback local + fallo observable en logs
+
+## Qué evitar
+
+- Llamadas CMS o datos crudos en templates o en cada sección
+- Arrays paralelos tipo `spanishProjects` / `englishProjects`; usar campos localizados e IDs estables
+- Base de datos propia solo para unos pocos campos del portfolio
+- Mezclar un salto mayor de Angular con un rediseño visual no relacionado
+
+## Navegación
+
+Ruta principal = one-pager. Secciones con IDs estables (`#about`, `#projects`, `#experience`, `#courses`, `#contact`). Rutas dedicadas solo para detalle (proyecto, artículo).

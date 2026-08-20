@@ -1,0 +1,33 @@
+---
+description: Contexto del portfolio Angular, stack, comandos y no-objetivos
+alwaysApply: true
+---
+
+# Portfolio Miguel Gutierrez
+
+Portfolio personal en Angular 11 (TypeScript + Sass), desplegado como sitio estático en Firebase Hosting. Contenido en español e inglés: perfil, proyectos, experiencia y cursos.
+
+## Stack actual
+
+- Angular 11, RxJS 6, Bootstrap 4, Karma/Jasmine
+- Estilos con Sass; host con rewrite SPA a `index.html`
+- Estructura: `src/app/components/home/` (secciones), `shared/` (nav, loading), `src/assets/`, `src/environments/`
+- Decisiones de producto en `docs/` (`architecture.md`, `improvement-plan.md`, etc.)
+
+## Comandos
+
+- `npm start` — desarrollo en `http://localhost:4200/`
+- `npm run build` — build de producción
+- `npm test` / `npm run lint` / `npm run e2e`
+- Deploy: `npm run build` luego `firebase deploy --only hosting`
+
+## Principios permanentes
+
+- Mantener el sitio estático, barato de operar y sin backend propio salvo necesidad clara
+- Angular es el framework a largo plazo; modernizar de forma incremental
+- Una página principal con secciones ancladas (`/#projects`), no tabs que reemplacen el contenido
+- Orden de trabajo: stack → modelo local tipado → UI → CMS editorial → hardening
+- CMS es requisito de producto para editar CV/portfolio en línea sin cambios de código; siempre con fallback local y sin tokens de escritura en el cliente
+- No reescribir el framework antes de resolver contenido y UX; no auth multi-usuario hasta que haga falta
+
+Consultar `docs/improvement-plan.md` antes de cambios de arquitectura o stack.
