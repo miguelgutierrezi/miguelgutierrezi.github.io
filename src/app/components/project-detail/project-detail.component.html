@@ -228,34 +228,34 @@
             </a>
           }
         </div>
-
-        <div class="pd-pager">
-          @if (previous) {
-            <a class="pd-pager__link" [routerLink]="['/projects', previous.id]">
-              <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M15 18l-6-6 6-6"></path>
-              </svg>
-              <span>
-                <small>{{ label('previousProject') }}</small>
-                <strong>{{ previous.title }}</strong>
-              </span>
-            </a>
-          } @else {
-            <span></span>
-          }
-          @if (next) {
-            <a class="pd-pager__link pd-pager__link--next" [routerLink]="['/projects', next.id]">
-              <span>
-                <small>{{ label('nextProject') }}</small>
-                <strong>{{ next.title }}</strong>
-              </span>
-              <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M9 18l6-6-6-6"></path>
-              </svg>
-            </a>
-          }
-        </div>
       </section>
+
+      <nav class="pd-pager" aria-label="Project navigation">
+        @if (previous) {
+          <a class="pd-pager__link" [routerLink]="['/projects', previous.id]">
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M15 18l-6-6 6-6"></path>
+            </svg>
+            <span>
+              <small>{{ label('previousProject') }}</small>
+              <strong>{{ previous.title }}</strong>
+            </span>
+          </a>
+        } @else {
+          <span></span>
+        }
+        @if (next) {
+          <a class="pd-pager__link pd-pager__link--next" [routerLink]="['/projects', next.id]">
+            <span>
+              <small>{{ label('nextProject') }}</small>
+              <strong>{{ next.title }}</strong>
+            </span>
+            <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 18l6-6-6-6"></path>
+            </svg>
+          </a>
+        }
+      </nav>
     </main>
 
     <footer class="site-footer" id="contact">

@@ -10,7 +10,7 @@ Local toolchain: **Node.js >= 24.15** (see `.nvmrc`). Build uses the application
 
 - Keep the site static, inexpensive to operate, and easy to deploy.
 - Keep Angular as the long-term framework and modernize it incrementally.
-- Keep the main experience as one page with anchored sections (`#about`, `#experience`, `#projects`, `#courses`), not tabs that replace the visible content. Contact stays in the footer only (not in nav/burger). Project case studies use `/projects/:id` (desktop Figma `4:678`; tablet/mobile detail later).
+- Keep the main experience as one page with anchored sections (`#about`, `#experience`, `#projects`, `#courses`), not tabs that replace the visible content. Contact stays in the footer only (not in nav/burger). Project case studies use `/projects/:id` (Figma `4:678` / `4:1170` / `4:1019` / `4:866`).
 - Separate content from presentation.
 - Prefer typed, validated data over duplicated object literals.
 - Treat the CMS as the editorial source for day-to-day CV updates, but always keep a local fallback.
@@ -74,7 +74,7 @@ A change that updates only application code or `docs/` without reviewing these t
 - Before architectural changes, consult the docs in `docs/`.
 - Preserve the existing static hosting model unless the task explicitly changes it.
 - Prefer precise, surgical changes that fit the current codebase conventions.
-- Keep the implementation aligned with the documented delivery order: stack done → typed local content model done → UI Phase 2 (Desktop + tablet L/P + mobile complete; project-detail desktop + tablet L/P done; mobile detail pending) → CMS → hardening.
+- Keep the implementation aligned with the documented delivery order: stack done → typed local content model done → UI Phase 2 (Desktop + tablet L/P + mobile complete; project-detail all breakpoints done) → CMS → hardening.
 
 ## Figma
 
