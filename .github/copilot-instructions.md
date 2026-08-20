@@ -19,7 +19,7 @@ Local toolchain: **Node.js >= 24.15** (see `.nvmrc`). Build uses the application
 ## Architecture rules
 
 - Components should render and handle interaction, not own large content datasets.
-- Content should flow through typed models in `src/app/models/`, local data in `src/app/content/`, and `ContentService` / `ContentSource` (local adapter today; CMS adapter later). Validate remote/local payloads with `validatePortfolioContent(unknown)` which returns a new normalized object and never mutates the source.
+- Content should flow through typed models in `src/app/models/`, local data in `src/app/content/`, and `ContentService` / `ContentSource` (local adapter today; CMS adapter later). Validate remote/local payloads with `validatePortfolioContent(unknown)` which returns a new normalized object and never mutates the source. Social link URLs may be `http(s)`, `tel:`, or `mailto:` (phone + WhatsApp are first-class contact actions in the hero).
 - Preferences (`language`, `section`) go through `PreferencesService` and `localStorage`, not ad-hoc `sessionStorage` in components.
 - Use stable IDs and localized fields instead of separate Spanish and English arrays.
 - Do not call CMS APIs directly from templates or individual section components.
@@ -74,7 +74,7 @@ A change that updates only application code or `docs/` without reviewing these t
 - Before architectural changes, consult the docs in `docs/`.
 - Preserve the existing static hosting model unless the task explicitly changes it.
 - Prefer precise, surgical changes that fit the current codebase conventions.
-- Keep the implementation aligned with the documented delivery order: stack done → typed local content model done → UI Phase 2 (Desktop + tablet L/P + mobile complete, burger open Figma `4:12` + slide; project-detail optional) → CMS → hardening.
+- Keep the implementation aligned with the documented delivery order: stack done → typed local content model done → UI Phase 2 (Desktop + tablet L/P + mobile complete, burger open Figma `4:12` + slide, meta = footer credit; project-detail optional) → CMS → hardening.
 
 ## Figma
 

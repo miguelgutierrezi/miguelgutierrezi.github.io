@@ -13,11 +13,12 @@ Portfolio personal en Angular 22 (TypeScript + Sass), desplegado como sitio est�
 - Node.js >= 24.15 (`.nvmrc` → `24`)
 - Sin scripts globales de jQuery/Bootstrap JS (rompían el build vía sourcemaps → exit 134)
 - Navbar collapse en Angular; output: `dist/.../browser`
-- UI Phase 2: **Desktop + tablet L/P + mobile** (burger overlay = Figma `4:12`, slide open/close)
+- UI Phase 2: **Desktop + tablet L/P + mobile** (burger overlay = Figma `4:12`, slide open/close; meta = `footerCredit`)
 - Breakpoints CSS: landscape `max-width: 1279px`, portrait `max-width: 1023px`, mobile `max-width: 767px`
 - Estructura: `models/`, `content/`, `services/`, `components/home|shared`, `assets/`, `environments/`
 - Contenido tipado local vía `ContentService`; idioma/sección en `PreferencesService` (`localStorage`)
-- Modelo: `brandHandle`, profile `role`/`pitch`/`focusAreas`, project `technologies` + chrome en `PortfolioContent.ui`
+- Modelo: `brandHandle`, profile `role`/`pitch`/`focusAreas`, project `technologies` + chrome en `PortfolioContent.ui`; contactos hero: GitHub, LinkedIn, phone (`tel:`), WhatsApp (`wa.me`)
+- Validación social: `http(s)` + `tel:` / `mailto:` en `content-validator.ts`
 
 ## Comandos
 

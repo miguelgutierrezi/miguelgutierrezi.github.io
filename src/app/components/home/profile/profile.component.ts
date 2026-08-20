@@ -5,6 +5,7 @@ import {
   PortfolioContent,
   SocialLink,
   UiCopy,
+  isExternalHttpUrl,
   localize,
   localizeList
 } from '../../../models/portfolio.models';
@@ -54,6 +55,10 @@ export class ProfileComponent implements OnInit {
 
   public label(key: keyof UiCopy): string {
     return this.ui ? localize(this.ui[key], this.language) : '';
+  }
+
+  public isExternal(url: string): boolean {
+    return isExternalHttpUrl(url);
   }
 
   private applyContent(content: PortfolioContent): void {

@@ -4,6 +4,7 @@ import {
   LocalizedString,
   SectionId,
   SocialLink,
+  isExternalHttpUrl,
   localize
 } from '../../models/portfolio.models';
 import { ContentService } from '../../services/content.service';
@@ -75,6 +76,10 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   public onChangeSection(section: SectionId): void {
     this.preferences.setSection(section);
+  }
+
+  public isExternal(url: string): boolean {
+    return isExternalHttpUrl(url);
   }
 
   private setupScrollSpy(): void {

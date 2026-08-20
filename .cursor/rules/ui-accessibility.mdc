@@ -15,7 +15,7 @@ Portfolio de ingeniería: claro, editorial, creíble. En segundos debe quedar qu
 ## Jerarquía
 
 1. Nav compacta sticky + toggle ES/EN + anclas de sección
-2. Hero de perfil (rol badge, nombre, pitch, email CTA, socials, foto)
+2. Hero de perfil (rol badge, nombre, pitch, email CTA, socials GitHub/LinkedIn/teléfono/WhatsApp, foto)
 3. Sobre mí + tags de foco
 4. Experiencia en timeline (bullets inline)
 5. Proyectos en cards paginadas (tags de stack, link externo)
@@ -27,7 +27,7 @@ Portfolio de ingeniería: claro, editorial, creíble. En segundos debe quedar qu
 - Tokens CSS en `styles.sass` (fondo `#F8FAFC`, ink `#0B0F19`, acento cyan `#06B6D4`)
 - Tipografía: Geist Sans + Geist Mono (`@fontsource/geist-*`)
 - One-pager con scroll-spy; `scroll-margin-top` bajo nav sticky
-- Breakpoints: Desktop default; tablet landscape `1279px`; tablet portrait `1023px`; mobile `767px` (hamburger; open state = Figma `4:12` with slide `translateX`)
+- Breakpoints: Desktop default; tablet landscape `1279px`; tablet portrait `1023px`; mobile `767px` (hamburger; open state = Figma `4:12` with slide `translateX`; meta = footer credit, no fake version/uptime)
 
 ## Accesibilidad
 

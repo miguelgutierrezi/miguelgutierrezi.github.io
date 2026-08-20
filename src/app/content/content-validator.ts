@@ -201,7 +201,10 @@ function parseSocialLink(value: unknown, path: string, issues: ContentValidation
     return null;
   }
 
-  const url = parseUrl(value['url'], `${path}.url`, issues, { allowLocalAsset: false });
+  const url = parseUrl(value['url'], `${path}.url`, issues, {
+    allowLocalAsset: false,
+    allowContactSchemes: true
+  });
   const iconUrl = parseUrl(value['iconUrl'], `${path}.iconUrl`, issues, {
     allowEmpty: true,
     allowLocalAsset: true
@@ -459,9 +462,9 @@ function parseUrl(
   value: unknown,
   path: string,
   issues: ContentValidationIssue[],
-  options: { allowEmpty?: boolean; allowLocalAsset?: boolean } = {}
+  options: { allowEmpty?: boolean; allowLocalAsset?: boolean; allowContactSchemes?: boolean } = {}
 ): string | null {
-  const { allowEmpty = false, allowLocalAsset = false } = options;
+  const { allowEmpty = false, allowLocalAsset = false, allowContactSchemes = false } = options;
 
   if (value === undefined || value === null) {
     if (allowEmpty) {
@@ -487,6 +490,15 @@ function parseUrl(
 
   if (allowLocalAsset && isLocalAssetPath(trimmed)) {
     return trimmed;
+  }
+
+  if (allowContactSchemes) {
+    if (/^tel:\+?[\d().\-\s]+$/i.test(trimmed)) {
+      return trimmed.replace(/\s+/g, '');
+    }
+    if (/^mailto:[^\s]+$/i.test(trimmed)) {
+      return trimmed;
+    }
   }
 
   try {

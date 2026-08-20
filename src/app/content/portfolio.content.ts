@@ -7,15 +7,27 @@ export const LOCAL_PORTFOLIO_CONTENT: PortfolioContent = {
     emails: ['migueangel97@hotmail.com', 'miguelangelgi.97@gmail.com'],
     socialLinks: [
       {
+        id: 'github',
+        label: 'GitHub',
+        url: 'https://github.com/miguelgutierrezi',
+        iconUrl: ''
+      },
+      {
         id: 'linkedin',
         label: 'LinkedIn',
         url: 'https://www.linkedin.com/in/miguelgutierrezi/',
         iconUrl: ''
       },
       {
-        id: 'github',
-        label: 'GitHub',
-        url: 'https://github.com/miguelgutierrezi',
+        id: 'phone',
+        label: 'Phone',
+        url: 'tel:+573108108579',
+        iconUrl: ''
+      },
+      {
+        id: 'whatsapp',
+        label: 'WhatsApp',
+        url: 'https://wa.me/573108108579',
         iconUrl: ''
       }
     ]
@@ -79,7 +91,7 @@ export const LOCAL_PORTFOLIO_CONTENT: PortfolioContent = {
     { id: 'about', label: { es: 'Sobre Mí', en: 'About' } },
     { id: 'experience', label: { es: 'Experiencia', en: 'Experience' } },
     { id: 'projects', label: { es: 'Proyectos', en: 'Projects' } },
-    { id: 'courses', label: { es: 'Estudios', en: 'Studies' } }
+    { id: 'courses', label: { es: 'Cursos', en: 'Courses' } }
   ],
   projects: [
     {

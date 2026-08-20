@@ -13,6 +13,7 @@ import {
   SectionId,
   SocialLink,
   UiCopy,
+  isExternalHttpUrl,
   localize
 } from '../../../models/portfolio.models';
 import { ContentService } from '../../../services/content.service';
@@ -157,8 +158,31 @@ export class NavbarComponent implements OnInit, OnDestroy {
     return this.ui ? localize(this.ui.menuToggle, this.language) : 'Toggle navigation';
   }
 
+  public menuCreditPrimary(): string {
+    const credit = this.footerCreditText();
+    const [primary] = credit.split('•');
+    return (primary ?? credit).trim();
+  }
+
+  public menuCreditYear(): string {
+    const credit = this.footerCreditText();
+    const parts = credit.split('•');
+    return (parts[1] ?? '2026').trim();
+  }
+
   public isActive(section: SectionId): boolean {
     return this.section === section;
+  }
+
+  public isExternal(url: string): boolean {
+    return isExternalHttpUrl(url);
+  }
+
+  private footerCreditText(): string {
+    if (!this.ui?.footerCredit) {
+      return this.language === 'es' ? 'Hecho con Angular • 2026' : 'Built with Angular • 2026';
+    }
+    return localize(this.ui.footerCredit, this.language);
   }
 
   private afterMenuClose(action: () => void): void {

@@ -14,6 +14,11 @@ export function localizeList(value: LocalizedStringList, locale: LocaleCode): st
   return value[locale] ?? value.es;
 }
 
+/** True for http(s) links that should open in a new tab. */
+export function isExternalHttpUrl(url: string): boolean {
+  return /^https?:\/\//i.test(url);
+}
+
 export interface SocialLink {
   id: string;
   label: string;
