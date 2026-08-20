@@ -166,3 +166,20 @@ button
   clip: rect(0, 0, 0, 0)
   white-space: nowrap
   border: 0
+
+// Tablet landscape (Figma cv-tablet-landscape · 1024)
+@media (max-width: 1279px)
+  :root
+    --space-page-x: 64px
+    --space-section-y: 80px
+    --nav-height: 72px
+
+  .section-layout
+    gap: 48px
+
+  #projects .section-layout
+    flex-direction: column
+    gap: 40px
+
+  #projects .section-header
+    width: auto

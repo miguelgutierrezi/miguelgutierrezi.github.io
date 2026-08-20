@@ -64,11 +64,11 @@ Typed content layer shared by the UI and a future CMS.
 
 Next product focus: Phase 2 (UI modernization) on this model.
 
-### Phase 2: UI modernization — **in progress (Desktop baseline)**
+### Phase 2: UI modernization — **in progress (Desktop + tablet landscape)**
 
-- Desktop one-pager implemented from Figma `cv-desktop` (tokens, Geist fonts, sticky nav, hero, about, experience timeline, project cards carousel pages, courses list, footer).
+- Desktop and tablet landscape (`cv-tablet-landscape`, ~1024 / CSS `max-width: 1279px`) one-pager implemented from Figma (tokens, Geist fonts, sticky nav, hero, about, experience timeline, project cards, courses list, footer).
 - Anchored sections `#about`, `#experience`, `#projects`, `#courses`, `#contact` (no tab-swapped content).
-- Pending: tablet landscape, tablet portrait, mobile (+ burger), and project-detail routes from the same Figma file.
+- Pending: tablet portrait, mobile (+ burger), and project-detail routes from the same Figma file.
 - Still pending from the original checklist: broader a11y/SEO polish and localizing remote project/course image assets.
 
 ### Phase 3: CMS integration (product requirement)

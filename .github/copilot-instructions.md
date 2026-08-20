@@ -74,7 +74,7 @@ A change that updates only application code or `docs/` without reviewing these t
 - Before architectural changes, consult the docs in `docs/`.
 - Preserve the existing static hosting model unless the task explicitly changes it.
 - Prefer precise, surgical changes that fit the current codebase conventions.
-- Keep the implementation aligned with the documented delivery order: stack done → typed local content model done → UI Phase 2 (Desktop baseline from Figma `cv-desktop`; next tablet/mobile frames) → CMS → hardening.
+- Keep the implementation aligned with the documented delivery order: stack done → typed local content model done → UI Phase 2 (Desktop + tablet landscape from Figma; next tablet portrait → mobile) → CMS → hardening.
 
 ## Figma
 

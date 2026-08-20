@@ -13,7 +13,7 @@ Fuente: `docs/architecture.md` y `docs/improvement-plan.md`.
 - Modelos en `src/app/models/portfolio.models.ts` (incluye `UiCopy`)
 - Contenido local en `src/app/content/portfolio.content.ts`
 - Validación en `src/app/content/content-validator.ts`: entrada `unknown`, salida objeto **nuevo** (sin mutar fuente), IDs únicos por colección, issue en cada rechazo, URLs con `new URL()` + `assets/` local
-- Phase 1 **cerrada**; Phase 2 UI: **Desktop** one-pager aplicado (Figma `cv-desktop`); tablet/mobile pendientes
+- Phase 1 **cerrada**; Phase 2 UI: **Desktop + tablet landscape** aplicados; tablet portrait/mobile pendientes
 - Campos de perfil/site usados por la UI: `brandHandle`, `role`, `pitch`, `focusAreas`, `technologies`
 
 ## Límites
