@@ -155,6 +155,12 @@ export interface UiCopy {
   metaTeam: LocalizedString;
   metaYear: LocalizedString;
   metaClient: LocalizedString;
+  notFoundStatus: LocalizedString;
+  notFoundTitle: LocalizedString;
+  notFoundDescription: LocalizedString;
+  notFoundHomeCta: LocalizedString;
+  notFoundTerminalFile: LocalizedString;
+  notFoundTerminalMessage: LocalizedString;
 }
 
 export interface PortfolioContent {

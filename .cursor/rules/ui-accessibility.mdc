@@ -29,6 +29,7 @@ Portfolio de ingeniería: claro, editorial, creíble. En segundos debe quedar qu
 - One-pager con scroll-spy; `scroll-margin-top` bajo nav sticky
 - Breakpoints: Desktop default; tablet landscape `1279px`; tablet portrait `1023px`; mobile `767px` (hamburger; open state = Figma `4:12` with slide `translateX`; meta = footer credit)
 - Project detail: `/projects/:id` desktop + tablet L/P + mobile (Figma `4:678` / `4:1170` / `4:1019` / `4:866`)
+- 404 desktop: `/not-found` (Figma `21:4`); tablet/mobile later
 
 ## Accesibilidad
 

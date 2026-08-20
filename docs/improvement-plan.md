@@ -84,7 +84,7 @@ A headless CMS is intentional product scope: update CV and portfolio content onl
 ### Phase 4: Production hardening — **partially started**
 
 - **Done:** replace CircleCI with GitHub Actions (`ci.yml`, `deploy.yml`, PR preview). Gate on `npm run build` only (no legacy unit/e2e).
-- Pending: metadata, Open Graph tags, sitemap, robots rules, structured data, and a custom 404 experience.
+- Pending: metadata, Open Graph tags, sitemap, robots rules, and structured data. **404 desktop** (`/not-found`, Figma `21:4`) is implemented; tablet/mobile 404 frames later.
 - Pending: broader automated link/accessibility/Lighthouse checks in CI.
 - Review caching, image formats, security headers, and dependency health.
 

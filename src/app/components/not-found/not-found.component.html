@@ -1,13 +1,88 @@
-<body>
-<div id="notfound">
-  <div class="notfound">
-    <div class="notfound-404">
-      <div></div>
-      <h1>404</h1>
+<div class="not-found">
+  <app-navbar
+    (changeLanguage)="onChangeLanguage($event)"
+    (changeSection)="onChangeSection()">
+  </app-navbar>
+
+  <main class="nf-main">
+    <div class="nf-hero">
+      <p class="nf-status">
+        <span class="nf-status__dot" aria-hidden="true"></span>
+        <span>{{ label('notFoundStatus') }}</span>
+      </p>
+      <p class="nf-code" aria-hidden="true">404</p>
+      <div class="nf-copy">
+        <h1 class="nf-title">{{ label('notFoundTitle') }}</h1>
+        <p class="nf-description">{{ label('notFoundDescription') }}</p>
+      </div>
     </div>
-    <h2>Page not found</h2>
-    <p>The page you are looking for might have been removed had its name changed or is temporarily unavailable.</p>
-    <a href="#">home page</a>
-  </div>
+
+    <div class="nf-terminal" aria-hidden="true">
+      <div class="nf-terminal__header">
+        <div class="nf-terminal__dots" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <span class="nf-terminal__file">{{ label('notFoundTerminalFile') }}</span>
+        <span class="nf-terminal__spacer" aria-hidden="true"></span>
+      </div>
+      <div class="nf-terminal__body">
+        <div class="nf-line"><span class="nf-ln">01</span><span><span class="nf-kw">package</span> main</span></div>
+        <div class="nf-line"><span class="nf-ln">02</span><span><span class="nf-kw">func</span> <span class="nf-fn">FindRoute</span>(path <span class="nf-type">string</span>) &#123;</span></div>
+        <div class="nf-line"><span class="nf-ln">03</span><span>&nbsp;&nbsp;<span class="nf-kw">if</span> path == <span class="nf-str">"/unknown-destination"</span> &#123;</span></div>
+        <div class="nf-line"><span class="nf-ln">04</span><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="nf-kw">panic</span>(&amp;NetworkError&#123;</span></div>
+        <div class="nf-line"><span class="nf-ln">05</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Code:&nbsp;&nbsp;&nbsp;&nbsp;<span class="nf-num">404</span>,</span></div>
+        <div class="nf-line"><span class="nf-ln">06</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Message: <span class="nf-str">"{{ label('notFoundTerminalMessage') }}"</span>,</span></div>
+        <div class="nf-line"><span class="nf-ln">07</span><span>&nbsp;&nbsp;&nbsp;&nbsp;&#125;)</span></div>
+        <div class="nf-line"><span class="nf-ln">08</span><span>&nbsp;&nbsp;&#125;</span></div>
+        <div class="nf-line"><span class="nf-ln">09</span><span>&#125;</span></div>
+      </div>
+    </div>
+
+    <a class="nf-cta" routerLink="/home">
+      <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 12H5"></path>
+        <path d="M12 19l-7-7 7-7"></path>
+      </svg>
+      {{ label('notFoundHomeCta') }}
+    </a>
+  </main>
+
+  <footer class="site-footer site-footer--bordered" id="contact">
+    <p class="site-footer__name">{{ siteName }}</p>
+    <div class="site-footer__aside">
+      @if (primaryEmail) {
+        <a class="site-footer__email" [href]="'mailto:' + primaryEmail">{{ primaryEmail }}</a>
+      }
+      <div class="site-footer__socials">
+        @for (link of socialLinks; track link.id) {
+          <a
+            [href]="link.url"
+            [attr.target]="isExternal(link.url) ? '_blank' : null"
+            [attr.rel]="isExternal(link.url) ? 'noopener noreferrer' : null"
+            [attr.aria-label]="link.label">
+            @if (link.id === 'github') {
+              <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" width="16" height="16">
+                <path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.52 2.87 8.35 6.84 9.7.5.1.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.06 1.53 1.06.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.27 2.75 1.05A9.3 9.3 0 0 1 12 6.8c.85 0 1.71.12 2.51.35 1.91-1.32 2.75-1.05 2.75-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.95.68 1.92 0 1.38-.01 2.49-.01 2.83 0 .26.18.59.69.48A10.03 10.03 0 0 0 22 12.26C22 6.58 17.52 2 12 2z"/>
+              </svg>
+            } @else if (link.id === 'linkedin') {
+              <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor" width="16" height="16">
+                <path d="M6.94 8.5H3.56V20h3.38V8.5zM5.25 4a1.96 1.96 0 1 0 0 3.92 1.96 1.96 0 0 0 0-3.92zM20.44 20h-3.37v-5.6c0-1.34-.02-3.06-1.86-3.06-1.87 0-2.15 1.46-2.15 2.96V20h-3.37V8.5h3.24v1.57h.05c.45-.85 1.55-1.75 3.19-1.75 3.41 0 4.04 2.25 4.04 5.17V20z"/>
+              </svg>
+            } @else if (link.id === 'phone') {
+              <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="16" height="16">
+                <path d="M14.08 15.86c-.18.05-.38.03-.55-.05-2.31-1.14-4.19-3.01-5.32-5.32-.08-.17-.11-.37-.06-.56.04-.19.15-.35.3-.47l.39-.29c.21-.15.38-.35.49-.58.12-.23.18-.49.18-.74V5.33c0-.44-.18-.86-.49-1.18-.31-.31-.74-.49-1.18-.49H5.33c-.44 0-.86.18-1.18.49-.31.32-.49.74-.49 1.18 0 3.98 1.58 7.79 4.39 10.61 2.82 2.81 6.63 4.39 10.61 4.39.44 0 .86-.18 1.18-.49.31-.32.49-.74.49-1.18v-2.5c0-.44-.18-.86-.49-1.18-.32-.31-.74-.49-1.18-.49h-2.5c-.26 0-.51.06-.74.18-.23.11-.43.28-.58.49l-.29.39c-.12.15-.24.27-.39.31z"/>
+              </svg>
+            } @else if (link.id === 'whatsapp') {
+              <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" width="16" height="16">
+                <path d="M4.57 16.59c.07-.32.04-.66-.08-.97A7.5 7.5 0 1 1 12 19.5a7.45 7.45 0 0 1-3.3-.77c-.29-.11-.61-.14-.91-.08l-2.84.83a.75.75 0 0 1-.94-.94l.88-2.73z"/>
+              </svg>
+            }
+          </a>
+        }
+      </div>
+    </div>
+    <p class="site-footer__credit">{{ footerCredit }}</p>
+  </footer>
 </div>
-</body>

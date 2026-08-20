@@ -58,7 +58,13 @@ const UI_KEYS: (keyof UiCopy)[] = [
   'metaDuration',
   'metaTeam',
   'metaYear',
-  'metaClient'
+  'metaClient',
+  'notFoundStatus',
+  'notFoundTitle',
+  'notFoundDescription',
+  'notFoundHomeCta',
+  'notFoundTerminalFile',
+  'notFoundTerminalMessage'
 ];
 
 const UI_FALLBACK: UiCopy = {
@@ -101,7 +107,16 @@ const UI_FALLBACK: UiCopy = {
   metaDuration: { es: 'Duración', en: 'Duration' },
   metaTeam: { es: 'Equipo', en: 'Team' },
   metaYear: { es: 'Año', en: 'Year' },
-  metaClient: { es: 'Cliente', en: 'Client' }
+  metaClient: { es: 'Cliente', en: 'Client' },
+  notFoundStatus: { es: 'HTTP STATUS: 404 NOT FOUND', en: 'HTTP STATUS: 404 NOT FOUND' },
+  notFoundTitle: { es: 'Página no encontrada', en: 'Page not found' },
+  notFoundDescription: {
+    es: 'Lo sentimos, el recurso que estás buscando no existe en este clúster o ha sido migrado de forma permanente.',
+    en: 'Sorry, the resource you are looking for does not exist in this cluster or has been permanently migrated.'
+  },
+  notFoundHomeCta: { es: 'Volver al inicio', en: 'Back to home' },
+  notFoundTerminalFile: { es: 'resolve_route.go — vim', en: 'resolve_route.go — vim' },
+  notFoundTerminalMessage: { es: 'PÁGINA NO ENCONTRADA', en: 'PAGE NOT FOUND' }
 };
 
 /**
