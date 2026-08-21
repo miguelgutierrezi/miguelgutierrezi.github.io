@@ -1,6 +1,6 @@
 # Sanity Studio — portfolio editorial
 
-Edita `siteSettings`, `profile` y `project` online. Angular consume el dataset por CDN (solo lectura) y cae al contenido local si falla.
+Edita `siteSettings`, `profile`, `project`, `experience`, `course` y `navigation` online. Angular consume el dataset por CDN (solo lectura) y cae al contenido local por colección si falta data.
 
 ## Setup rápido
 
@@ -13,12 +13,14 @@ npm install
 npm run dev
 ```
 
-3. En el Studio, crea:
+3. En el Studio, crea (slice 1 mínimo):
    - un documento **Site settings**
    - un documento **Profile**
    - uno o más **Project** (slug = id de ruta Angular, p. ej. `nodejs-scheduler-back`)
 
-4. Angular ya apunta a este proyecto en `environment.ts` / `.prod.ts`:
+4. Slice 2 (opcional hasta el admin): **Experience**, **Course**, **Navigation** (1 singleton). Sin documentos → Angular usa el fallback local. Guía: [`seed/slice2-documents.md`](seed/slice2-documents.md).
+
+5. Angular ya apunta a este proyecto en `environment.ts` / `.prod.ts`:
 
 ```ts
 cms: {
@@ -29,7 +31,14 @@ cms: {
 }
 ```
 
-5. Confirma que el dataset es **público de lectura** (Sanity CDN). No pongas tokens de escritura en el cliente.
+6. Confirma que el dataset es **público de lectura** (Sanity CDN). No pongas tokens de escritura en el cliente.
+
+7. **CORS (obligatorio para el browser):** en [sanity.io/manage](https://www.sanity.io/manage) → proyecto `xm49cfca` → **API** → **CORS origins**, añade al menos:
+   - `http://localhost:4200` (dev)
+   - tu host Firebase / GitHub Pages (prod)
+   - Allow credentials: **no** hace falta para lectura CDN anónima  
+
+   Sin esto el GET desde Angular responde **403 CORS Origin not allowed** y el adapter cae al contenido local (verás los 6 proyectos locales).
 
 ## Seed desde el contenido local
 
@@ -37,11 +46,13 @@ Usa el contenido tipado en `src/app/content/portfolio.content.ts` como referenci
 
 | Angular | Sanity |
 | --- | --- |
-| `project.id` | `slug.current` |
+| `project.id` / `experience.id` / `course.id` | `slug.current` |
 | `LocalizedString` | objeto `{ es, en }` |
 | `detail.features[].icon` | `shield \| bell \| terminal \| users \| api \| mobile \| code \| database` |
 
-Slice 1: solo site / profile / projects. Experience, courses, navigation y `ui` siguen saliendo del fallback local.
+- Slice 1: site / profile / projects  
+- Slice 2: experience / courses / navigation (merge por colección; vacío → local)  
+- `ui` chrome labels: **siguen locales**
 
 ## Seguridad
 

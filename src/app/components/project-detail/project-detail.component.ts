@@ -16,6 +16,7 @@ import {
 } from '../../models/portfolio.models';
 import { ContentService } from '../../services/content.service';
 import { PreferencesService } from '../../services/preferences.service';
+import { SeoService } from '../../services/seo.service';
 
 @Component({
   selector: 'app-project-detail',
@@ -42,19 +43,23 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
     private readonly route: ActivatedRoute,
     private readonly router: Router,
     private readonly contentService: ContentService,
-    private readonly preferences: PreferencesService
+    private readonly preferences: PreferencesService,
+    private readonly seo: SeoService
   ) {}
 
   ngOnInit(): void {
     this.preferences.setSection('projects');
     this.language = this.preferences.snapshot.language;
+    this.seo.setLanguage(this.language);
 
     this.sub.add(
       this.preferences.preferences$.subscribe((prefs) => {
         this.language = prefs.language;
+        this.seo.setLanguage(prefs.language);
         if (this.ui?.footerCredit) {
           this.footerCredit = localize(this.ui.footerCredit, prefs.language);
         }
+        this.applySeo();
       })
     );
 
@@ -78,6 +83,8 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
           this.project = this.projects[index];
           this.previous = index > 0 ? this.projects[index - 1] : null;
           this.next = index < this.projects.length - 1 ? this.projects[index + 1] : null;
+          this.applySeo();
+          this.applyJsonLd();
           window.scrollTo({ top: 0, behavior: 'auto' });
         }
       )
@@ -109,5 +116,38 @@ export class ProjectDetailComponent implements OnInit, OnDestroy {
 
   public isExternal(url: string): boolean {
     return isExternalHttpUrl(url);
+  }
+
+  private applySeo(): void {
+    if (!this.project) {
+      return;
+    }
+    const description = localize(this.project.description, this.language);
+    this.seo.apply({
+      title: `${this.project.title} — ${this.siteName || 'Portfolio'}`,
+      description,
+      path: `/projects/${this.project.id}`,
+      imageUrl: this.project.imageUrl,
+      type: 'article'
+    });
+  }
+
+  private applyJsonLd(): void {
+    if (!this.project) {
+      return;
+    }
+    this.seo.setJsonLd({
+      '@context': 'https://schema.org',
+      '@type': 'CreativeWork',
+      name: this.project.title,
+      description: localize(this.project.description, this.language),
+      url: this.seo.absoluteUrl(`/projects/${this.project.id}`),
+      image: this.seo.absoluteUrl(this.project.imageUrl),
+      author: {
+        '@type': 'Person',
+        name: this.siteName
+      },
+      keywords: this.project.technologies.join(', ')
+    });
   }
 }

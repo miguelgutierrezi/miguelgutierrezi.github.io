@@ -8,7 +8,7 @@ The CMS is still **not** the runtime foundation of the site. The application sho
 
 ## Recommendation
 
-**Chosen for this portfolio:** **Sanity** with **runtime** read via the Sanity CDN (`*.apicdn.sanity.io`), validated through `validatePortfolioContent`, and merged over the typed local fallback for sections not yet migrated. Schema definitions live in `/studio`. Day-to-day editing targets a **custom admin UI** (separate app) with an authenticated write proxy — not Sanity Studio as the primary UI. The public portfolio navbar **Login** only redirects via `environment.adminLoginUrl`.
+**Chosen for this portfolio:** **Sanity** with **runtime** read via the Sanity CDN (`*.apicdn.sanity.io`), validated through `validatePortfolioContent`, and merged over the typed local fallback **per collection**. Schema definitions live in `/studio` (slice 1: site/profile/project; slice 2: experience/course/navigation). Day-to-day editing targets a **custom admin UI** (separate app) with an authenticated write proxy — not Sanity Studio as the primary UI. The public portfolio navbar **Login** only redirects via `environment.adminLoginUrl`. `ui` chrome labels remain local for now.
 
 Prefer a **hosted** headless CMS with a clear editorial UI when the goal is “edit online without touching the repo.” Sanity and Storyblok both fit; Decap remains an alternative when Git-based editing is preferred.
 
@@ -40,15 +40,16 @@ Prefer localized fields over separate `spanishProjects` and `englishProjects` ar
 
 - Never expose CMS write tokens in the Angular portfolio bundle.
 - Use a public read-only API or fetch content during a trusted build step.
+- Allow each browser origin in Sanity Manage → API → CORS (e.g. `http://localhost:4200` and Firebase Hosting). A missing origin yields 403 and local fallback.
 - Validate remote content before rendering it.
 - Keep a local fallback for outages, malformed entries, or an unavailable preview environment.
 - Writes go through a separate admin app + authenticated proxy. Portfolio Login is a redirect only (`environment.adminLoginUrl`).
 
 ## Adoption sequence
 
-1. Define and implement the typed local content model.
-2. Migrate current portfolio data into that model.
-3. Confirm the fields needed for day-to-day CV and project updates.
-4. Prototype one CMS schema with profile, experience, and projects.
-5. Add preview, read path, and local fallback behavior.
-6. Migrate the remaining sections and remove duplicated component data.
+1. Define and implement the typed local content model. ✓
+2. Migrate current portfolio data into that model. ✓
+3. Confirm the fields needed for day-to-day CV and project updates. ✓
+4. Prototype CMS schemas (slice 1 + slice 2). ✓
+5. Add preview, read path, and local fallback behavior. ✓ (runtime CDN + per-collection merge)
+6. Complete editorial data via custom admin; optionally migrate `ui` chrome labels last.

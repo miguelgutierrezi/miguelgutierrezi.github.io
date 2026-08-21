@@ -10,6 +10,7 @@ import {
 } from '../../models/portfolio.models';
 import { ContentService } from '../../services/content.service';
 import { PreferencesService } from '../../services/preferences.service';
+import { SeoService } from '../../services/seo.service';
 
 @Component({
   selector: 'app-home',
@@ -26,6 +27,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   public socialLinks: SocialLink[] = [];
   public footerCredit = '';
   private footerCreditTemplate: LocalizedString | null = null;
+  private pitchTemplate: LocalizedString | null = null;
+  private profileImageUrl = '';
 
   private observer?: IntersectionObserver;
   private readonly sectionIds: SectionId[] = ['about', 'experience', 'projects', 'courses'];
@@ -33,20 +36,24 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(
     private readonly preferences: PreferencesService,
     private readonly contentService: ContentService,
-    private readonly route: ActivatedRoute
+    private readonly route: ActivatedRoute,
+    private readonly seo: SeoService
   ) {}
 
   ngOnInit(): void {
     const snapshot = this.preferences.snapshot;
     this.language = snapshot.language;
     this.section = snapshot.section;
+    this.seo.setLanguage(this.language);
 
     this.preferences.preferences$.subscribe((prefs) => {
       this.language = prefs.language;
       this.section = prefs.section;
+      this.seo.setLanguage(prefs.language);
       if (this.footerCreditTemplate) {
         this.footerCredit = localize(this.footerCreditTemplate, prefs.language);
       }
+      this.applySeo();
     });
 
     this.contentService.loadPortfolio().subscribe((content) => {
@@ -55,6 +62,10 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.socialLinks = content.site.socialLinks;
       this.footerCreditTemplate = content.ui.footerCredit;
       this.footerCredit = localize(content.ui.footerCredit, this.language);
+      this.pitchTemplate = content.profile.pitch;
+      this.profileImageUrl = content.profile.imageUrl;
+      this.applySeo();
+      this.applyJsonLd(content.site.name, content.site.emails[0] ?? '', content.site.socialLinks);
     });
 
     this.setupScrollSpy();
@@ -84,6 +95,42 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   public isExternal(url: string): boolean {
     return isExternalHttpUrl(url);
+  }
+
+  private applySeo(): void {
+    if (!this.siteName) {
+      return;
+    }
+    const pitch = this.pitchTemplate
+      ? localize(this.pitchTemplate, this.language)
+      : '';
+    const title =
+      this.language === 'en'
+        ? `${this.siteName} — Systems Engineer`
+        : `${this.siteName} — Ingeniero de Sistemas`;
+    this.seo.apply({
+      title,
+      description: pitch || title,
+      path: '/home',
+      imageUrl: this.profileImageUrl || undefined,
+      type: 'profile'
+    });
+  }
+
+  private applyJsonLd(name: string, email: string, socialLinks: SocialLink[]): void {
+    const sameAs = socialLinks
+      .map((link) => link.url)
+      .filter((url) => /^https?:\/\//i.test(url));
+    this.seo.setJsonLd({
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      name,
+      url: this.seo.absoluteUrl('/home'),
+      image: this.seo.absoluteUrl(this.profileImageUrl || 'assets/Fotografia_Miguel_Gutierrez.jpg'),
+      jobTitle: this.language === 'en' ? 'Systems Engineer' : 'Ingeniero de Sistemas',
+      email: email || undefined,
+      sameAs: sameAs.length ? sameAs : undefined
+    });
   }
 
   private setupScrollSpy(): void {

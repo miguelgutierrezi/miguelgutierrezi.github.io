@@ -36,8 +36,9 @@ Portfolio personal en Angular 22 (TypeScript + Sass), desplegado como sitio est�
 - Angular a largo plazo; modernizar de forma incremental
 - One-pager con anclas (`/#projects`, etc.); contacto solo en footer, no en nav/burger; no tabs que reemplacen contenido
 - Navbar **Login** → `environment.adminLoginUrl` (app admin externa + proxy; vacío = oculto); sin tokens de escritura en el portfolio
-- Orden: stack ✓ → modelo tipado ✓ → UI ✓ → CMS (Sanity runtime slice 1) → admin UI custom → hardening
-- CMS = Sanity CDN read-only + fallback local; schemas en `/studio` (no UI editorial principal)
+- Orden: stack ✓ → modelo tipado ✓ → UI ✓ → CMS slice 1+2 (adapter) ✓ → hardening SEO/headers ✓ → admin UI custom
+- CMS = Sanity CDN read-only + fallback local por colección; schemas en `/studio` (slice 2: experience/course/navigation); `ui` local
+- SEO: `SeoService`, `robots.txt` / `sitemap.xml`, `environment.siteUrl` (`*.web.app`); headers de seguridad/caché en `firebase.json`
 - Tras **cualquier** cambio, sincronizar o revisar `CLAUDE.md`, `.github/copilot-instructions.md` y `.cursor/rules/`
 
 Consultar `docs/improvement-plan.md` antes de cambios de arquitectura o stack.

@@ -14,8 +14,8 @@ Personal portfolio for Miguel Gutiérrez, built with Angular 22 (TypeScript + Sa
 - Build output: `dist/personal-presentation-miguel-gutierrez/browser` (Firebase `public`)
 - `npm run build` uses **production** by default; do not re-add third-party files under `angular.json` `scripts` (known sourcemap crash / exit 134 with Bootstrap minified JS)
 - Structure: `src/app/models/`, `src/app/content/`, `src/app/services/` (content + preferences + Sanity adapter), `src/app/components/home/` (profile, projects, experience, courses), `src/app/components/shared/` (navbar, loading-spinner), `src/app/components/not-found/`, `src/app/components/project-detail/`, `studio/` (Sanity), `src/assets/`, `src/environments/`
-- Content: `ContentService` / `ContentSource` → `SanityContentAdapter` (runtime CDN when `environment.cms.enabled` + `projectId`; on miss/failure → `LocalContentAdapter` + `content-validator.ts`). Never put CMS write tokens in the client. Slice 1 CMS: siteSettings, profile, project; experience/courses/nav/ui still local. Studio: `/studio` — see `studio/README.md`. Validator accepts `unknown`, returns a fresh normalized object, unique IDs, URL/`assets/`/`tel:`/`mailto:` checks. Preferences in `PreferencesService` (`localStorage`).
-- **Phase 2 UI done** (one-pager + project-detail + 404 all breakpoints). **Phase 3 CMS slice 1** (Sanity + runtime) scaffolded. Product/architecture decisions in `docs/`.
+- Content: `ContentService` / `ContentSource` → `SanityContentAdapter` (runtime CDN when `environment.cms.enabled` + `projectId`; on miss/failure → `LocalContentAdapter` + `content-validator.ts`). Never put CMS write tokens in the client. Slice 1: siteSettings, profile, project. Slice 2: experience, course, navigation (per-collection merge; empty → local). `ui` still local. Studio: `/studio` — see `studio/README.md`. Validator accepts `unknown`, returns a fresh normalized object, unique IDs, URL/`assets/`/`tel:`/`mailto:` checks. Preferences in `PreferencesService` (`localStorage`).
+- **Phase 2 UI done**. **Phase 3 CMS** slice 1 + slice 2 schemas/adapter done (editorial data can wait for admin). **Phase 4 hardening:** `SeoService`, robots/sitemap, Firebase headers, `environment.siteUrl`. Product/architecture decisions in `docs/`.
 
 ## Commands
 
@@ -33,7 +33,7 @@ Personal portfolio for Miguel Gutiérrez, built with Angular 22 (TypeScript + Sa
 - Keep the site static, inexpensive to operate, and free of a custom backend unless a real need appears.
 - Angular is the long-term framework; modernize incrementally rather than rewriting.
 - One main page with anchored sections (`/#projects`, `#about`, `#experience`, `#courses`), not tabs that replace the visible content. Contact lives in the footer (`#contact`) and is **not** a nav/burger item. Dedicated project case studies use `/projects/:id` (Figma `4:678` / `4:1170` / `4:1019` / `4:866`).
-- Delivery order for larger work: stack ✓ → typed local content ✓ → UI Phase 2 ✓ → **CMS (Sanity runtime, slice 1 scaffolded)** → hardening.
+- Delivery order for larger work: stack ✓ → typed local content ✓ → UI Phase 2 ✓ → CMS slice 1+2 (adapter) ✓ → **hardening SEO/headers ✓** → admin UI + data.
 
 ## Figma MCP (Phase 2)
 
@@ -72,14 +72,14 @@ Personal portfolio for Miguel Gutiérrez, built with Angular 22 (TypeScript + Sa
 - Descriptive `alt` text for meaningful images, empty `alt` for decorative ones. Don't rely on color alone; keep body text contrast readable.
 - No horizontal scroll on common mobile sizes. Responsive grid with stable aspect ratios. Keep motion subtle and respect `prefers-reduced-motion`.
 - Prefer local optimized assets (WebP/AVIF) for important images/logos over unstable remote URLs; lazy-load below-the-fold images.
-- Add useful metadata when touching the page: title, description, canonical URL, Open Graph, and structured data (JSON-LD) where appropriate.
+- Add useful metadata when touching the page: title, description, canonical URL, Open Graph, and structured data (JSON-LD) where appropriate. Runtime updates go through `SeoService`; static fallbacks live in `src/index.html`. Canonical origin: `environment.siteUrl`.
 
 ## CMS strategy and security
 
 - **Chosen:** Sanity + runtime CDN (`SanityContentAdapter`); local fallback always. Studio in `/studio`.
-- Slice 1 entities in CMS: `siteSettings`, `profile`, `project` (+ detail). Experience, courses, navigation, `ui` still local.
-- Configure with `environment.cms` (`enabled`, `projectId`, `dataset`, `apiVersion`) and `environment.adminLoginUrl` (navbar Login → external admin). Never expose write tokens in the Angular client. Validate remote content before rendering.
-- Sequence next: seed dataset → custom admin + proxy (preferred over day-to-day Studio) → migrate remaining sections.
+- Slice 1: `siteSettings`, `profile`, `project` (+ detail). Slice 2: `experience`, `course`, `navigation` (empty remote collections keep local). `ui` still local.
+- Configure with `environment.cms` (`enabled`, `projectId`, `dataset`, `apiVersion`) and `environment.adminLoginUrl` (navbar Login → external admin). Never expose write tokens in the Angular client. Allow browser origins under Sanity Manage → API → CORS (`http://localhost:4200` + production hosts) or the client falls back to local content. Validate remote content before rendering.
+- Sequence next: custom admin + proxy → complete editorial data → optional `ui` in CMS.
 
 ## Modernization rules
 

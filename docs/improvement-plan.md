@@ -71,27 +71,25 @@ Next product focus: Phase 2 (UI modernization) on this model.
 - Anchored sections `#about`, `#experience`, `#projects`, `#courses`. Footer holds contact (`#contact`) but is not listed in nav/burger.
 - **Project detail** (`/projects/:id`) implemented for desktop + tablet L/P + mobile (Figma `4:678` / `4:1170` / `4:1019` / `4:866`) with typed `Project.detail` for all projects. Pending: broader a11y/SEO polish and localizing remote assets.
 
-### Phase 3: CMS integration (product requirement) — **slice 1 scaffolded**
+### Phase 3: CMS integration (product requirement) — **slice 1+2 adapter done**
 
 - **Decision:** Sanity + **runtime** CDN (`SanityContentAdapter`) with local fallback after `validatePortfolioContent`.
-- Studio in [`studio/`](../studio/) — schemas `siteSettings`, `profile`, `project`. Toggle via `environment.cms` (`enabled`, `projectId`, `dataset`, `apiVersion`). Never put write tokens in the Angular client.
-- Slice 1: site + profile + projects (incl. detail). Experience, courses, navigation, and `ui` remain local until slice 2.
-- Setup: [`studio/README.md`](../studio/README.md). Strategy: [CMS strategy](cms-strategy.md).
+- Studio in [`studio/`](../studio/) — schemas `siteSettings`, `profile`, `project`, `experience`, `course`, `navigation`. Toggle via `environment.cms`. Never put write tokens in the Angular client.
+- Slice 1: site + profile + projects (incl. detail). Slice 2: experience + courses + navigation (merge per collection; empty remote → local). `ui` remains local until admin needs it.
+- Editorial data can be completed later via custom admin. Seed notes: [`studio/seed/`](../studio/seed/). Strategy: [CMS strategy](cms-strategy.md).
 
-### Phase 4: Production hardening — **partially started**
+### Phase 4: Production hardening — **SEO + hosting headers done**
 
-- **Done:** replace CircleCI with GitHub Actions (`ci.yml`, `deploy.yml`, PR preview). Gate on `npm run build` only (no legacy unit/e2e).
-- Pending: metadata, Open Graph tags, sitemap, robots rules, and structured data. **404 all breakpoints** (`/not-found`, Figma `21:4` / `23:80` / `23:5` / `21:89`) implemented.
-- Pending: broader automated link/accessibility/Lighthouse checks in CI.
-- Review caching, image formats, security headers, and dependency health.
+- **Done:** GitHub Actions CI/deploy; 404 all breakpoints; `SeoService` (title, description, canonical, Open Graph, Twitter, JSON-LD Person/CreativeWork); static fallbacks in `index.html`; `robots.txt` + `sitemap.xml`; Firebase security + cache headers; `environment.siteUrl`.
+- Pending (optional later): Lighthouse/a11y checks in CI; WebP/AVIF asset localization for remote images; custom domain CORS in Sanity.
 
 ## Delivery order (summary)
 
 1. Baseline + stack modernization — **done** (Angular 22 / Node 24)
 2. Typed local content model and preference persistence — **done**
 3. UI modernization on that model — **done**
-4. CMS for online CV/portfolio edits, with local fallback — **slice 1 (Sanity runtime) scaffolded**
-5. Production hardening
+4. CMS for online CV/portfolio edits, with local fallback — **slice 1+2 adapter done** (data fill deferred to admin)
+5. Production hardening — **SEO/meta/robots/sitemap/headers done** (Lighthouse CI / asset localization optional)
 
 Angular remains the long-term application framework; upgrade it incrementally rather than rewriting the site.
 

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://miguel-angel-gutierrez-ibague.web.app/sitemap.xml

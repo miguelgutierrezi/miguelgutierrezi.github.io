@@ -14,15 +14,17 @@ Fuente: `docs/cms-strategy.md`. El CMS es requisito de producto (editar CV en l�
 - Fallback: `LocalContentAdapter` + `validatePortfolioContent` si CMS off, sin red, o slice incompleto
 - Studio: `/studio` (`npm run studio:install` / `npm run studio`)
 - Config pública en `environment.cms` (`enabled`, `projectId`, `dataset`, `apiVersion`) y `environment.adminLoginUrl` (Login del navbar → admin externo; vacío = oculto)
-- Slice 1: `siteSettings`, `profile`, `project` (+ detail). Experience / courses / navigation / `ui` siguen locales
+- Slice 1: `siteSettings`, `profile`, `project` (+ detail)
+- Slice 2: `experience`, `course`, `navigation` (merge por colección; vacío → local). `ui` sigue local
 
 ## Seguridad
 
 - Nunca exponer tokens de escritura en el bundle Angular del portfolio
 - Solo lectura pública (CDN); validar remoto antes de renderizar
+- Añadir orígenes CORS en Sanity Manage (`localhost:4200` + hosts de deploy); sin eso el browser recibe 403 y cae a local
 - Escrituras: app admin separada + proxy autenticado (no Studio como UI principal a largo plazo)
 - Sin autenticación multi-usuario en el cliente del CV
 
 ## Secuencia
 
-1. Modelo local tipado ✓ → 2. Migrar datos ✓ → 3. Schema + adapter slice 1 ✓ → 4. Seed + `cms.enabled` ✓ → 5. Admin UI custom + proxy → 6. Resto de secciones
+1. Modelo local tipado ✓ → 2. Migrar datos ✓ → 3. Schema + adapter slice 1 ✓ → 4. Seed parcial + CORS ✓ → 5. Schema + adapter slice 2 ✓ → 6. Hardening SEO/headers ✓ → 7. Admin UI custom + proxy → 8. Completar data editorial

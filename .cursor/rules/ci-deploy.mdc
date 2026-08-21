@@ -9,8 +9,10 @@ alwaysApply: false
 ## Target
 
 - Firebase Hosting, project `miguel-angel-gutierrez-ibague`
+- Public URL (default): `https://miguel-angel-gutierrez-ibague.web.app` (`environment.siteUrl`)
 - Public dir: `dist/personal-presentation-miguel-gutierrez/browser`
-- SPA rewrite a `index.html`
+- SPA rewrite a `index.html` (static files like `robots.txt` / `sitemap.xml` are served first)
+- Headers: `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy`; long-cache for hashed JS/CSS; `no-cache` for `index.html`
 
 ## GitHub Actions (CircleCI eliminado)
 

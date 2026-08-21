@@ -19,11 +19,11 @@ Local toolchain: **Node.js >= 24.15** (see `.nvmrc`). Build uses the application
 ## Architecture rules
 
 - Components should render and handle interaction, not own large content datasets.
-- Content should flow through typed models in `src/app/models/`, local data in `src/app/content/`, and `ContentService` / `ContentSource`. Provider: `SanityContentAdapter` (runtime CDN when `environment.cms.enabled`; else / on failure → `LocalContentAdapter`). Validate with `validatePortfolioContent(unknown)` (new object, never mutates source). Studio schemas in `/studio`. Slice 1 CMS: site/profile/projects; rest still local. Social URLs may be `http(s)`, `tel:`, or `mailto:`.
+- Content should flow through typed models in `src/app/models/`, local data in `src/app/content/`, and `ContentService` / `ContentSource`. Provider: `SanityContentAdapter` (runtime CDN when `environment.cms.enabled`; else / on failure → `LocalContentAdapter`). Validate with `validatePortfolioContent(unknown)` (new object, never mutates source). Studio schemas in `/studio`. CMS slices: site/profile/projects + experience/courses/navigation (per-collection merge; empty → local). `ui` still local. Social URLs may be `http(s)`, `tel:`, or `mailto:`.
 - Preferences (`language`, `section`) go through `PreferencesService` and `localStorage`, not ad-hoc `sessionStorage` in components.
 - Use stable IDs and localized fields instead of separate Spanish and English arrays.
 - Do not call CMS APIs directly from templates or individual section components.
-- Custom admin is a **separate app** with an authenticated write proxy. Portfolio navbar Login only redirects via `environment.adminLoginUrl` (omit/empty to hide). Never put write tokens in this client.
+- Custom admin is a **separate app** with an authenticated write proxy. Portfolio navbar Login only redirects via `environment.adminLoginUrl` (omit/empty to hide). Never put write tokens in this client. Add Sanity **CORS origins** for `http://localhost:4200` and production hosts or the CDN returns 403 and the adapter falls back to local.
 
 ## Persistence rules
 
@@ -42,7 +42,7 @@ Local toolchain: **Node.js >= 24.15** (see `.nvmrc`). Build uses the application
 - Avoid horizontal scrolling on common mobile sizes.
 - Prefer local optimized assets for important images and logos.
 - Keep motion subtle and respect `prefers-reduced-motion`.
-- Add useful metadata when working on the page: title, description, canonical URL, Open Graph, and structured data where appropriate.
+- Add useful metadata when working on the page: title, description, canonical URL, Open Graph, and structured data where appropriate (`SeoService` + `src/index.html` fallbacks; `environment.siteUrl`).
 
 ## Modernization rules
 
@@ -74,7 +74,7 @@ A change that updates only application code or `docs/` without reviewing these t
 - Before architectural changes, consult the docs in `docs/`.
 - Preserve the existing static hosting model unless the task explicitly changes it.
 - Prefer precise, surgical changes that fit the current codebase conventions.
-- Keep the implementation aligned with the documented delivery order: stack done → typed local content model done → UI Phase 2 done → CMS Sanity runtime slice 1 scaffolded → hardening.
+- Keep the implementation aligned with the documented delivery order: stack done → typed local content model done → UI Phase 2 done → CMS Sanity runtime slice 1+2 (adapter) → hardening SEO/headers done → admin + data.
 
 ## Figma
 

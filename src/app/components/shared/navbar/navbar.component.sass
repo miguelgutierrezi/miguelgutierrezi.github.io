@@ -4,35 +4,47 @@
   z-index: 40
   background: var(--color-ink)
   border-bottom: 1px solid var(--color-panel-border)
+  overflow-x: clip
 
 .site-nav
   display: flex
   align-items: center
   justify-content: space-between
   padding: 24px var(--space-page-x)
-  gap: 24px
+  gap: 16px
+  min-width: 0
+  max-width: 100%
 
 .site-nav__brand
   display: inline-flex
   align-items: center
   gap: 8px
+  min-width: 0
+  flex: 1 1 auto
   text-decoration: none
   color: #fff
+  overflow: hidden
 
 .site-nav__brand-brace
   font-family: var(--font-mono)
   font-size: 14px
   font-weight: 700
   color: var(--color-accent)
+  flex-shrink: 0
 
 .site-nav__brand-name
   font-size: 18px
   font-weight: 700
+  overflow: hidden
+  text-overflow: ellipsis
+  white-space: nowrap
 
 .site-nav__right
   display: flex
   align-items: center
   gap: 32px
+  flex: 0 0 auto
+  min-width: 0
 
 .site-nav__links
   display: flex
@@ -125,12 +137,13 @@
 @media (max-width: 1023px)
   .site-nav
     padding: 20px var(--space-page-x)
+    gap: 12px
 
   .site-nav__right
-    gap: 24px
+    gap: 16px
 
   .site-nav__links
-    gap: 16px
+    gap: 12px
 
   .site-nav__link
     font-size: 13px
@@ -141,6 +154,10 @@
   .lang-toggle__btn
     padding: 3px 10px
     font-size: 10px
+
+  .site-nav__login
+    padding: 6px 12px
+    font-size: 12px
 
 @media (max-width: 767px)
   .site-nav
@@ -184,6 +201,8 @@
     pointer-events: none
     will-change: transform
     transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1)
+    // Keep the off-canvas panel from expanding page scroll width.
+    overscroll-behavior: contain
 
     &.is-visible
       visibility: visible

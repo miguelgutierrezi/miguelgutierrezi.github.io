@@ -1,15 +1,21 @@
 import {
+  Course,
+  Experience,
   LocalizedString,
   LocalizedStringList,
+  NavItem,
   PortfolioContent,
   ProfileContent,
   Project,
   ProjectDetail,
   ProjectFeature,
   ProjectGalleryItem,
+  SectionId,
   SiteSettings,
   SocialLink
 } from '../models/portfolio.models';
+
+const SECTION_IDS: ReadonlySet<string> = new Set(['about', 'projects', 'experience', 'courses']);
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
@@ -92,6 +98,14 @@ function mapSocialLinks(value: unknown): SocialLink[] | undefined {
     });
   }
   return links.length ? links : undefined;
+}
+
+function docIdFromSlug(value: Record<string, unknown>): string | undefined {
+  const slug = value['slug'];
+  if (isRecord(slug)) {
+    return asString(slug['current']);
+  }
+  return asString(value['id']);
 }
 
 export function mapSiteSettings(value: unknown): SiteSettings | undefined {
@@ -192,19 +206,11 @@ function mapDetail(value: unknown): ProjectDetail | undefined {
   };
 }
 
-function projectIdFromDoc(value: Record<string, unknown>): string | undefined {
-  const slug = value['slug'];
-  if (isRecord(slug)) {
-    return asString(slug['current']);
-  }
-  return asString(value['id']);
-}
-
 export function mapProject(value: unknown): Project | undefined {
   if (!isRecord(value)) {
     return undefined;
   }
-  const id = projectIdFromDoc(value);
+  const id = docIdFromSlug(value);
   const title = asString(value['title']);
   const description = mapLocalizedString(value['description']);
   const technologies = asStringArray(value['technologies']);
@@ -239,17 +245,116 @@ export function mapProjects(value: unknown): Project[] {
     .sort((a, b) => a.sortOrder - b.sortOrder);
 }
 
+export function mapExperience(value: unknown): Experience | undefined {
+  if (!isRecord(value)) {
+    return undefined;
+  }
+  const id = docIdFromSlug(value);
+  const company = asString(value['company']);
+  const role = mapLocalizedString(value['role']);
+  const duration = mapLocalizedString(value['duration']);
+  const responsibilities = mapLocalizedStringList(value['responsibilities']);
+  const imageUrl = asString(value['imageUrl']);
+  const sortOrder = asNumber(value['sortOrder']);
+  if (!id || !company || !role || !duration || !responsibilities || !imageUrl || sortOrder === undefined) {
+    return undefined;
+  }
+  return {id, company, role, duration, responsibilities, imageUrl, sortOrder};
+}
+
+export function mapExperiences(value: unknown): Experience[] {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+  return value
+    .map((item) => mapExperience(item))
+    .filter((item): item is Experience => !!item)
+    .sort((a, b) => a.sortOrder - b.sortOrder);
+}
+
+export function mapCourse(value: unknown): Course | undefined {
+  if (!isRecord(value)) {
+    return undefined;
+  }
+  const id = docIdFromSlug(value);
+  const title = mapLocalizedString(value['title']);
+  const institution = asString(value['institution']);
+  const date = mapLocalizedString(value['date']);
+  const imageUrl = asString(value['imageUrl']);
+  const sortOrder = asNumber(value['sortOrder']);
+  if (!id || !title || !institution || !date || !imageUrl || sortOrder === undefined) {
+    return undefined;
+  }
+  return {
+    id,
+    title,
+    institution,
+    date,
+    imageUrl,
+    sortOrder,
+    credentialUrl: asString(value['credentialUrl'])
+  };
+}
+
+export function mapCourses(value: unknown): Course[] {
+  if (!Array.isArray(value)) {
+    return [];
+  }
+  return value
+    .map((item) => mapCourse(item))
+    .filter((item): item is Course => !!item)
+    .sort((a, b) => a.sortOrder - b.sortOrder);
+}
+
+export function mapNavItem(value: unknown): NavItem | undefined {
+  if (!isRecord(value)) {
+    return undefined;
+  }
+  const id = asString(value['id']);
+  const label = mapLocalizedString(value['label']);
+  if (!id || !SECTION_IDS.has(id) || !label) {
+    return undefined;
+  }
+  return {id: id as SectionId, label};
+}
+
+/** Accepts either a navigation document `{ items: [...] }` or a bare items array. */
+export function mapNavigation(value: unknown): NavItem[] {
+  let items: unknown = value;
+  if (isRecord(value) && 'items' in value) {
+    items = value['items'];
+  }
+  if (!Array.isArray(items)) {
+    return [];
+  }
+  return items
+    .map((item) => mapNavItem(item))
+    .filter((item): item is NavItem => !!item);
+}
+
+export type CmsRemoteSlice = {
+  site?: SiteSettings;
+  profile?: ProfileContent;
+  projects?: Project[];
+  experience?: Experience[];
+  courses?: Course[];
+  navigation?: NavItem[];
+};
+
 /**
- * Merge CMS editorial slice (site/profile/projects) over local fallback for the rest.
+ * Merge CMS editorial slices over local fallback.
+ * Empty remote collections keep local data (so slice 2 can ship without seeding).
  */
-export function mergeCmsSlice(
-  local: PortfolioContent,
-  remote: {site?: SiteSettings; profile?: ProfileContent; projects?: Project[]}
-): PortfolioContent {
+export function mergeCmsSlice(local: PortfolioContent, remote: CmsRemoteSlice): PortfolioContent {
   return {
     ...local,
     site: remote.site ?? local.site,
     profile: remote.profile ?? local.profile,
-    projects: remote.projects && remote.projects.length > 0 ? remote.projects : local.projects
+    projects: remote.projects && remote.projects.length > 0 ? remote.projects : local.projects,
+    experience:
+      remote.experience && remote.experience.length > 0 ? remote.experience : local.experience,
+    courses: remote.courses && remote.courses.length > 0 ? remote.courses : local.courses,
+    navigation:
+      remote.navigation && remote.navigation.length > 0 ? remote.navigation : local.navigation
   };
 }

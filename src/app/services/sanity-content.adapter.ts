@@ -9,6 +9,9 @@ import { environment } from '../../environments/environment';
 import { ContentSource } from './content-source';
 import { LocalContentAdapter } from './local-content.adapter';
 import {
+  mapCourses,
+  mapExperiences,
+  mapNavigation,
   mapProfile,
   mapProjects,
   mapSiteSettings,
@@ -45,6 +48,27 @@ const PORTFOLIO_QUERY = `{
     featured,
     sortOrder,
     detail
+  },
+  "experience": *[_type == "experience"] | order(sortOrder asc){
+    "id": slug.current,
+    company,
+    role,
+    duration,
+    responsibilities,
+    imageUrl,
+    sortOrder
+  },
+  "courses": *[_type == "course"] | order(sortOrder asc){
+    "id": slug.current,
+    title,
+    institution,
+    date,
+    imageUrl,
+    credentialUrl,
+    sortOrder
+  },
+  "navigation": *[_type == "navigation"][0]{
+    items[]{id, label}
   }
 }`;
 
@@ -68,7 +92,17 @@ export class SanityContentAdapter extends ContentSource {
       map((raw) => this.toValidatedPortfolio(raw)),
       catchError((error) => {
         if (typeof console !== 'undefined') {
-          console.warn('[ContentSource] Sanity fetch failed; using local fallback.', error);
+          const corsHint =
+            typeof error === 'object' &&
+            error !== null &&
+            'status' in error &&
+            (error as { status?: number }).status === 403
+              ? ' If this is a 403, add http://localhost:4200 (and your Firebase host) under Sanity → API → CORS origins.'
+              : '';
+          console.warn(
+            `[ContentSource] Sanity fetch failed; using local fallback.${corsHint}`,
+            error
+          );
         }
         return this.local.loadPortfolio();
       })
@@ -101,12 +135,23 @@ export class SanityContentAdapter extends ContentSource {
     const site = mapSiteSettings(record['site']);
     const profile = mapProfile(record['profile']);
     const projects = mapProjects(record['projects']);
+    const experience = mapExperiences(record['experience']);
+    const courses = mapCourses(record['courses']);
+    const navigation = mapNavigation(record['navigation']);
 
+    // Slice 1 floor: site + profile + ≥1 project. Slice 2 collections are optional (local fallback).
     if (!site || !profile || projects.length === 0) {
       throw new Error('Sanity slice incomplete (need siteSettings, profile, and at least one project)');
     }
 
-    const merged = mergeCmsSlice(local, {site, profile, projects});
+    const merged = mergeCmsSlice(local, {
+      site,
+      profile,
+      projects,
+      experience,
+      courses,
+      navigation
+    });
     const {content, issues} = validatePortfolioContent(merged);
     if (issues.length > 0 && typeof console !== 'undefined') {
       console.warn('[ContentSource] Sanity portfolio validation issues:', issues);

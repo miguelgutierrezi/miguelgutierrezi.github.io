@@ -13,7 +13,7 @@ Fuente: `docs/architecture.md` y `docs/improvement-plan.md`.
 - Modelos en `src/app/models/portfolio.models.ts` (incluye `UiCopy`)
 - Contenido local en `src/app/content/portfolio.content.ts`
 - Validación en `src/app/content/content-validator.ts`: entrada `unknown`, salida objeto **nuevo** (sin mutar fuente), IDs únicos por colección, issue en cada rechazo, URLs con `new URL()` + `assets/` local; social links también permiten `tel:` / `mailto:`
-- Phase 1 **cerrada**; Phase 2 UI **cerrada**; Phase 3 CMS: Sanity runtime slice 1 (`SanityContentAdapter` + `/studio`; site/profile/project)
+- Phase 1 **cerrada**; Phase 2 UI **cerrada**; Phase 3 CMS: Sanity runtime slice 1+2 (`SanityContentAdapter` + `/studio`; site/profile/project + experience/course/navigation; `ui` local)
 - Campos de perfil/site usados por la UI: `brandHandle`, `role`, `pitch`, `focusAreas`, `technologies`; `Project.detail` requerido; contactos: GitHub, LinkedIn, phone, WhatsApp
 
 ## Límites

@@ -14,6 +14,7 @@ import {
 } from '../../models/portfolio.models';
 import { ContentService } from '../../services/content.service';
 import { PreferencesService } from '../../services/preferences.service';
+import { SeoService } from '../../services/seo.service';
 
 @Component({
   selector: 'app-not-found',
@@ -34,18 +35,22 @@ export class NotFoundComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly contentService: ContentService,
-    private readonly preferences: PreferencesService
+    private readonly preferences: PreferencesService,
+    private readonly seo: SeoService
   ) {}
 
   ngOnInit(): void {
     this.language = this.preferences.snapshot.language;
+    this.seo.setLanguage(this.language);
 
     this.sub.add(
       this.preferences.preferences$.subscribe((prefs) => {
         this.language = prefs.language;
+        this.seo.setLanguage(prefs.language);
         if (this.ui?.footerCredit) {
           this.footerCredit = localize(this.ui.footerCredit, prefs.language);
         }
+        this.applySeo();
       })
     );
 
@@ -56,6 +61,8 @@ export class NotFoundComponent implements OnInit, OnDestroy {
         this.socialLinks = content.site.socialLinks;
         this.ui = content.ui;
         this.footerCredit = localize(content.ui.footerCredit, this.language);
+        this.applySeo();
+        this.seo.setJsonLd(null);
       })
     );
   }
@@ -78,5 +85,17 @@ export class NotFoundComponent implements OnInit, OnDestroy {
 
   public isExternal(url: string): boolean {
     return isExternalHttpUrl(url);
+  }
+
+  private applySeo(): void {
+    if (!this.ui) {
+      return;
+    }
+    this.seo.apply({
+      title: `${localize(this.ui.notFoundTitle, this.language)} — ${this.siteName || 'Portfolio'}`,
+      description: localize(this.ui.notFoundDescription, this.language),
+      path: '/not-found',
+      noIndex: true
+    });
   }
 }
