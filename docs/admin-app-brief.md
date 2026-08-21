@@ -13,7 +13,7 @@ Typical layout under `CV-Workspace/`:
 | `miguelgutierrezi.github.io/` | Public Angular CV (this repo) — **read-only** Sanity CDN |
 | `cv-admin-panel/` | Custom editorial UI + authenticated **write** path (separate app) |
 
-Portfolio Login button redirects to `environment.adminLoginUrl` (empty in prod until the admin is deployed).
+Portfolio Login button redirects to `environment.adminLoginUrl` (prod: `https://cv-admin-panel.web.app`).
 
 ## Portfolio status (do not re-litigate)
 
@@ -27,7 +27,7 @@ Already done in the public site:
 Still pending (often done **via** the admin):
 
 - Finish seeding projects / experience / courses / navigation in Sanity
-- Set prod `adminLoginUrl` + CORS for admin origin + Firebase host
+- Confirm Sanity CORS includes admin origins (`localhost:4300`, `cv-admin-panel.web.app`) + redeploy CV after `adminLoginUrl` change
 
 ## Non-negotiables
 
