@@ -19,7 +19,7 @@ Local toolchain: **Node.js >= 24.15** (see `.nvmrc`). Build uses the application
 ## Architecture rules
 
 - Components should render and handle interaction, not own large content datasets.
-- Content should flow through typed models in `src/app/models/`, local data in `src/app/content/`, and `ContentService` / `ContentSource`. Provider: `SanityContentAdapter` (runtime CDN when `environment.cms.enabled`; else / on failure → `LocalContentAdapter`). Validate with `validatePortfolioContent(unknown)` (new object, never mutates source). Studio schemas in `/studio`. CMS slices: site/profile/projects + experience/courses/navigation (per-collection merge; empty → local). `ui` still local. Social URLs may be `http(s)`, `tel:`, or `mailto:`.
+- Content should flow through typed models in `src/app/models/`, local data in `src/app/content/`, and `ContentService` / `ContentSource`. Provider: `SanityContentAdapter` (runtime CDN when `environment.cms.enabled`; else / on failure → `LocalContentAdapter`). Validate with `validatePortfolioContent(unknown)` (new object, never mutates source). Studio schemas in `/studio` (hosted: https://miguel-gutierrez-cv.sanity.studio/). CMS slices: site/profile/projects + experience/courses/navigation (per-collection merge; empty → local). `ui` still local. Social URLs may be `http(s)`, `tel:`, or `mailto:`.
 - Preferences (`language`, `section`) go through `PreferencesService` and `localStorage`, not ad-hoc `sessionStorage` in components.
 - Use stable IDs and localized fields instead of separate Spanish and English arrays.
 - Do not call CMS APIs directly from templates or individual section components.

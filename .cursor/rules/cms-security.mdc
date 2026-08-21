@@ -12,7 +12,7 @@ Fuente: `docs/cms-strategy.md`. El CMS es requisito de producto (editar CV en l�
 
 - **Sanity** + **runtime** CDN (`SanityContentAdapter` → `*.apicdn.sanity.io`)
 - Fallback: `LocalContentAdapter` + `validatePortfolioContent` si CMS off, sin red, o slice incompleto
-- Studio: `/studio` (`npm run studio:install` / `npm run studio`)
+- Studio: `/studio` (`npm run studio:install` / `npm run studio`). Hosted: https://miguel-gutierrez-cv.sanity.studio/ (`npm run deploy` / `studioHost` en `sanity.cli.ts`)
 - Config pública en `environment.cms` (`enabled`, `projectId`, `dataset`, `apiVersion`) y `environment.adminLoginUrl` (Login del navbar → admin externo; vacío = oculto)
 - Slice 1: `siteSettings`, `profile`, `project` (+ detail)
 - Slice 2: `experience`, `course`, `navigation` (merge por colección; vacío → local). `ui` sigue local

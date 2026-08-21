@@ -13,6 +13,9 @@ npm install
 npm run dev
 ```
 
+**Studio online (desplegado):** https://miguel-gutierrez-cv.sanity.studio/  
+Redeploy: `cd studio && npm run deploy` (hostname fijado en `sanity.cli.ts` → `studioHost`).
+
 3. En el Studio, crea (slice 1 mínimo):
    - un documento **Site settings**
    - un documento **Profile**

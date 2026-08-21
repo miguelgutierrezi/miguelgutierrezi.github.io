@@ -22,7 +22,7 @@ Personal portfolio for Miguel Gutiérrez, built with Angular 22 (TypeScript + Sa
 - `nvm use` then `npm install` / `npm start` — dev server at `http://localhost:4200/`
 - `npm run build` — production build (**primary validation**)
 - `npm run watch` — development configuration with watch
-- `npm run studio:install` then `npm run studio` — Sanity Studio (`studio/`)
+- `npm run studio:install` then `npm run studio` — Sanity Studio local (`studio/`). Hosted: https://miguel-gutierrez-cv.sanity.studio/ (`cd studio && npm run deploy`)
 - Deploy: `npm run build` then `npx firebase-tools deploy --only hosting` (or a global Firebase CLI)
 - CI/CD: GitHub Actions (`.github/workflows/ci.yml`, `deploy.yml`, PR preview). Secret: `FIREBASE_SERVICE_ACCOUNT`. CircleCI is removed.
 - Do **not** run `npm test` or `npm run test:web` unless the user explicitly asks — existing specs are incomplete/unreliable
