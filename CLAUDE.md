@@ -8,11 +8,11 @@ Personal portfolio for Miguel Gutiérrez, built with Angular 22 (TypeScript + Sa
 
 ## Stack
 
-- Angular 22, RxJS 7, Bootstrap 4 CSS only (legacy import; shell UI no longer Bootstrap-nav based; no jQuery / Bootstrap JS), application builder
+- Angular 22, RxJS 7, application builder — **no Bootstrap** (CSS/JS removed; UI uses design tokens + Sass only)
 - **Node.js >= 24.15** required for local install/build (see `.nvmrc`)
 - Sass for styles with design tokens + **Geist Sans / Geist Mono** (`@fontsource/geist-*`); Firebase Hosting rewrites all routes to `index.html` (SPA)
 - Build output: `dist/personal-presentation-miguel-gutierrez/browser` (Firebase `public`)
-- `npm run build` uses **production** by default; do not re-add third-party files under `angular.json` `scripts` (known sourcemap crash / exit 134 with Bootstrap minified JS)
+- `npm run build` uses **production** by default; do not put third-party minified bundles under `angular.json` `scripts` (historically Bootstrap JS caused sourcemap crash / exit 134)
 - Structure: `src/app/models/`, `src/app/content/`, `src/app/services/` (content + preferences + Sanity adapter), `src/app/components/home/` (profile, projects, experience, courses), `src/app/components/shared/` (navbar, loading-spinner), `src/app/components/not-found/`, `src/app/components/project-detail/`, `studio/` (Sanity), `src/assets/`, `src/environments/`
 - Content: `ContentService` / `ContentSource` → `SanityContentAdapter` (runtime CDN when `environment.cms.enabled` + `projectId`; on miss/failure → `LocalContentAdapter` + `content-validator.ts`). Never put CMS write tokens in the client. Slice 1: siteSettings, profile, project. Slice 2: experience, course, navigation (per-collection merge; empty → local). `ui` still local. Studio: `/studio` — see `studio/README.md`. Validator accepts `unknown`, returns a fresh normalized object, unique IDs, URL/`assets/`/`tel:`/`mailto:` checks. Preferences in `PreferencesService` (`localStorage`).
 - **Phase 2 UI done**. **Phase 3 CMS** slice 1 + slice 2 schemas/adapter done (editorial data can wait for admin). **Phase 4 hardening:** `SeoService`, robots/sitemap, Firebase headers, `environment.siteUrl`. Product/architecture decisions in `docs/`.
@@ -26,14 +26,14 @@ Personal portfolio for Miguel Gutiérrez, built with Angular 22 (TypeScript + Sa
 - Deploy: `npm run build` then `npx firebase-tools deploy --only hosting` (or a global Firebase CLI)
 - CI/CD: GitHub Actions (`.github/workflows/ci.yml`, `deploy.yml`, PR preview). Secret: `FIREBASE_SERVICE_ACCOUNT`. CircleCI is removed.
 - Do **not** run `npm test` or `npm run test:web` unless the user explicitly asks — existing specs are incomplete/unreliable
-- There is **no** `npm run lint` or `npm run e2e`
+- There is **no** `npm run lint` or `npm run e2e` yet (planned; see Testing policy)
 
 ## Product principles
 
 - Keep the site static, inexpensive to operate, and free of a custom backend unless a real need appears.
 - Angular is the long-term framework; modernize incrementally rather than rewriting.
 - One main page with anchored sections (`/#projects`, `#about`, `#experience`, `#courses`), not tabs that replace the visible content. Contact lives in the footer (`#contact`) and is **not** a nav/burger item. Dedicated project case studies use `/projects/:id` (Figma `4:678` / `4:1170` / `4:1019` / `4:866`).
-- Delivery order for larger work: stack ✓ → typed local content ✓ → UI Phase 2 ✓ → CMS slice 1+2 (adapter) ✓ → **hardening SEO/headers ✓** → admin UI + data.
+- Delivery order for larger work: stack ✓ → typed local content ✓ → UI Phase 2 ✓ → CMS slice 1+2 (adapter) ✓ → **hardening SEO/headers ✓** → admin UI + data → **quality gates (tests + lint → CI)** pending.
 
 ## Figma MCP (Phase 2)
 
@@ -79,24 +79,24 @@ Personal portfolio for Miguel Gutiérrez, built with Angular 22 (TypeScript + Sa
 - **Chosen:** Sanity + runtime CDN (`SanityContentAdapter`); local fallback always. Studio in `/studio`.
 - Slice 1: `siteSettings`, `profile`, `project` (+ detail). Slice 2: `experience`, `course`, `navigation` (empty remote collections keep local). `ui` still local.
 - Configure with `environment.cms` (`enabled`, `projectId`, `dataset`, `apiVersion`) and `environment.adminLoginUrl` (navbar Login → external admin). Never expose write tokens in the Angular client. Allow browser origins under Sanity Manage → API → CORS (`http://localhost:4200` + production hosts) or the client falls back to local content. Validate remote content before rendering.
-- Sequence next: custom admin + proxy → complete editorial data → optional `ui` in CMS.
+- Sequence next: custom admin + proxy (see `docs/admin-app-brief.md`) → complete editorial data → optional `ui` in CMS.
 
 ## Modernization rules
 
 - Upgrade Angular one major version at a time; production `npm run build` must succeed before moving to the next. Do **not** gate upgrades on unit/e2e tests until a real suite exists.
 - Keep Node.js aligned with the Angular version being upgraded (today: Node >= 24.15 via `.nvmrc` with Angular 22).
 - Update TypeScript, CLI, and tooling as required by each major.
-- Remove obsolete/unused dependencies during modernization when no longer needed (jQuery/Popper/Bootstrap JS scripts already removed from the build; Bootstrap CSS may remain until UI modernization).
-- After each major: production build and a manual smoke test of the app; accessibility checks where applicable. Skip `npm test` / e2e until tests are rewritten. There is no `npm run lint` / `npm run e2e`.
+- Remove obsolete/unused dependencies during modernization when no longer needed (jQuery, Popper, and Bootstrap CSS/JS are fully removed).
+- After each major: production build and a manual smoke test of the app; accessibility checks where applicable. Skip `npm test` / e2e until tests are rewritten. There is no `npm run lint` / `npm run e2e` yet.
 - Do not mix a major dependency upgrade with an unrelated visual redesign.
-- Do not put third-party minified bundles in `angular.json` `scripts` unless they are proven safe with the application builder (Bootstrap JS previously caused exit 134 during sourcemap processing).
+- Do not put third-party minified bundles in `angular.json` `scripts` unless they are proven safe with the application builder.
 - Firebase Hosting remains the deploy target while the portfolio stays static. Do not rewrite to another framework; pursue SEO/performance gains via Angular upgrades, hosting, assets, and content architecture instead.
 
 ## Testing policy
 
-- Existing Karma/Jasmine specs and Protractor e2e are **not** a reliable signal. Do not run or “fix” them as part of routine changes.
+- Existing Karma/Jasmine specs are **not** a reliable signal. Do not run or “fix” them as part of routine changes.
 - Validate with `npm run build` and, when UI changes, a quick manual check of `npm start`.
-- A real test suite is future work; until then, agents must not spend time chasing green unit/e2e runs.
+- **Pending (future work):** create/rewrite a real unit (and optionally e2e) suite, add a linter (`npm run lint`), and then wire both into GitHub Actions (`.github/workflows/ci.yml` and related). Until that lands, CI gates on `npm run build` only; agents must not chase green unit/e2e runs or invent lint/test workflow steps.
 
 ## Agent documentation sync (mandatory)
 

@@ -25,7 +25,8 @@ Secret requerido: `FIREBASE_SERVICE_ACCOUNT` (JSON de service account).
 ## Validación
 
 - Gate principal: `npm run build`
-- No correr `npm test` / lint / e2e en CI hasta tener suite real
+- **Pendiente (futuro):** crear/reescribir tests reales + `npm run lint`, y entonces añadir lint + tests a `ci.yml` (y workflows relacionados)
+- Mientras tanto: no correr ni añadir `npm test` / lint / e2e en CI
 
 ## Manual
 

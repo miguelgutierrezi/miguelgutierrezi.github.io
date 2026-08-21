@@ -14,7 +14,8 @@ Fuente: `docs/architecture.md` y `docs/improvement-plan.md`.
 - Builder: `@angular-devkit/build-angular:application`
 - `npm run build` → configuration **production** por defecto
 - Deploy output: `dist/.../browser`
-- **No** incluir jQuery/Bootstrap/Popper en `angular.json` `scripts` (crash de sourcemap / exit 134)
+- **No** incluir bundles minificados de terceros en `angular.json` `scripts` (histórico: Bootstrap JS → crash sourcemap / exit 134)
+- **Bootstrap eliminado** del proyecto (CSS y JS); estilos = tokens + Sass
 
 ## Reglas
 
@@ -23,7 +24,8 @@ Fuente: `docs/architecture.md` y `docs/improvement-plan.md`.
 - No reintroducir scripts globales minificados con sourcemaps rotos
 - No mezclar salto mayor de deps con rediseño visual no relacionado
 - Firebase Hosting sigue siendo el target
-- **No ejecutar** `npm test` / e2e al validar; no hay `lint`/`e2e` scripts
+- **No ejecutar** `npm test` / e2e al validar; no hay `lint`/`e2e` scripts aún
+- **Pendiente:** suite de tests + linter → luego gates en GitHub Actions
 
 ## Tras cada major
 

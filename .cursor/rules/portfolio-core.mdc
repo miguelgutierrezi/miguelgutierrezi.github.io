@@ -9,9 +9,9 @@ Portfolio personal en Angular 22 (TypeScript + Sass), desplegado como sitio est�
 
 ## Stack actual
 
-- Angular 22, RxJS 7, Bootstrap 4 **CSS only** (legacy; shell UI no longer Bootstrap-nav based), application builder
+- Angular 22, RxJS 7, application builder — **sin Bootstrap** (tokens CSS + Sass propios)
 - Node.js >= 24.15 (`.nvmrc` → `24`)
-- Sin scripts globales de jQuery/Bootstrap JS (rompían el build vía sourcemaps → exit 134)
+- Sin scripts globales de terceros minificados en `angular.json` `scripts` (histórico: Bootstrap JS → sourcemap crash / exit 134)
 - Navbar collapse en Angular; output: `dist/.../browser`
 - UI Phase 2: **Desktop + tablet L/P + mobile** + **project-detail all breakpoints** (`/projects/:id`, Figma `4:678` / `4:1170` / `4:1019` / `4:866`) + **404 all breakpoints** (`/not-found`, Figma `21:4` / `23:80` / `23:5` / `21:89`)
 - Breakpoints CSS: landscape `max-width: 1279px`, portrait `max-width: 1023px`, mobile `max-width: 767px`
@@ -27,8 +27,8 @@ Portfolio personal en Angular 22 (TypeScript + Sass), desplegado como sitio est�
 - `npm run studio:install` / `npm run studio` — Sanity Studio
 - CI: GitHub Actions (`.github/workflows/`); secret `FIREBASE_SERVICE_ACCOUNT` para deploy
 - Deploy: `npm run build` luego `npx firebase-tools deploy --only hosting`
-- **No existen** `npm run lint` ni `npm run e2e`
-- **No ejecutar** `npm test` / `test:web` al validar cambios
+- **No existen** aún `npm run lint` ni `npm run e2e` (pendiente crear/actualizar suite + linter y añadirlos a workflows)
+- **No ejecutar** `npm test` / `test:web` al validar cambios (specs legacy no son gate)
 
 ## Principios permanentes
 
@@ -36,9 +36,10 @@ Portfolio personal en Angular 22 (TypeScript + Sass), desplegado como sitio est�
 - Angular a largo plazo; modernizar de forma incremental
 - One-pager con anclas (`/#projects`, etc.); contacto solo en footer, no en nav/burger; no tabs que reemplacen contenido
 - Navbar **Login** → `environment.adminLoginUrl` (app admin externa + proxy; vacío = oculto); sin tokens de escritura en el portfolio
-- Orden: stack ✓ → modelo tipado ✓ → UI ✓ → CMS slice 1+2 (adapter) ✓ → hardening SEO/headers ✓ → admin UI custom
-- CMS = Sanity CDN read-only + fallback local por colección; schemas en `/studio` (slice 2: experience/course/navigation); `ui` local
-- SEO: `SeoService`, `robots.txt` / `sitemap.xml`, `environment.siteUrl` (`*.web.app`); headers de seguridad/caché en `firebase.json`
+- Orden: stack ✓ → modelo tipado ✓ → UI ✓ → CMS slice 1+2 ✓ → hardening SEO ✓ → admin (`docs/admin-app-brief.md`) → data → **calidad (tests + lint → CI) pendiente**
+- CMS = Sanity CDN read-only + fallback local por colección; schemas en `/studio`; `ui` local
+- SEO: `SeoService`, `robots.txt` / `sitemap.xml`, `environment.siteUrl`; headers en `firebase.json`
+- Handoff admin: `docs/admin-app-brief.md` (sibling `cv-admin-panel`)
 - Tras **cualquier** cambio, sincronizar o revisar `CLAUDE.md`, `.github/copilot-instructions.md` y `.cursor/rules/`
 
 Consultar `docs/improvement-plan.md` antes de cambios de arquitectura o stack.

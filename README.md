@@ -6,8 +6,7 @@ Personal portfolio built with Angular and deployed as a static site through Fire
 
 - Angular 22
 - TypeScript 6
-- Sass
-- Bootstrap 4 (CSS only; no jQuery/Bootstrap JS global scripts)
+- Sass (design tokens + Geist fonts; **no Bootstrap**)
 - Firebase Hosting
 - Node.js >= 24.15 (required for local install/build; see `.nvmrc`)
 
@@ -33,7 +32,7 @@ Open `http://localhost:4200/`. The application reloads automatically when source
 | `npm test` | Legacy unit-test script — **do not rely on it**; specs are incomplete/unreliable |
 | `npm run test:web` | Legacy coverage viewer — skip unless rewriting the suite |
 
-There is no `lint` or `e2e` script: the old Angular lint target and Protractor e2e target were removed with the toolchain upgrade.
+There is no `lint` or `e2e` script yet. **Pending (Phase 5):** create/rewrite a reliable unit test suite, add `npm run lint`, then wire lint + tests into GitHub Actions (today CI gates on `npm run build` only).
 
 Agents and contributors should validate changes with `npm run build` (and a manual check of `npm start` for UI work), not with the current test suite.
 
@@ -79,12 +78,13 @@ The hosting configuration rewrites application routes to `index.html` so Angular
 
 The current application is intentionally static, but the next evolution is documented in [docs/improvement-plan.md](docs/improvement-plan.md). Delivery order:
 
-1. Baseline and incremental modernization of Angular, TypeScript, Node.js, and build tooling (**done**: Angular 22 / Node 24; reproducible `npm run build` without global jQuery/Bootstrap JS scripts).
+1. Baseline and incremental modernization of Angular, TypeScript, Node.js, and build tooling (**done**: Angular 22 / Node 24; Bootstrap fully removed; reproducible `npm run build`).
 2. Moving portfolio content into a typed, reusable local content model, with language preferences in `localStorage` (**done**).
-3. Modernizing the visual system, responsive layout, accessibility, and SEO.
-4. Integrating a headless CMS so CV and portfolio content can be updated online without code changes, with a local fallback and no write credentials in the client.
-5. Production hardening (CI, metadata, performance, and dependency health) — **CI migrated to GitHub Actions** (CircleCI removed); remaining: metadata/SEO/Lighthouse automation.
-6. Keeping Angular as the long-term framework for the portfolio.
+3. Modernizing the visual system, responsive layout, accessibility, and SEO (**done** for Phase 2 UI + Phase 4 SEO/headers).
+4. Integrating a headless CMS so CV and portfolio content can be updated online without code changes, with a local fallback and no write credentials in the client (**slice 1+2 adapter done**; data fill via admin).
+5. Production hardening (CI, metadata, performance) — **SEO/headers done**; optional Lighthouse later.
+6. **Quality gates (pending):** rewrite tests + add linter, then add them to GitHub Actions workflows.
+7. Keeping Angular as the long-term framework for the portfolio. Admin handoff: [docs/admin-app-brief.md](docs/admin-app-brief.md).
 
 Supporting decisions are documented in:
 

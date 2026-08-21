@@ -4,7 +4,7 @@
 
 This repo is a personal portfolio built with Angular 22, TypeScript, Sass, and Firebase Hosting. It is a static one-page site in Spanish and English with sections for profile, projects, experience, courses, and contact.
 
-Local toolchain: **Node.js >= 24.15** (see `.nvmrc`). Build uses the application builder with **production** as the default `npm run build` configuration; deploy from `dist/personal-presentation-miguel-gutierrez/browser`. CI is **GitHub Actions** (not CircleCI); live/preview deploys need secret `FIREBASE_SERVICE_ACCOUNT`. Bootstrap CSS may remain as a legacy import — do not re-add jQuery/Bootstrap JS under `angular.json` `scripts`. UI uses design tokens + Geist fonts; the home page is a **one-pager with section anchors** (not tab-swapped content). There are no `lint` or `e2e` npm scripts.
+Local toolchain: **Node.js >= 24.15** (see `.nvmrc`). Build uses the application builder with **production** as the default `npm run build` configuration; deploy from `dist/personal-presentation-miguel-gutierrez/browser`. CI is **GitHub Actions** (not CircleCI); live/preview deploys need secret `FIREBASE_SERVICE_ACCOUNT`. **No Bootstrap** (removed; styles are tokens + Sass only). Do not add third-party minified JS under `angular.json` `scripts`. UI uses design tokens + Geist fonts; the home page is a **one-pager with section anchors** (not tab-swapped content). There are no `lint` or `e2e` npm scripts yet — planned for a future CI gate (see Testing policy).
 
 ## Product principles
 
@@ -55,9 +55,10 @@ Local toolchain: **Node.js >= 24.15** (see `.nvmrc`). Build uses the application
 
 ## Testing policy
 
-- Existing Karma/Jasmine and Protractor suites are incomplete and unreliable.
+- Existing Karma/Jasmine suites are incomplete and unreliable.
 - Do **not** run `npm test`, `npm run test:web`, or `npm run e2e` when validating routine changes unless the user explicitly asks.
 - Primary validation: `npm run build` (and `npm start` for UI work).
+- **Pending:** rewrite a real test suite, add `npm run lint`, then add lint + tests to GitHub Actions workflows. Until then, do not add those steps to CI.
 
 ## Agent documentation sync (mandatory)
 
@@ -71,10 +72,10 @@ A change that updates only application code or `docs/` without reviewing these t
 
 ## Working style
 
-- Before architectural changes, consult the docs in `docs/`.
+- Before architectural changes, consult the docs in `docs/` (including `admin-app-brief.md` when working on the sibling admin app).
 - Preserve the existing static hosting model unless the task explicitly changes it.
 - Prefer precise, surgical changes that fit the current codebase conventions.
-- Keep the implementation aligned with the documented delivery order: stack done → typed local content model done → UI Phase 2 done → CMS Sanity runtime slice 1+2 (adapter) → hardening SEO/headers done → admin + data.
+- Keep the implementation aligned with the documented delivery order: stack done → typed local content model done → UI Phase 2 done → CMS Sanity runtime slice 1+2 (adapter) → hardening SEO/headers done → admin + data → quality gates (tests + lint → CI) pending.
 
 ## Figma
 

@@ -1,13 +1,11 @@
 <div class="alert-box">
   <section>
-    <h3 class="text-center">{{ job.company }}</h3>
+    <h3 class="job-detail__title">{{ job.company }}</h3>
     <div class="img-container">
       <img [src]="job.imageUrl" [alt]="job.company">
     </div>
-    <br>
-    <section class="ml-3 mr-3">
-      <label class="text-center">{{ duration() }}</label>
-      <br>
+    <section class="job-detail__body">
+      <p class="job-detail__duration">{{ duration() }}</p>
       <h6>{{ label('responsibilitiesHeading') }}</h6>
       <ul>
         @for (item of responsibilities(); track item) {
@@ -17,6 +15,6 @@
     </section>
   </section>
   <div class="alert-box-actions">
-    <button class="btn btn-primary" (click)="onClose()">{{ label('close') }}</button>
+    <button type="button" class="job-detail__close" (click)="onClose()">{{ label('close') }}</button>
   </div>
 </div>

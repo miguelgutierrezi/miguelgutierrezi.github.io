@@ -53,3 +53,5 @@ Prefer localized fields over separate `spanishProjects` and `englishProjects` ar
 4. Prototype CMS schemas (slice 1 + slice 2). ✓
 5. Add preview, read path, and local fallback behavior. ✓ (runtime CDN + per-collection merge)
 6. Complete editorial data via custom admin; optionally migrate `ui` chrome labels last.
+
+**Admin handoff:** when starting the sibling admin repo, use [admin-app-brief.md](./admin-app-brief.md) as the source contract.

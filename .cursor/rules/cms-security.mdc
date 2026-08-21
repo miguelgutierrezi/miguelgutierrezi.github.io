@@ -27,4 +27,4 @@ Fuente: `docs/cms-strategy.md`. El CMS es requisito de producto (editar CV en l�
 
 ## Secuencia
 
-1. Modelo local tipado ✓ → 2. Migrar datos ✓ → 3. Schema + adapter slice 1 ✓ → 4. Seed parcial + CORS ✓ → 5. Schema + adapter slice 2 ✓ → 6. Hardening SEO/headers ✓ → 7. Admin UI custom + proxy → 8. Completar data editorial
+1. Modelo local tipado ✓ → 2. Migrar datos ✓ → 3. Schema + adapter slice 1 ✓ → 4. Seed parcial + CORS ✓ → 5. Schema + adapter slice 2 ✓ → 6. Hardening SEO/headers ✓ → 7. Admin UI custom + proxy (`docs/admin-app-brief.md`) → 8. Completar data editorial

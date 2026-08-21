@@ -54,13 +54,15 @@ The service should validate or normalize content before exposing it to the UI. I
 
 ## Migration guidance
 
-Do not mix CMS calls directly into templates or individual section components. Do not introduce a custom database or admin app when a hosted headless CMS already covers online CV editing. A static site plus a hosted CMS is the intended operating model for this portfolio.
+Do not mix CMS calls directly into templates or individual section components. The public portfolio stays statically hosted and **read-only** against Sanity CDN.
+
+Day-to-day editing uses a **separate custom admin app** with an authenticated write proxy (see [admin-app-brief.md](./admin-app-brief.md)). Do not put CMS write tokens in the portfolio client. Sanity Studio remains available for schema work and emergency edits (https://miguel-gutierrez-cv.sanity.studio/), not as the primary long-term editorial UX.
 
 ## Stack modernization path
 
 The application should remain on Angular while its dependencies are modernized. Upgrade one Angular major version at a time, use the migration recommendations for that version, and validate the build and tests before continuing. Keep the Node.js version aligned with the Angular version being upgraded.
 
-Remove unused framework and UI dependencies during the modernization work, but avoid combining unrelated visual refactors with a major dependency jump. Do not bundle third-party minified JavaScript through `angular.json` `scripts` (jQuery/Bootstrap JS caused non-reproducible build crashes via sourcemap processing). Bootstrap CSS may remain until the UI redesign. Firebase Hosting remains an appropriate target because the portfolio does not require a long-running server.
+Remove unused framework and UI dependencies during the modernization work, but avoid combining unrelated visual refactors with a major dependency jump. Do not bundle third-party minified JavaScript through `angular.json` `scripts` (historically jQuery/Bootstrap JS caused non-reproducible build crashes via sourcemap processing). **Bootstrap CSS/JS are removed**; the UI uses design tokens and application Sass only. Firebase Hosting remains an appropriate target because the portfolio does not require a long-running server.
 
 Angular remains the long-term framework for this portfolio. Content-first rendering, SEO, and performance improvements should be addressed through Angular upgrades, better static hosting configuration, optimized assets, and the content architecture described above.
 
