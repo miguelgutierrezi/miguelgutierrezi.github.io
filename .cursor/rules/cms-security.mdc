@@ -1,31 +1,28 @@
 ---
 description: Estrategia CMS headless, modelo editorial y seguridad de tokens
-globs: src/app/**/*.{ts,json},docs/cms-strategy.md
+globs: src/app/**/*.{ts,json},docs/cms-strategy.md,studio/**/*
 alwaysApply: false
 ---
 
 # CMS y seguridad
 
-Fuente: `docs/cms-strategy.md`. El CMS es requisito de producto (editar CV en línea sin código), pero solo tras un modelo local tipado estable.
+Fuente: `docs/cms-strategy.md`. El CMS es requisito de producto (editar CV en línea sin código).
 
-## Enfoque
+## Decisión actual
 
-- CMS = fuente editorial diaria; no foundation runtime sin fallback
-- Preferir Sanity o Storyblok para edición online real; Decap solo si se prioriza Git
-- Firebase/Firestore: diferir salvo necesidad de datos dinámicos
-- Siempre: API de lectura pública o fetch en build confiable + fallback local
-
-## Entidades
-
-`siteSettings`, `profile`, `project`, `experience`, `course`, `navigation` — campos localizados, IDs estables, no arrays ES/EN duplicados.
+- **Sanity** + **runtime** CDN (`SanityContentAdapter` → `*.apicdn.sanity.io`)
+- Fallback: `LocalContentAdapter` + `validatePortfolioContent` si CMS off, sin red, o slice incompleto
+- Studio: `/studio` (`npm run studio:install` / `npm run studio`)
+- Config pública en `environment.cms` (`enabled`, `projectId`, `dataset`, `apiVersion`) y `environment.adminLoginUrl` (Login del navbar → admin externo; vacío = oculto)
+- Slice 1: `siteSettings`, `profile`, `project` (+ detail). Experience / courses / navigation / `ui` siguen locales
 
 ## Seguridad
 
-- Nunca exponer tokens de escritura en el bundle Angular
-- Validar contenido remoto antes de renderizar
-- Fallback local ante outage o entradas malformadas
-- Sin autenticación hasta que el flujo editorial lo exija
+- Nunca exponer tokens de escritura en el bundle Angular del portfolio
+- Solo lectura pública (CDN); validar remoto antes de renderizar
+- Escrituras: app admin separada + proxy autenticado (no Studio como UI principal a largo plazo)
+- Sin autenticación multi-usuario en el cliente del CV
 
 ## Secuencia
 
-1. Modelo local tipado → 2. Migrar datos → 3. Medir edición → 4. Prototipar schema (perfil/proyectos) → 5. Preview + fallback → 6. Resto de secciones
+1. Modelo local tipado ✓ → 2. Migrar datos ✓ → 3. Schema + adapter slice 1 ✓ → 4. Seed + `cms.enabled` ✓ → 5. Admin UI custom + proxy → 6. Resto de secciones

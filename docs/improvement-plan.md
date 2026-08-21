@@ -71,15 +71,12 @@ Next product focus: Phase 2 (UI modernization) on this model.
 - Anchored sections `#about`, `#experience`, `#projects`, `#courses`. Footer holds contact (`#contact`) but is not listed in nav/burger.
 - **Project detail** (`/projects/:id`) implemented for desktop + tablet L/P + mobile (Figma `4:678` / `4:1170` / `4:1019` / `4:866`) with typed `Project.detail` for all projects. Pending: broader a11y/SEO polish and localizing remote assets.
 
-### Phase 3: CMS integration (product requirement)
+### Phase 3: CMS integration (product requirement) — **slice 1 scaffolded**
 
-A headless CMS is intentional product scope: update CV and portfolio content online without code changes or a developer deploy for each edit. It is not optional “nice to have,” but it still must sit on top of the typed local model from Phase 1.
-
-- Choose the CMS using [CMS strategy](cms-strategy.md) after the local content model is stable.
-- Prefer a hosted CMS with a free or low-cost personal tier, structured localized fields, and a read-only public API (or trusted build-time fetch).
-- Keep a local content fallback so the site can still build and render when the CMS is unavailable.
-- Add a preview workflow before publishing content changes.
-- Never expose CMS write credentials in the Angular client bundle.
+- **Decision:** Sanity + **runtime** CDN (`SanityContentAdapter`) with local fallback after `validatePortfolioContent`.
+- Studio in [`studio/`](../studio/) — schemas `siteSettings`, `profile`, `project`. Toggle via `environment.cms` (`enabled`, `projectId`, `dataset`, `apiVersion`). Never put write tokens in the Angular client.
+- Slice 1: site + profile + projects (incl. detail). Experience, courses, navigation, and `ui` remain local until slice 2.
+- Setup: [`studio/README.md`](../studio/README.md). Strategy: [CMS strategy](cms-strategy.md).
 
 ### Phase 4: Production hardening — **partially started**
 
@@ -92,9 +89,9 @@ A headless CMS is intentional product scope: update CV and portfolio content onl
 
 1. Baseline + stack modernization — **done** (Angular 22 / Node 24)
 2. Typed local content model and preference persistence — **done**
-3. UI modernization on that model  
-4. CMS for online CV/portfolio edits, with local fallback  
-5. Production hardening  
+3. UI modernization on that model — **done**
+4. CMS for online CV/portfolio edits, with local fallback — **slice 1 (Sanity runtime) scaffolded**
+5. Production hardening
 
 Angular remains the long-term application framework; upgrade it incrementally rather than rewriting the site.
 

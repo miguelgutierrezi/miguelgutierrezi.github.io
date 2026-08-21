@@ -15,8 +15,8 @@ Portfolio personal en Angular 22 (TypeScript + Sass), desplegado como sitio est�
 - Navbar collapse en Angular; output: `dist/.../browser`
 - UI Phase 2: **Desktop + tablet L/P + mobile** + **project-detail all breakpoints** (`/projects/:id`, Figma `4:678` / `4:1170` / `4:1019` / `4:866`) + **404 all breakpoints** (`/not-found`, Figma `21:4` / `23:80` / `23:5` / `21:89`)
 - Breakpoints CSS: landscape `max-width: 1279px`, portrait `max-width: 1023px`, mobile `max-width: 767px`
-- Estructura: `models/`, `content/`, `services/`, `components/home|shared|project-detail|not-found`, `assets/`, `environments/`
-- Contenido tipado local vía `ContentService`; idioma/sección en `PreferencesService` (`localStorage`)
+- Estructura: `models/`, `content/`, `services/` (incl. Sanity), `components/home|shared|project-detail|not-found`, `studio/`, `assets/`, `environments/`
+- Contenido: `ContentService` → Sanity runtime (opcional) + fallback local; idioma/sección en `PreferencesService` (`localStorage`)
 - Modelo: `brandHandle`, profile `role`/`pitch`/`focusAreas`, project `technologies` + `detail` (summary/meta/body/features/gallery) + chrome en `PortfolioContent.ui`; contactos hero: GitHub, LinkedIn, phone (`tel:`), WhatsApp (`wa.me`)
 - Validación social: `http(s)` + `tel:` / `mailto:` en `content-validator.ts`
 
@@ -24,6 +24,7 @@ Portfolio personal en Angular 22 (TypeScript + Sass), desplegado como sitio est�
 
 - `nvm use` → `npm install` → `npm start` — desarrollo
 - `npm run build` — **producción** (validación principal; `defaultConfiguration: production`)
+- `npm run studio:install` / `npm run studio` — Sanity Studio
 - CI: GitHub Actions (`.github/workflows/`); secret `FIREBASE_SERVICE_ACCOUNT` para deploy
 - Deploy: `npm run build` luego `npx firebase-tools deploy --only hosting`
 - **No existen** `npm run lint` ni `npm run e2e`
@@ -34,8 +35,9 @@ Portfolio personal en Angular 22 (TypeScript + Sass), desplegado como sitio est�
 - Mantener el sitio estático, barato de operar y sin backend propio salvo necesidad clara
 - Angular a largo plazo; modernizar de forma incremental
 - One-pager con anclas (`/#projects`, etc.); contacto solo en footer, no en nav/burger; no tabs que reemplacen contenido
-- Orden: stack ✓ → modelo tipado ✓ → UI (Desktop ✓, tablet L/P ✓, mobile ✓) → CMS → hardening
-- CMS = editar CV online sin código; fallback local; sin tokens de escritura en el cliente
+- Navbar **Login** → `environment.adminLoginUrl` (app admin externa + proxy; vacío = oculto); sin tokens de escritura en el portfolio
+- Orden: stack ✓ → modelo tipado ✓ → UI ✓ → CMS (Sanity runtime slice 1) → admin UI custom → hardening
+- CMS = Sanity CDN read-only + fallback local; schemas en `/studio` (no UI editorial principal)
 - Tras **cualquier** cambio, sincronizar o revisar `CLAUDE.md`, `.github/copilot-instructions.md` y `.cursor/rules/`
 
 Consultar `docs/improvement-plan.md` antes de cambios de arquitectura o stack.

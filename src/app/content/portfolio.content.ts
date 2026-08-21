@@ -53,6 +53,7 @@ export const LOCAL_PORTFOLIO_CONTENT: PortfolioContent = {
     viewCredential: { es: 'Ver credencial', en: 'See credential' },
     switchToEnglish: { es: 'English', en: 'English' },
     switchToSpanish: { es: 'Español', en: 'Español' },
+    loginLabel: { es: 'Login', en: 'Login' },
     menuToggle: { es: 'Abrir o cerrar menú', en: 'Toggle navigation' },
     footerCredit: { es: 'Hecho con Angular • 2026', en: 'Built with Angular • 2026' },
     previousProject: { es: 'Proyecto anterior', en: 'Previous project' },

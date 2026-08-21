@@ -13,15 +13,16 @@ Personal portfolio for Miguel Gutiérrez, built with Angular 22 (TypeScript + Sa
 - Sass for styles with design tokens + **Geist Sans / Geist Mono** (`@fontsource/geist-*`); Firebase Hosting rewrites all routes to `index.html` (SPA)
 - Build output: `dist/personal-presentation-miguel-gutierrez/browser` (Firebase `public`)
 - `npm run build` uses **production** by default; do not re-add third-party files under `angular.json` `scripts` (known sourcemap crash / exit 134 with Bootstrap minified JS)
-- Structure: `src/app/models/`, `src/app/content/`, `src/app/services/` (content + preferences), `src/app/components/home/` (profile, projects, experience, courses), `src/app/components/shared/` (navbar, loading-spinner), `src/app/components/not-found/`, `src/assets/`, `src/environments/`
-- Local typed content is loaded through `ContentService` / `ContentSource` (`LocalContentAdapter` + `content-validator.ts`). The validator accepts `unknown`, returns a fresh normalized object (no source mutation), enforces unique IDs, logs every rejection, and validates URLs via `new URL()` / `assets/` (social links may also use `tel:` / `mailto:`). Profile includes `role`, `pitch`, `focusAreas`; site has `brandHandle`; projects expose text `technologies`; contact socials include GitHub, LinkedIn, phone, WhatsApp. UI chrome labels live in `PortfolioContent.ui`. Preferences (`es`/`en`, section ids) live in `PreferencesService` with `localStorage`.
-- **Phase 2 UI:** Desktop + tablet landscape/portrait + **mobile** one-pager baselines are in place. **Project detail** complete across breakpoints (`/projects/:id`, Figma `4:678` / `4:1170` / `4:1019` / `4:866`). **404** complete across breakpoints (`/not-found`, Figma `21:4` / `23:80` / `23:5` / `21:89`). Product/architecture decisions live in `docs/` — consult before architectural changes.
+- Structure: `src/app/models/`, `src/app/content/`, `src/app/services/` (content + preferences + Sanity adapter), `src/app/components/home/` (profile, projects, experience, courses), `src/app/components/shared/` (navbar, loading-spinner), `src/app/components/not-found/`, `src/app/components/project-detail/`, `studio/` (Sanity), `src/assets/`, `src/environments/`
+- Content: `ContentService` / `ContentSource` → `SanityContentAdapter` (runtime CDN when `environment.cms.enabled` + `projectId`; on miss/failure → `LocalContentAdapter` + `content-validator.ts`). Never put CMS write tokens in the client. Slice 1 CMS: siteSettings, profile, project; experience/courses/nav/ui still local. Studio: `/studio` — see `studio/README.md`. Validator accepts `unknown`, returns a fresh normalized object, unique IDs, URL/`assets/`/`tel:`/`mailto:` checks. Preferences in `PreferencesService` (`localStorage`).
+- **Phase 2 UI done** (one-pager + project-detail + 404 all breakpoints). **Phase 3 CMS slice 1** (Sanity + runtime) scaffolded. Product/architecture decisions in `docs/`.
 
 ## Commands
 
 - `nvm use` then `npm install` / `npm start` — dev server at `http://localhost:4200/`
 - `npm run build` — production build (**primary validation**)
 - `npm run watch` — development configuration with watch
+- `npm run studio:install` then `npm run studio` — Sanity Studio (`studio/`)
 - Deploy: `npm run build` then `npx firebase-tools deploy --only hosting` (or a global Firebase CLI)
 - CI/CD: GitHub Actions (`.github/workflows/ci.yml`, `deploy.yml`, PR preview). Secret: `FIREBASE_SERVICE_ACCOUNT`. CircleCI is removed.
 - Do **not** run `npm test` or `npm run test:web` unless the user explicitly asks — existing specs are incomplete/unreliable
@@ -32,7 +33,7 @@ Personal portfolio for Miguel Gutiérrez, built with Angular 22 (TypeScript + Sa
 - Keep the site static, inexpensive to operate, and free of a custom backend unless a real need appears.
 - Angular is the long-term framework; modernize incrementally rather than rewriting.
 - One main page with anchored sections (`/#projects`, `#about`, `#experience`, `#courses`), not tabs that replace the visible content. Contact lives in the footer (`#contact`) and is **not** a nav/burger item. Dedicated project case studies use `/projects/:id` (Figma `4:678` / `4:1170` / `4:1019` / `4:866`).
-- Delivery order for larger work: stack modernization (done) → typed local content model (done) → UI (Phase 2; **Desktop + tablet L/P + mobile done**; **project-detail all breakpoints done**) → CMS → hardening.
+- Delivery order for larger work: stack ✓ → typed local content ✓ → UI Phase 2 ✓ → **CMS (Sanity runtime, slice 1 scaffolded)** → hardening.
 
 ## Figma MCP (Phase 2)
 
@@ -53,7 +54,7 @@ Personal portfolio for Miguel Gutiérrez, built with Angular 22 (TypeScript + Sa
 - Use stable IDs and localized fields per entity instead of parallel Spanish/English arrays (no `spanishProjects` / `englishProjects`).
 - Target folders: `models/`, `content/`, `services/`, `components/`, `assets/`.
 - Do not call CMS APIs directly from templates or individual section components.
-- Do not introduce a custom backend or admin app unless a real need appears.
+- Editorial writes go through a **separate admin UI + authenticated write proxy** (not this static portfolio). Navbar **Login** only redirects via `environment.adminLoginUrl` (empty = hidden). Never put write tokens in the portfolio client.
 
 ## Persistence rules
 
@@ -66,7 +67,7 @@ Personal portfolio for Miguel Gutiérrez, built with Angular 22 (TypeScript + Sa
 ## UI, accessibility, and SEO
 
 - Product goal: a clear, editorial, credible engineering portfolio — who Miguel is, what he builds, and how to contact him should be obvious within seconds.
-- Page hierarchy: compact nav + language switch + section anchors → profile hero (role, pitch, availability, CTA) → featured projects (outcome, stack, repo/demo, image) → experience, courses, contact/footer.
+- Page hierarchy: compact nav + language switch + **Login** (optional, redirects to external admin) + section anchors → profile hero → featured projects → experience, courses, contact/footer.
 - Semantic landmarks: `header`, `nav`, `main`, `section`, `footer`. Real buttons/links, not clickable `div`s. Keyboard reachability and visible focus states.
 - Descriptive `alt` text for meaningful images, empty `alt` for decorative ones. Don't rely on color alone; keep body text contrast readable.
 - No horizontal scroll on common mobile sizes. Responsive grid with stable aspect ratios. Keep motion subtle and respect `prefers-reduced-motion`.
@@ -75,11 +76,10 @@ Personal portfolio for Miguel Gutiérrez, built with Angular 22 (TypeScript + Sa
 
 ## CMS strategy and security
 
-- The CMS is a product requirement (edit CV/portfolio online without code changes) but only after the local typed content model is stable — it's an editorial source, not a runtime foundation, and always needs a local fallback.
-- Preferred: Sanity or Storyblok for real online editing; Decap only if Git-based editing is prioritized. Defer Firebase/Firestore unless dynamic data becomes necessary.
-- Entities: `siteSettings`, `profile`, `project`, `experience`, `course`, `navigation` — localized fields, stable IDs, no duplicated ES/EN arrays.
-- Never expose CMS write tokens in the Angular client bundle. Validate remote content before rendering. No authentication until the editorial flow requires it.
-- Sequence: typed local model → migrate data → measure editing pain → prototype schema (profile/projects first) → preview + fallback → remaining sections.
+- **Chosen:** Sanity + runtime CDN (`SanityContentAdapter`); local fallback always. Studio in `/studio`.
+- Slice 1 entities in CMS: `siteSettings`, `profile`, `project` (+ detail). Experience, courses, navigation, `ui` still local.
+- Configure with `environment.cms` (`enabled`, `projectId`, `dataset`, `apiVersion`) and `environment.adminLoginUrl` (navbar Login → external admin). Never expose write tokens in the Angular client. Validate remote content before rendering.
+- Sequence next: seed dataset → custom admin + proxy (preferred over day-to-day Studio) → migrate remaining sections.
 
 ## Modernization rules
 

@@ -135,6 +135,7 @@ export interface UiCopy {
   viewCredential: LocalizedString;
   switchToEnglish: LocalizedString;
   switchToSpanish: LocalizedString;
+  loginLabel: LocalizedString;
   menuToggle: LocalizedString;
   footerCredit: LocalizedString;
   previousProject: LocalizedString;

@@ -4,8 +4,8 @@ import { PortfolioContent } from '../models/portfolio.models';
 import { ContentSource } from './content-source';
 
 /**
- * Facade over ContentSource. Today that is the local adapter; a CMS adapter
- * can replace the ContentSource provider without changing consumers.
+ * Facade over ContentSource (Sanity CDN when enabled, else local).
+ * Consumers stay unchanged when the ContentSource provider swaps.
  */
 @Injectable({ providedIn: 'root' })
 export class ContentService {

@@ -8,9 +8,11 @@ The CMS is still **not** the runtime foundation of the site. The application sho
 
 ## Recommendation
 
-Prefer a **hosted** headless CMS with a clear editorial UI when the goal is “edit online without touching the repo.” The preferred first evaluation is **Sanity** or **Storyblok**. Both support structured content, media management, localized fields, previews, and a public read path.
+**Chosen for this portfolio:** **Sanity** with **runtime** read via the Sanity CDN (`*.apicdn.sanity.io`), validated through `validatePortfolioContent`, and merged over the typed local fallback for sections not yet migrated. Schema definitions live in `/studio`. Day-to-day editing targets a **custom admin UI** (separate app) with an authenticated write proxy — not Sanity Studio as the primary UI. The public portfolio navbar **Login** only redirects via `environment.adminLoginUrl`.
 
-**Decap CMS** remains a strong alternative when keeping content in Git matters more than a fully hosted editor. It still avoids hard-coding content in components, but edits typically flow through Git commits rather than a pure online CV workflow—so it is a weaker fit for the stated product goal.
+Prefer a **hosted** headless CMS with a clear editorial UI when the goal is “edit online without touching the repo.” Sanity and Storyblok both fit; Decap remains an alternative when Git-based editing is preferred.
+
+**Build-time fetch** is a valid alternative if zero client dependency on Sanity is required; it needs a publish webhook → CI redeploy and is deferred unless that constraint appears.
 
 ## Options
 
@@ -36,11 +38,11 @@ Prefer localized fields over separate `spanishProjects` and `englishProjects` ar
 
 ## Security and reliability
 
-- Never expose CMS write tokens in the Angular bundle.
+- Never expose CMS write tokens in the Angular portfolio bundle.
 - Use a public read-only API or fetch content during a trusted build step.
 - Validate remote content before rendering it.
 - Keep a local fallback for outages, malformed entries, or an unavailable preview environment.
-- Do not add multi-user authentication until an editorial workflow actually needs multiple authors or private drafts. A single-author CMS login in the vendor studio is expected and fine.
+- Writes go through a separate admin app + authenticated proxy. Portfolio Login is a redirect only (`environment.adminLoginUrl`).
 
 ## Adoption sequence
 

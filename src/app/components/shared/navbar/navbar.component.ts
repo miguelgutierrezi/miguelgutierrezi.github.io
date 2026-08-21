@@ -19,6 +19,7 @@ import {
 } from '../../../models/portfolio.models';
 import { ContentService } from '../../../services/content.service';
 import { PreferencesService } from '../../../services/preferences.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-navbar',
@@ -39,6 +40,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
   /** Keeps the panel painted until the close slide finishes. */
   public menuVisible = false;
   public ui!: UiCopy;
+  /** External admin UI; empty hides Login. */
+  public readonly adminLoginUrl = (environment.adminLoginUrl ?? '').trim();
   private roleLocalized: LocalizedString | null = null;
   private menuCloseTimer: ReturnType<typeof setTimeout> | null = null;
   private readonly menuAnimDurationMs = 380;
@@ -163,6 +166,10 @@ export class NavbarComponent implements OnInit, OnDestroy {
 
   public menuToggleLabel(): string {
     return this.ui ? localize(this.ui.menuToggle, this.language) : 'Toggle navigation';
+  }
+
+  public loginLabel(): string {
+    return this.ui ? localize(this.ui.loginLabel, this.language) : 'Login';
   }
 
   public menuCreditPrimary(): string {

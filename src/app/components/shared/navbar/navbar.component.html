@@ -21,18 +21,6 @@
         }
       </ul>
 
-      <button
-        type="button"
-        class="site-nav__menu-btn"
-        (click)="toggleMenu()"
-        [attr.aria-expanded]="menuOpen"
-        aria-controls="mobile-menu"
-        [attr.aria-label]="menuToggleLabel()">
-        <span class="site-nav__menu-line" aria-hidden="true"></span>
-        <span class="site-nav__menu-line" aria-hidden="true"></span>
-        <span class="site-nav__menu-line" aria-hidden="true"></span>
-      </button>
-
       <div class="lang-toggle site-nav__lang" role="group" [attr.aria-label]="languageSwitchLabel()">
         <button
           type="button"
@@ -49,6 +37,28 @@
           EN
         </button>
       </div>
+
+      @if (adminLoginUrl) {
+        <a
+          class="site-nav__login"
+          [href]="adminLoginUrl"
+          target="_blank"
+          rel="noopener noreferrer">
+          {{ loginLabel() }}
+        </a>
+      }
+
+      <button
+        type="button"
+        class="site-nav__menu-btn"
+        (click)="toggleMenu()"
+        [attr.aria-expanded]="menuOpen"
+        aria-controls="mobile-menu"
+        [attr.aria-label]="menuToggleLabel()">
+        <span class="site-nav__menu-line" aria-hidden="true"></span>
+        <span class="site-nav__menu-line" aria-hidden="true"></span>
+        <span class="site-nav__menu-line" aria-hidden="true"></span>
+      </button>
     </div>
   </nav>
 
@@ -113,6 +123,18 @@
           @if (isActive(item.id)) {
             <span class="mobile-menu__active">[ ACTIVE ]</span>
           }
+        </a>
+      }
+
+      @if (adminLoginUrl) {
+        <a
+          class="mobile-menu__login"
+          [href]="adminLoginUrl"
+          target="_blank"
+          rel="noopener noreferrer"
+          (click)="closeMenu()">
+          <span class="mobile-menu__login-prompt" aria-hidden="true">&gt;_</span>
+          <span>{{ loginLabel() }}</span>
         </a>
       }
     </nav>

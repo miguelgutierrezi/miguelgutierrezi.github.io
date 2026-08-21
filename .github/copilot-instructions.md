@@ -19,11 +19,11 @@ Local toolchain: **Node.js >= 24.15** (see `.nvmrc`). Build uses the application
 ## Architecture rules
 
 - Components should render and handle interaction, not own large content datasets.
-- Content should flow through typed models in `src/app/models/`, local data in `src/app/content/`, and `ContentService` / `ContentSource` (local adapter today; CMS adapter later). Validate remote/local payloads with `validatePortfolioContent(unknown)` which returns a new normalized object and never mutates the source. Social link URLs may be `http(s)`, `tel:`, or `mailto:` (phone + WhatsApp are first-class contact actions in the hero).
+- Content should flow through typed models in `src/app/models/`, local data in `src/app/content/`, and `ContentService` / `ContentSource`. Provider: `SanityContentAdapter` (runtime CDN when `environment.cms.enabled`; else / on failure → `LocalContentAdapter`). Validate with `validatePortfolioContent(unknown)` (new object, never mutates source). Studio schemas in `/studio`. Slice 1 CMS: site/profile/projects; rest still local. Social URLs may be `http(s)`, `tel:`, or `mailto:`.
 - Preferences (`language`, `section`) go through `PreferencesService` and `localStorage`, not ad-hoc `sessionStorage` in components.
 - Use stable IDs and localized fields instead of separate Spanish and English arrays.
 - Do not call CMS APIs directly from templates or individual section components.
-- Do not introduce a custom backend or admin app unless a real need appears.
+- Custom admin is a **separate app** with an authenticated write proxy. Portfolio navbar Login only redirects via `environment.adminLoginUrl` (omit/empty to hide). Never put write tokens in this client.
 
 ## Persistence rules
 
@@ -74,7 +74,7 @@ A change that updates only application code or `docs/` without reviewing these t
 - Before architectural changes, consult the docs in `docs/`.
 - Preserve the existing static hosting model unless the task explicitly changes it.
 - Prefer precise, surgical changes that fit the current codebase conventions.
-- Keep the implementation aligned with the documented delivery order: stack done → typed local content model done → UI Phase 2 (Desktop + tablet L/P + mobile complete; project-detail all breakpoints done; 404 all breakpoints `21:4` / `23:80` / `23:5` / `21:89` done) → CMS → hardening.
+- Keep the implementation aligned with the documented delivery order: stack done → typed local content model done → UI Phase 2 done → CMS Sanity runtime slice 1 scaffolded → hardening.
 
 ## Figma
 
