@@ -13,6 +13,8 @@ module.exports = {
       settings: {
         // Focus CI on a11y signal; perf varies a lot on shared runners.
         onlyCategories: ['accessibility', 'best-practices', 'seo'],
+        // GitHub Actions / Ubuntu: Chrome needs --no-sandbox (AppArmor userns).
+        chromeFlags: '--no-sandbox --disable-dev-shm-usage',
       },
     },
     assert: {
