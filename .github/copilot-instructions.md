@@ -4,7 +4,7 @@
 
 This repo is a personal portfolio built with Angular 22, TypeScript, Sass, and Firebase Hosting. It is a static one-page site in Spanish and English with sections for profile, projects, experience, courses, and contact.
 
-Local toolchain: **Node.js >= 24.15** (see `.nvmrc`). Build uses the application builder with **production** as the default `npm run build` configuration; deploy from `dist/personal-presentation-miguel-gutierrez/browser`. CI is **GitHub Actions** (not CircleCI); live/preview deploys need secret `FIREBASE_SERVICE_ACCOUNT`. **No Bootstrap** (removed; styles are tokens + Sass only). Do not add third-party minified JS under `angular.json` `scripts`. UI uses design tokens + Geist fonts; the home page is a **one-pager with section anchors** (not tab-swapped content). There are no `lint` or `e2e` npm scripts yet — planned for a future CI gate (see Testing policy).
+Local toolchain: **Node.js >= 24.15** (see `.nvmrc`). Builders are `@angular/build:*` (application, dev-server, unit-test). `npm run build` uses **production** by default; deploy from `dist/personal-presentation-miguel-gutierrez/browser`. CI is **GitHub Actions** (not CircleCI) and runs `npm run ci` (lint + Vitest + production build) on PRs and before live/preview deploy. Live/preview deploys need secret `FIREBASE_SERVICE_ACCOUNT`. **No Bootstrap** (removed; styles are tokens + Sass only). Do not add third-party minified JS under `angular.json` `scripts`. UI uses design tokens + Geist fonts; the home page is a **one-pager with section anchors** (not tab-swapped content). There is no e2e suite.
 
 ## Product principles
 
@@ -50,15 +50,16 @@ Local toolchain: **Node.js >= 24.15** (see `.nvmrc`). Build uses the application
 - Keep Node.js aligned with the Angular version being upgraded (today: Node >= 24.15 with Angular 22).
 - Update TypeScript, CLI, and tooling as required by each Angular major.
 - Remove obsolete dependencies during modernization when they are no longer needed.
-- Gate each major on a successful `npm run build` and a manual smoke check — **not** on unit/e2e tests.
+- Gate each major on a successful `npm run ci` (lint + Vitest + production build) and a manual smoke check. Skip e2e (none yet). Do not migrate the NgModule app to standalone / `inject()` / OnPush as part of a quality-gate or upgrade task.
 - Do not mix a major dependency upgrade with an unrelated visual redesign.
 
 ## Testing policy
 
-- Existing Karma/Jasmine suites are incomplete and unreliable.
-- Do **not** run `npm test`, `npm run test:web`, or `npm run e2e` when validating routine changes unless the user explicitly asks.
-- Primary validation: `npm run build` (and `npm start` for UI work).
-- **Pending:** rewrite a real test suite, add `npm run lint`, then add lint + tests to GitHub Actions workflows. Until then, do not add those steps to CI.
+- Unit tests are Vitest via `@angular/build:unit-test`. Specs: `content-validator`, `PreferencesService`, `sanity-mapper`, `portfolio.models`.
+- Linter: `npm run lint` (`angular-eslint`). Keep `prefer-standalone` / `prefer-inject` / `prefer-on-push-component-change-detection` off (NgModule app).
+- Validate routine changes with `npm run ci` (lint + test + production build). For UI work, also smoke-check `npm start`.
+- GitHub Actions runs `npm run ci` on PRs/push and before live/preview deploy.
+- There is **no** e2e suite; do not add Playwright/Cypress unless the user asks.
 
 ## Agent documentation sync (mandatory)
 
@@ -75,7 +76,7 @@ A change that updates only application code or `docs/` without reviewing these t
 - Before architectural changes, consult the docs in `docs/` (including `admin-app-brief.md` when working on the sibling admin app).
 - Preserve the existing static hosting model unless the task explicitly changes it.
 - Prefer precise, surgical changes that fit the current codebase conventions.
-- Keep the implementation aligned with the documented delivery order: stack done → typed local content model done → UI Phase 2 done → CMS Sanity runtime slice 1+2 (adapter) → hardening SEO/headers done → admin go-live done → seed done → quality gates (tests + lint → CI) pending.
+- Keep the implementation aligned with the documented delivery order: stack done → typed local content model done → UI Phase 2 done → CMS Sanity runtime slice 1+2 (adapter) → hardening SEO/headers done → admin go-live done → seed done → quality gates (ESLint + Vitest → CI) done.
 
 ## Figma
 

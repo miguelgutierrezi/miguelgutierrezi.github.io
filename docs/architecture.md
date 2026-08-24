@@ -60,7 +60,7 @@ Day-to-day editing uses a **separate custom admin app** with an authenticated wr
 
 ## Stack modernization path
 
-The application should remain on Angular while its dependencies are modernized. Upgrade one Angular major version at a time, use the migration recommendations for that version, and validate the build and tests before continuing. Keep the Node.js version aligned with the Angular version being upgraded.
+The application should remain on Angular while its dependencies are modernized. Upgrade one Angular major version at a time, use the migration recommendations for that version, and validate with `npm run ci` (ESLint + Vitest + production build) before continuing. Keep the Node.js version aligned with the Angular version being upgraded. Builders are `@angular/build:*` (application, dev-server, unit-test).
 
 Remove unused framework and UI dependencies during the modernization work, but avoid combining unrelated visual refactors with a major dependency jump. Do not bundle third-party minified JavaScript through `angular.json` `scripts` (historically jQuery/Bootstrap JS caused non-reproducible build crashes via sourcemap processing). **Bootstrap CSS/JS are removed**; the UI uses design tokens and application Sass only. Firebase Hosting remains an appropriate target because the portfolio does not require a long-running server.
 

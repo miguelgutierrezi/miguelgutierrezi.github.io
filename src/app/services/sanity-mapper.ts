@@ -332,14 +332,14 @@ export function mapNavigation(value: unknown): NavItem[] {
     .filter((item): item is NavItem => !!item);
 }
 
-export type CmsRemoteSlice = {
+export interface CmsRemoteSlice {
   site?: SiteSettings;
   profile?: ProfileContent;
   projects?: Project[];
   experience?: Experience[];
   courses?: Course[];
   navigation?: NavItem[];
-};
+}
 
 /**
  * Merge CMS editorial slices over local fallback.

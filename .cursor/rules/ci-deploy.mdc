@@ -16,17 +16,16 @@ alwaysApply: false
 
 ## GitHub Actions (CircleCI eliminado)
 
-- `ci.yml` — push/PR → `npm ci` + `npm run build`
-- `deploy.yml` — push `master` → build + live channel
-- `firebase-hosting-pull-request.yml` — PR → preview channel
+- `ci.yml` — push/PR → `npm ci` + `npm run ci` (lint + Vitest + production build)
+- `deploy.yml` — push `master` → `npm run ci` + live channel
+- `firebase-hosting-pull-request.yml` — PR → `npm run ci` + preview channel
 
 Secret requerido: `FIREBASE_SERVICE_ACCOUNT` (JSON de service account).
 
 ## Validación
 
-- Gate principal: `npm run build`
-- **Pendiente (futuro):** crear/reescribir tests reales + `npm run lint`, y entonces añadir lint + tests a `ci.yml` (y workflows relacionados)
-- Mientras tanto: no correr ni añadir `npm test` / lint / e2e en CI
+- Gate: `npm run ci` = `npm run lint` + `npm test` + `npm run build`
+- Tests: Vitest (`@angular/build:unit-test`). Lint: `angular-eslint`. No hay e2e.
 
 ## Manual
 

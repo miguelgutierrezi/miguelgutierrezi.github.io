@@ -9,7 +9,7 @@ This document defines the roadmap for evolving the portfolio from a static Angul
 - Angular 22 single-page application (upgraded from Angular 11), application builder, TypeScript 6.
 - Node.js >= 24.15 documented in `.nvmrc` / `engines`.
 - Firebase Hosting deployment with an SPA rewrite to `index.html`; public dir `dist/.../browser`.
-- CI/CD: **GitHub Actions** (`.github/workflows/`) — build on PR/push; deploy live on `master`; preview channels on PRs. CircleCI removed.
+- CI/CD: **GitHub Actions** (`.github/workflows/`) — `npm run ci` (lint + Vitest + production build) on PR/push; deploy live on `master`; preview channels on PRs. CircleCI removed.
 - Required secret: `FIREBASE_SERVICE_ACCOUNT`.
 - Portfolio content lives in a typed local content layer (`src/app/content/`) consumed via `ContentService`; components no longer own ES/EN datasets.
 - Language and section preferences persist in `localStorage` via `PreferencesService` (legacy `sessionStorage` values are migrated once).
@@ -42,10 +42,10 @@ Unlocked a maintainable, reproducible toolchain before larger product work.
 - Documented Node via `.nvmrc` / `engines` (**Node >= 24.15** with Angular 22).
 - Upgraded Angular incrementally from 11 → 22; migrated to the application builder.
 - Firebase `public` points at `dist/.../browser`.
-- Removed obsolete packages and targets: tslint, codelyzer, protractor/`e2e`, Angular `lint` script/target, in-repo `firebase-tools`, jQuery, Popper, and **Bootstrap** (CSS and JS). Styles are application Sass + design tokens only.
+- Removed obsolete packages and targets: tslint, codelyzer, protractor/`e2e`, in-repo `firebase-tools`, jQuery, Popper, and **Bootstrap** (CSS and JS). Styles are application Sass + design tokens only. ESLint returned in Phase 5 via `angular-eslint`.
 - Navbar collapse is handled in Angular.
 - `npm run build` defaults to **production** (`defaultConfiguration: production`). Development builds use `ng serve` / `npm run watch` / `--configuration development`.
-- Do not treat legacy unit tests as a gate.
+- Legacy Karma/Jasmine specs were not a gate (replaced in Phase 5 with Vitest).
 
 Primary validation for Phase 0 closure: a clean, reproducible `npm run build` (exit 0) on Node 24.
 
@@ -83,14 +83,14 @@ Next product focus: Phase 2 (UI modernization) on this model.
 - **Done:** GitHub Actions CI/deploy; 404 all breakpoints; `SeoService` (title, description, canonical, Open Graph, Twitter, JSON-LD Person/CreativeWork); static fallbacks in `index.html`; `robots.txt` + `sitemap.xml`; Firebase security + cache headers; `environment.siteUrl`; Bootstrap dependency removed.
 - Pending (optional later): Lighthouse/a11y checks in CI; WebP/AVIF asset localization for remote images; custom domain CORS in Sanity.
 
-### Phase 5: Quality gates (tests + lint) — **pending**
+### Phase 5: Quality gates (tests + lint) — **done**
 
-Not started. Track as explicit follow-up before tightening CI:
+Reliable unit tests, ESLint, and CI wiring. Not a standalone / `inject()` / OnPush rewrite.
 
-1. Create/rewrite a real unit test suite (replace unreliable Karma/Jasmine specs); optionally add e2e later.
-2. Add a linter and `npm run lint` (e.g. ESLint via Angular schematics).
-3. Wire lint + tests into GitHub Actions (`.github/workflows/ci.yml` and related) so PRs fail on those gates.
-4. Until then: CI continues to gate on `npm run build` only; do not run or “fix” legacy specs as part of routine work.
+- Unit tests: Vitest via `@angular/build:unit-test` (`npm test` = `ng test --watch=false --coverage`). Specs cover `content-validator`, `PreferencesService`, `sanity-mapper`, and `portfolio.models`.
+- Linter: `angular-eslint` + `npm run lint` on `src/**/*.ts` and `src/**/*.html`. Standalone/`inject()`/OnPush rules are off (NgModule app).
+- Combined gate: `npm run ci` = lint + test + production build.
+- GitHub Actions (`ci.yml`, `deploy.yml`, PR preview) run `npm run ci` before artifact/deploy. No e2e suite yet.
 
 ## Delivery order (summary)
 
@@ -99,7 +99,7 @@ Not started. Track as explicit follow-up before tightening CI:
 3. UI modernization on that model — **done**
 4. CMS for online CV/portfolio edits, with local fallback — **slice 1+2 adapter done** (data fill deferred to admin)
 5. Production hardening — **SEO/meta/robots/sitemap/headers done** (Lighthouse CI / asset localization optional)
-6. Quality gates — **pending** (tests + lint → then CI workflows)
+6. Quality gates — **done** (ESLint + Vitest + `npm run ci` in GitHub Actions; no e2e)
 
 Angular remains the long-term application framework; upgrade it incrementally rather than rewriting the site.
 
@@ -115,7 +115,7 @@ Separate routes should be reserved for content that needs its own depth or disco
 - Switching language survives a browser refresh.
 - The home page works on mobile, tablet, and desktop without horizontal scrolling.
 - Content is navigable by keyboard and readable by assistive technology.
-- Production builds are reproducible; a rewritten test suite + linter (and CI wiring) are **pending** Phase 5 work (current unit specs are not a reliable gate).
+- Production builds are reproducible; lint + Vitest + build (`npm run ci`) are the CI gate. No e2e suite yet.
 - CMS downtime does not produce an empty portfolio.
 
 ## Decision gates

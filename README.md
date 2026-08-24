@@ -27,14 +27,14 @@ Open `http://localhost:4200/`. The application reloads automatically when source
 | Command | Purpose |
 | --- | --- |
 | `npm start` | Start the local development server (development configuration) |
-| `npm run build` | Production build — **primary validation** (`defaultConfiguration: production`) |
+| `npm run build` | Production build (`defaultConfiguration: production`) |
 | `npm run watch` | Rebuild on change using the development configuration |
-| `npm test` | Legacy unit-test script — **do not rely on it**; specs are incomplete/unreliable |
-| `npm run test:web` | Legacy coverage viewer — skip unless rewriting the suite |
+| `npm run lint` | ESLint (`angular-eslint`) on `src/**/*.ts` and `src/**/*.html` |
+| `npm test` | Vitest unit tests (`ng test --watch=false --coverage`) |
+| `npm run test:watch` | Vitest in watch mode |
+| `npm run ci` | **Primary validation:** lint + test + production build |
 
-There is no `lint` or `e2e` script yet. **Pending (Phase 5):** create/rewrite a reliable unit test suite, add `npm run lint`, then wire lint + tests into GitHub Actions (today CI gates on `npm run build` only).
-
-Agents and contributors should validate changes with `npm run build` (and a manual check of `npm start` for UI work), not with the current test suite.
+There is no e2e suite yet. Agents and contributors should validate changes with `npm run ci` (and a manual check of `npm start` for UI work).
 
 ## Deployment
 
@@ -51,9 +51,9 @@ npx firebase-tools deploy --only hosting
 
 | Workflow | Trigger | Purpose |
 | --- | --- | --- |
-| `.github/workflows/ci.yml` | Push / PR to `master` | `npm ci` + `npm run build` (primary validation) |
-| `.github/workflows/deploy.yml` | Push to `master` (and manual) | Build + deploy to Firebase **live** |
-| `.github/workflows/firebase-hosting-pull-request.yml` | PR to `master` | Build + Firebase **preview** channel |
+| `.github/workflows/ci.yml` | Push / PR to `master` | `npm ci` + `npm run ci` (lint + Vitest + production build) |
+| `.github/workflows/deploy.yml` | Push to `master` (and manual) | `npm run ci` + deploy to Firebase **live** |
+| `.github/workflows/firebase-hosting-pull-request.yml` | PR to `master` | `npm run ci` + Firebase **preview** channel |
 
 Required GitHub secret:
 
@@ -83,7 +83,7 @@ The current application is intentionally static, but the next evolution is docum
 3. Modernizing the visual system, responsive layout, accessibility, and SEO (**done** for Phase 2 UI + Phase 4 SEO/headers).
 4. Integrating a headless CMS so CV and portfolio content can be updated online without code changes, with a local fallback and no write credentials in the client (**slice 1+2 adapter done**; data fill via admin).
 5. Production hardening (CI, metadata, performance) — **SEO/headers done**; optional Lighthouse later.
-6. **Quality gates (pending):** rewrite tests + add linter, then add them to GitHub Actions workflows.
+6. **Quality gates (done):** ESLint + Vitest unit tests + production build, wired into GitHub Actions as `npm run ci`. No e2e yet.
 7. Keeping Angular as the long-term framework for the portfolio. Admin handoff: [docs/admin-app-brief.md](docs/admin-app-brief.md).
 
 Supporting decisions are documented in:

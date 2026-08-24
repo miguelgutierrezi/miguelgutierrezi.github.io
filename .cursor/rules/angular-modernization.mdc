@@ -11,22 +11,23 @@ Fuente: `docs/architecture.md` y `docs/improvement-plan.md`.
 ## Estado actual
 
 - Angular **22**, TypeScript **6**, Node **>= 24.15** (`.nvmrc`)
-- Builder: `@angular-devkit/build-angular:application`
+- Builders: `@angular/build:application`, `dev-server`, `extract-i18n`, `unit-test` (Vitest)
 - `npm run build` → configuration **production** por defecto
 - Deploy output: `dist/.../browser`
 - **No** incluir bundles minificados de terceros en `angular.json` `scripts` (histórico: Bootstrap JS → crash sourcemap / exit 134)
 - **Bootstrap eliminado** del proyecto (CSS y JS); estilos = tokens + Sass
+- Calidad: `npm run lint` + `npm test` (Vitest) + `npm run build` = `npm run ci`
 
 ## Reglas
 
-- Subir **un major de Angular a la vez**; `npm run build` verde y reproducible antes del siguiente
+- Subir **un major de Angular a la vez**; `npm run ci` verde antes del siguiente
 - Alinear Node.js con Angular
 - No reintroducir scripts globales minificados con sourcemaps rotos
 - No mezclar salto mayor de deps con rediseño visual no relacionado
 - Firebase Hosting sigue siendo el target
-- **No ejecutar** `npm test` / e2e al validar; no hay `lint`/`e2e` scripts aún
-- **Pendiente:** suite de tests + linter → luego gates en GitHub Actions
+- Validar con `npm run ci`; no hay e2e
+- No migrar a standalone / `inject()` / OnPush como parte de un upgrade o quality gate (app NgModule)
 
 ## Tras cada major
 
-Build de producción (dos corridas si hubo crash previo) y smoke con `npm start`.
+`npm run ci` y smoke con `npm start`.
