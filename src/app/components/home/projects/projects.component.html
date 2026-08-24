@@ -86,14 +86,15 @@
         </div>
 
         @if (pageCount > 1) {
-          <div class="projects-carousel__dots" role="tablist">
+          <div class="projects-carousel__dots" role="group" [attr.aria-label]="label('projectsTitle')">
             @for (page of pageIndexes; track page) {
               <button
                 type="button"
                 class="projects-carousel__dot"
                 [class.is-active]="page === pageIndex"
                 (click)="goTo(page)"
-                [attr.aria-label]="'Page ' + (page + 1)">
+                [attr.aria-label]="'Page ' + (page + 1)"
+                [attr.aria-current]="page === pageIndex ? 'true' : null">
               </button>
             }
           </div>

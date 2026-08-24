@@ -9,7 +9,7 @@ This document defines the roadmap for evolving the portfolio from a static Angul
 - Angular 22 single-page application (upgraded from Angular 11), application builder, TypeScript 6.
 - Node.js >= 24.15 documented in `.nvmrc` / `engines`.
 - Firebase Hosting deployment with an SPA rewrite to `index.html`; public dir `dist/.../browser`.
-- CI/CD: **GitHub Actions** (`.github/workflows/`) — `npm run ci` (lint + Vitest + production build) on PR/push; deploy live on `master`; preview channels on PRs. CircleCI removed.
+- CI/CD: **GitHub Actions** (`.github/workflows/`) — `npm run ci` (lint + Vitest + production build) + Lighthouse a11y on PR/push; deploy live on `master`; preview channels on PRs. CircleCI removed.
 - Required secret: `FIREBASE_SERVICE_ACCOUNT`.
 - Portfolio content lives in a typed local content layer (`src/app/content/`) consumed via `ContentService`; components no longer own ES/EN datasets.
 - Language and section preferences persist in `localStorage` via `PreferencesService` (legacy `sessionStorage` values are migrated once).
@@ -80,8 +80,8 @@ Next product focus: Phase 2 (UI modernization) on this model.
 
 ### Phase 4: Production hardening — **SEO + hosting headers done**
 
-- **Done:** GitHub Actions CI/deploy; 404 all breakpoints; `SeoService` (title, description, canonical, Open Graph, Twitter, JSON-LD Person/CreativeWork); static fallbacks in `index.html`; `robots.txt` + `sitemap.xml`; Firebase security + cache headers; `environment.siteUrl`; Bootstrap dependency removed.
-- Pending (optional later): Lighthouse/a11y checks in CI; WebP/AVIF asset localization for remote images; custom domain CORS in Sanity.
+- **Done:** GitHub Actions CI/deploy; 404 all breakpoints; `SeoService` (title, description, canonical, Open Graph, Twitter, JSON-LD Person/CreativeWork); static fallbacks in `index.html`; `robots.txt` + `sitemap.xml`; Firebase security + cache headers; `environment.siteUrl`; Bootstrap dependency removed; **Lighthouse a11y in CI** (`npm run lighthouse` / `lighthouserc.cjs`).
+- Pending (optional later): WebP/AVIF asset localization for remote images; custom domain CORS in Sanity.
 
 ### Phase 5: Quality gates (tests + lint) — **done**
 
@@ -89,7 +89,7 @@ Reliable unit tests, ESLint, and CI wiring. Not a standalone / `inject()` / OnPu
 
 - Unit tests: Vitest via `@angular/build:unit-test` (`npm test` = `ng test --watch=false --coverage`). Specs cover `content-validator`, `PreferencesService`, `sanity-mapper`, and `portfolio.models`.
 - Linter: `angular-eslint` + `npm run lint` on `src/**/*.ts` and `src/**/*.html`. Standalone/`inject()`/OnPush rules are off (NgModule app).
-- Combined gate: `npm run ci` = lint + test + production build.
+- Combined gate: `npm run ci` = lint + test + production build. GitHub Actions also runs Lighthouse (`npm run lighthouse`) with accessibility minScore **0.9** on `/`, `/projects/nodejs-scheduler-back`, and `/not-found`.
 - GitHub Actions (`ci.yml`, `deploy.yml`, PR preview) run `npm run ci` before artifact/deploy. No e2e suite yet.
 
 ## Delivery order (summary)
@@ -98,7 +98,7 @@ Reliable unit tests, ESLint, and CI wiring. Not a standalone / `inject()` / OnPu
 2. Typed local content model and preference persistence — **done**
 3. UI modernization on that model — **done**
 4. CMS for online CV/portfolio edits, with local fallback — **slice 1+2 adapter done** (data fill deferred to admin)
-5. Production hardening — **SEO/meta/robots/sitemap/headers done** (Lighthouse CI / asset localization optional)
+5. Production hardening — **SEO/meta/robots/sitemap/headers done**; Lighthouse a11y in CI **done** (asset localization optional)
 6. Quality gates — **done** (ESLint + Vitest + `npm run ci` in GitHub Actions; no e2e)
 
 Angular remains the long-term application framework; upgrade it incrementally rather than rewriting the site.

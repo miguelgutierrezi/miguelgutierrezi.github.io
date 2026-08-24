@@ -24,10 +24,11 @@ Personal portfolio for Miguel Gutiérrez, built with Angular 22 (TypeScript + Sa
 - `npm test` — Vitest unit tests (`ng test --watch=false --coverage`); `npm run test:watch` for watch mode
 - `npm run build` — production build
 - `npm run ci` — **primary validation:** lint + test + production build
+- `npm run lighthouse` — Lighthouse CI a11y against production `dist/` (after build). GitHub Actions runs this in `ci.yml`. Config: `lighthouserc.cjs` (min accessibility **0.9** on `/`, project detail, `/not-found`)
 - `npm run watch` — development configuration with watch
 - `npm run studio:install` then `npm run studio` — Sanity Studio local (`studio/`). Hosted: https://miguel-gutierrez-cv.sanity.studio/ (`cd studio && npm run deploy`)
 - Deploy: `npm run build` then `npx firebase-tools deploy --only hosting` (or a global Firebase CLI)
-- CI/CD: GitHub Actions (`.github/workflows/ci.yml`, `deploy.yml`, PR preview) run `npm run ci` before artifact/deploy. Secret: `FIREBASE_SERVICE_ACCOUNT`. CircleCI is removed.
+- CI/CD: GitHub Actions (`.github/workflows/ci.yml`, `deploy.yml`, PR preview) run `npm run ci` before artifact/deploy; `ci.yml` also runs Lighthouse a11y. Secret: `FIREBASE_SERVICE_ACCOUNT`. CircleCI is removed.
 - There is **no** e2e suite yet
 
 ## Product principles
@@ -98,8 +99,8 @@ Personal portfolio for Miguel Gutiérrez, built with Angular 22 (TypeScript + Sa
 
 - Unit tests are Vitest via `@angular/build:unit-test`. Specs: `content-validator`, `PreferencesService`, `sanity-mapper`, `portfolio.models`.
 - Linter: `npm run lint` (`angular-eslint`). Do not enable `prefer-standalone` / `prefer-inject` / `prefer-on-push-component-change-detection` as part of routine work (NgModule app).
-- Validate routine changes with `npm run ci` (lint + test + production build). For UI work, also smoke-check `npm start`.
-- GitHub Actions runs `npm run ci` on PRs/push and before live/preview deploy.
+- Validate routine changes with `npm run ci` (lint + test + production build). For UI work, also smoke-check `npm start`. After UI/a11y-sensitive changes, run `npm run build && npm run lighthouse` when practical.
+- GitHub Actions runs `npm run ci` on PRs/push and before live/preview deploy; `ci.yml` also runs Lighthouse (`categories:accessibility` ≥ 0.9).
 - There is **no** e2e suite; do not add Playwright/Cypress unless the user asks.
 
 ## Agent documentation sync (mandatory)

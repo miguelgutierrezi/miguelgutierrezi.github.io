@@ -153,16 +153,19 @@
   backdrop-filter: blur(6px)
 
 .projects-carousel__dot
+  box-sizing: content-box
   width: 8px
   height: 8px
-  padding: 0
+  padding: 8px
+  margin: -8px
   border: 0
   border-radius: 50%
-  background: var(--color-border)
+  background-clip: content-box
+  background-color: var(--color-border)
   cursor: pointer
 
   &.is-active
-    background: var(--color-accent)
+    background-color: var(--color-accent)
 
 @media (prefers-reduced-motion: reduce)
   .projects-carousel__track

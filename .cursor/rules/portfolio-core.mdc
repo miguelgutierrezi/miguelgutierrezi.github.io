@@ -27,8 +27,9 @@ Portfolio personal en Angular 22 (TypeScript + Sass), desplegado como sitio est�
 - `npm test` — Vitest (`ng test --watch=false --coverage`); `npm run test:watch` en watch
 - `npm run build` — producción
 - `npm run ci` — **validación principal:** lint + test + build de producción
+- `npm run lighthouse` — Lighthouse CI a11y sobre `dist/` (después de build); GitHub Actions lo corre en `ci.yml` (`lighthouserc.cjs`, accessibility ≥ 0.9)
 - `npm run studio:install` / `npm run studio` — Sanity Studio
-- CI: GitHub Actions (`.github/workflows/`) corre `npm run ci` antes de artifact/deploy; secret `FIREBASE_SERVICE_ACCOUNT` para deploy
+- CI: GitHub Actions (`.github/workflows/`) corre `npm run ci` (+ Lighthouse en `ci.yml`) antes de artifact/deploy; secret `FIREBASE_SERVICE_ACCOUNT` para deploy
 - Deploy: `npm run build` luego `npx firebase-tools deploy --only hosting`
 - **No hay** suite e2e; no añadir Playwright/Cypress salvo que lo pida el usuario
 

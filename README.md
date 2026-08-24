@@ -33,8 +33,9 @@ Open `http://localhost:4200/`. The application reloads automatically when source
 | `npm test` | Vitest unit tests (`ng test --watch=false --coverage`) |
 | `npm run test:watch` | Vitest in watch mode |
 | `npm run ci` | **Primary validation:** lint + test + production build |
+| `npm run lighthouse` | Lighthouse CI (a11y gate) against the production `dist/` — run after `npm run build` |
 
-There is no e2e suite yet. Agents and contributors should validate changes with `npm run ci` (and a manual check of `npm start` for UI work).
+There is no e2e suite yet. Agents and contributors should validate changes with `npm run ci` (and a manual check of `npm start` for UI work). On GitHub Actions, CI also runs `npm run lighthouse` after the build.
 
 ## Deployment
 
@@ -51,7 +52,7 @@ npx firebase-tools deploy --only hosting
 
 | Workflow | Trigger | Purpose |
 | --- | --- | --- |
-| `.github/workflows/ci.yml` | Push / PR to `master` | `npm ci` + `npm run ci` (lint + Vitest + production build) |
+| `.github/workflows/ci.yml` | Push / PR to `master` | `npm ci` + `npm run ci` + Lighthouse a11y (lint + Vitest + production build + LHCI) |
 | `.github/workflows/deploy.yml` | Push to `master` (and manual) | `npm run ci` + deploy to Firebase **live** |
 | `.github/workflows/firebase-hosting-pull-request.yml` | PR to `master` | `npm run ci` + Firebase **preview** channel |
 

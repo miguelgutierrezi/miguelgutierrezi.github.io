@@ -4,7 +4,7 @@
 
 This repo is a personal portfolio built with Angular 22, TypeScript, Sass, and Firebase Hosting. It is a static one-page site in Spanish and English with sections for profile, projects, experience, courses, and contact.
 
-Local toolchain: **Node.js >= 24.15** (see `.nvmrc`). Builders are `@angular/build:*` (application, dev-server, unit-test). `npm run build` uses **production** by default; deploy from `dist/personal-presentation-miguel-gutierrez/browser`. CI is **GitHub Actions** (not CircleCI) and runs `npm run ci` (lint + Vitest + production build) on PRs and before live/preview deploy. Live/preview deploys need secret `FIREBASE_SERVICE_ACCOUNT`. **No Bootstrap** (removed; styles are tokens + Sass only). Do not add third-party minified JS under `angular.json` `scripts`. UI uses design tokens + Geist fonts; the home page is a **one-pager with section anchors** (not tab-swapped content). There is no e2e suite.
+Local toolchain: **Node.js >= 24.15** (see `.nvmrc`). Builders are `@angular/build:*` (application, dev-server, unit-test). `npm run build` uses **production** by default; deploy from `dist/personal-presentation-miguel-gutierrez/browser`. CI is **GitHub Actions** (not CircleCI) and runs `npm run ci` (lint + Vitest + production build) plus Lighthouse a11y (`npm run lighthouse`, `lighthouserc.cjs`) on PRs. Live/preview deploys need secret `FIREBASE_SERVICE_ACCOUNT`. **No Bootstrap** (removed; styles are tokens + Sass only). Do not add third-party minified JS under `angular.json` `scripts`. UI uses design tokens + Geist fonts; the home page is a **one-pager with section anchors** (not tab-swapped content). There is no e2e suite.
 
 ## Product principles
 
@@ -57,8 +57,8 @@ Local toolchain: **Node.js >= 24.15** (see `.nvmrc`). Builders are `@angular/bui
 
 - Unit tests are Vitest via `@angular/build:unit-test`. Specs: `content-validator`, `PreferencesService`, `sanity-mapper`, `portfolio.models`.
 - Linter: `npm run lint` (`angular-eslint`). Keep `prefer-standalone` / `prefer-inject` / `prefer-on-push-component-change-detection` off (NgModule app).
-- Validate routine changes with `npm run ci` (lint + test + production build). For UI work, also smoke-check `npm start`.
-- GitHub Actions runs `npm run ci` on PRs/push and before live/preview deploy.
+- Validate routine changes with `npm run ci` (lint + test + production build). For UI work, also smoke-check `npm start`. After UI/a11y-sensitive changes, run `npm run build && npm run lighthouse` when practical.
+- GitHub Actions runs `npm run ci` on PRs/push and before live/preview deploy; `ci.yml` also runs Lighthouse (`categories:accessibility` ≥ 0.9 on home, project detail, 404).
 - There is **no** e2e suite; do not add Playwright/Cypress unless the user asks.
 
 ## Agent documentation sync (mandatory)
