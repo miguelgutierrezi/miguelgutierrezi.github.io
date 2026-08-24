@@ -76,7 +76,7 @@ Next product focus: Phase 2 (UI modernization) on this model.
 - **Decision:** Sanity + **runtime** CDN (`SanityContentAdapter`) with local fallback after `validatePortfolioContent`.
 - Studio in [`studio/`](../studio/) — schemas `siteSettings`, `profile`, `project`, `experience`, `course`, `navigation`. Toggle via `environment.cms`. Never put write tokens in the Angular client.
 - Slice 1: site + profile + projects (incl. detail). Slice 2: experience + courses + navigation (merge per collection; empty remote → local). `ui` remains local until admin needs it.
-- Editorial data can be completed later via custom admin. Seed notes: [`studio/seed/`](../studio/seed/). Strategy: [CMS strategy](cms-strategy.md). **Admin contract:** [admin-app-brief.md](admin-app-brief.md).
+- Editorial data: custom admin **go-live done**; Sanity seed slice 1+2 **done** (`studio/seed/`). Strategy: [CMS strategy](cms-strategy.md). **Admin contract:** [admin-app-brief.md](admin-app-brief.md).
 
 ### Phase 4: Production hardening — **SEO + hosting headers done**
 

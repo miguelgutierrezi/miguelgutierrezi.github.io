@@ -16,12 +16,15 @@ npm run dev
 **Studio online (desplegado):** https://miguel-gutierrez-cv.sanity.studio/  
 Redeploy: `cd studio && npm run deploy` (hostname fijado en `sanity.cli.ts` → `studioHost`).
 
-3. En el Studio, crea (slice 1 mínimo):
-   - un documento **Site settings**
-   - un documento **Profile**
-   - uno o más **Project** (slug = id de ruta Angular, p. ej. `nodejs-scheduler-back`)
+3. En el Studio (o admin), el dataset `production` ya tiene slice 1 + 2 **seedeados** desde el contenido local. Re-seed solo lo faltante:
 
-4. Slice 2 (opcional hasta el admin): **Experience**, **Course**, **Navigation** (1 singleton). Sin documentos → Angular usa el fallback local. Guía: [`seed/slice2-documents.md`](seed/slice2-documents.md).
+```bash
+cd studio
+npm run seed:dry
+npm run seed
+```
+
+4. Slice 2: **Experience**, **Course**, **Navigation** — guía: [`seed/slice2-documents.md`](seed/slice2-documents.md). `ui` chrome labels siguen locales.
 
 5. Angular ya apunta a este proyecto en `environment.ts` / `.prod.ts`:
 

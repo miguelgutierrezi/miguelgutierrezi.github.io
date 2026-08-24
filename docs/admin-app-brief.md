@@ -24,10 +24,11 @@ Already done in the public site:
 - SEO (`SeoService`, robots/sitemap), Firebase headers
 - Navbar Login → external admin URL only
 
-Still pending (often done **via** the admin):
+Still pending (optional):
 
-- Finish seeding projects / experience / courses / navigation in Sanity
-- Confirm Sanity CORS includes admin origins (`localhost:4300`, `cv-admin-panel.web.app`) + redeploy CV after `adminLoginUrl` change
+- None for v1 seed — slice 1+2 documents are in `production`. Further edits go through the admin.
+
+**Go-live (done):** Sanity CORS includes admin origins (`localhost:4300`, `cv-admin-panel.web.app`); CV Hosting redeployed so Login prod → admin; write proxy + smoke Guardar confirmed; local content seeded.
 
 ## Non-negotiables
 
@@ -82,10 +83,10 @@ Reference seed copy: `studio/seed/slice1-documents.md`, `studio/seed/slice2-docu
 
 ## Portfolio integration checklist (when admin ships)
 
-1. Deploy admin (e.g. `https://….web.app`).
-2. Set `environment.prod.ts` → `adminLoginUrl`.
-3. Add admin origin (+ portfolio Firebase URL) to Sanity CORS.
-4. Smoke: Login from CV → admin; edit project title → publish → CV shows change via CDN.
+1. Deploy admin (e.g. `https://….web.app`) — **done** (`https://cv-admin-panel.web.app`).
+2. Set `environment.prod.ts` → `adminLoginUrl` — **done**; CV Hosting **redeployed**.
+3. Add admin origin (+ portfolio Firebase URL) to Sanity CORS — **done** (`localhost:4300`, `cv-admin-panel.web.app`).
+4. Smoke: Login from CV → admin; edit project title → publish → CV shows change via CDN — **done**.
 5. Keep Studio deploy optional (`cd studio && npm run deploy`) for schema changes only.
 
 ## Suggested delivery phases for the admin repo

@@ -15,7 +15,7 @@ Personal portfolio for Miguel Gutiérrez, built with Angular 22 (TypeScript + Sa
 - `npm run build` uses **production** by default; do not put third-party minified bundles under `angular.json` `scripts` (historically Bootstrap JS caused sourcemap crash / exit 134)
 - Structure: `src/app/models/`, `src/app/content/`, `src/app/services/` (content + preferences + Sanity adapter), `src/app/components/home/` (profile, projects, experience, courses), `src/app/components/shared/` (navbar, loading-spinner), `src/app/components/not-found/`, `src/app/components/project-detail/`, `studio/` (Sanity), `src/assets/`, `src/environments/`
 - Content: `ContentService` / `ContentSource` → `SanityContentAdapter` (runtime CDN when `environment.cms.enabled` + `projectId`; on miss/failure → `LocalContentAdapter` + `content-validator.ts`). Never put CMS write tokens in the client. Slice 1: siteSettings, profile, project. Slice 2: experience, course, navigation (per-collection merge; empty → local). `ui` still local. Studio: `/studio` — see `studio/README.md`. Validator accepts `unknown`, returns a fresh normalized object, unique IDs, URL/`assets/`/`tel:`/`mailto:` checks. Preferences in `PreferencesService` (`localStorage`).
-- **Phase 2 UI done**. **Phase 3 CMS** slice 1 + slice 2 schemas/adapter done (editorial data can wait for admin). **Phase 4 hardening:** `SeoService`, robots/sitemap, Firebase headers, `environment.siteUrl`. Product/architecture decisions in `docs/`.
+- **Phase 2 UI done**. **Phase 3 CMS** slice 1 + slice 2 schemas/adapter **and seed** done. **Phase 4 hardening:** `SeoService`, robots/sitemap, Firebase headers, `environment.siteUrl`. Product/architecture decisions in `docs/`.
 
 ## Commands
 
@@ -33,7 +33,7 @@ Personal portfolio for Miguel Gutiérrez, built with Angular 22 (TypeScript + Sa
 - Keep the site static, inexpensive to operate, and free of a custom backend unless a real need appears.
 - Angular is the long-term framework; modernize incrementally rather than rewriting.
 - One main page with anchored sections (`/#projects`, `#about`, `#experience`, `#courses`), not tabs that replace the visible content. Contact lives in the footer (`#contact`) and is **not** a nav/burger item. Dedicated project case studies use `/projects/:id` (Figma `4:678` / `4:1170` / `4:1019` / `4:866`).
-- Delivery order for larger work: stack ✓ → typed local content ✓ → UI Phase 2 ✓ → CMS slice 1+2 (adapter) ✓ → **hardening SEO/headers ✓** → admin UI + data → **quality gates (tests + lint → CI)** pending.
+- Delivery order for larger work: stack ✓ → typed local content ✓ → UI Phase 2 ✓ → CMS slice 1+2 (adapter) ✓ → **hardening SEO/headers ✓** → admin go-live ✓ → seed editorial ✓ → **quality gates (tests + lint → CI)** pending.
 
 ## Figma MCP (Phase 2)
 

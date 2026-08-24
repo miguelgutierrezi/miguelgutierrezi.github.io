@@ -7,7 +7,9 @@
     "start": "sanity dev",
     "build": "sanity build",
     "deploy": "sanity deploy",
-    "login": "sanity login"
+    "login": "sanity login",
+    "seed": "sanity exec seed/seed-from-local.ts --with-user-token",
+    "seed:dry": "sanity exec seed/seed-from-local.ts --with-user-token -- --dry-run"
   },
   "engines": {
     "node": ">=20"

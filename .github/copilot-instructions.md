@@ -75,7 +75,7 @@ A change that updates only application code or `docs/` without reviewing these t
 - Before architectural changes, consult the docs in `docs/` (including `admin-app-brief.md` when working on the sibling admin app).
 - Preserve the existing static hosting model unless the task explicitly changes it.
 - Prefer precise, surgical changes that fit the current codebase conventions.
-- Keep the implementation aligned with the documented delivery order: stack done → typed local content model done → UI Phase 2 done → CMS Sanity runtime slice 1+2 (adapter) → hardening SEO/headers done → admin + data → quality gates (tests + lint → CI) pending.
+- Keep the implementation aligned with the documented delivery order: stack done → typed local content model done → UI Phase 2 done → CMS Sanity runtime slice 1+2 (adapter) → hardening SEO/headers done → admin go-live done → seed done → quality gates (tests + lint → CI) pending.
 
 ## Figma
 

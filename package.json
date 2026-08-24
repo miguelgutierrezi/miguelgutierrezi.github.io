@@ -9,7 +9,9 @@
     "test": "ng test --code-coverage --watch=false",
     "test:web": "npm run test && http-server -c-1 -o -p 9875 ./coverage",
     "studio": "npm --prefix studio run dev",
-    "studio:install": "npm --prefix studio install"
+    "studio:install": "npm --prefix studio install",
+    "studio:seed": "npm --prefix studio run seed",
+    "studio:seed:dry": "npm --prefix studio run seed:dry"
   },
   "private": true,
   "engines": {

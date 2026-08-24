@@ -1,4 +1,4 @@
-import { PortfolioContent } from '../models/portfolio.models';
+import type { PortfolioContent } from '../models/portfolio.models';
 
 export const LOCAL_PORTFOLIO_CONTENT: PortfolioContent = {
   site: {

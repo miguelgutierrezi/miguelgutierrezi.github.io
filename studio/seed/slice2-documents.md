@@ -1,51 +1,35 @@
 # Sanity slice 2 — experience / courses / navigation
 
-Schemas listos en Studio. **No hace falta seedear ahora**: Angular usa fallback local si el slice remoto está vacío o incompleto.
+**Status:** seeded in `production` (2026-08-24) from `src/app/content/portfolio.content.ts`.
 
-Cuando edites desde el admin (o Studio), crea documentos alineados con `src/app/content/portfolio.content.ts`.
+```bash
+cd studio
+npm run seed:dry
+npm run seed
+```
+
+Default skips docs whose slug (or singleton type) already exists. `ui` chrome labels remain **local** in Angular.
 
 ## Documentos
 
 | Tipo | Cantidad | Notas |
 | --- | --- | --- |
-| `experience` | N | slug = id Angular (`globant`, `banco-de-bogota`, …) |
-| `course` | N | slug = id Angular (`platzi-react`, …) |
-| `navigation` | **1** singleton | array `items` con `id` ∈ `about\|projects\|experience\|courses` + `label` ES/EN |
+| `experience` | 6 | slug = id Angular; `_id` = `experience-{slug}` |
+| `course` | 11 | slug = id Angular; `_id` = `course-{slug}` |
+| `navigation` | **1** singleton `_id` `navigation` | `items[]` with `id` ∈ `about\|projects\|experience\|courses` + `label` ES/EN |
 
-## Experience — campos
+`administradores-diaz` had an empty local `imageUrl`; seed used a Pixabay placeholder so the CDN mapper accepts the doc.
 
-| Campo | Tipo |
-| --- | --- |
-| slug | Stable ID |
-| company | string |
-| role | localizedString |
-| duration | localizedString |
-| responsibilities | localizedStringList |
-| imageUrl | string (`assets/…` o https) |
-| sortOrder | number |
+## Experience IDs
 
-## Course — campos
+`globant` · `banco-de-bogota` · `asesoftware` · `administradores-diaz` · `javeriana-monitor` · `saludarte`
 
-| Campo | Tipo |
-| --- | --- |
-| slug | Stable ID |
-| title | localizedString |
-| institution | string |
-| date | localizedString |
-| imageUrl | string |
-| credentialUrl | url (opcional) |
-| sortOrder | number |
+## Course IDs
+
+`platzi-react-practical` · `platzi-react` · `udemy-java-8` · `platzi-git` · `ef-set` · `aws-technical-essentials` · `devops-master` · `ionic-academind` · `angular-complete-guide` · `scrum-fundamentals` · `bizagi-process-modeling`
 
 ## Merge en Angular
 
 - Si hay ≥1 experience/course/nav item **válido** remoto → reemplaza esa colección.
 - Si la colección remota está vacía o no mapea → se mantiene el contenido local.
-- `ui` sigue **solo local** (chrome labels); se migrará con el admin si hace falta.
-
-## IDs de experiencia locales (referencia)
-
-`globant` · `banco-de-bogota` · `asesoftware` · `administradores-diaz` · `javeriana-monitor` · `saludarte`
-
-## IDs de cursos locales (referencia)
-
-Ver `portfolio.content.ts` → `courses` (`platzi-react-practical`, `aws-technical-essentials`, …).
+- `ui` sigue **solo local**.
